@@ -8,6 +8,7 @@
 import Foundation
 import UIKit
 import YandexMapsMobile
+import CoreLocation
 
 extension MapsLayoutUnderSceneView{
     // computed roiting for car
@@ -82,6 +83,7 @@ extension MapsLayoutUnderSceneView{
                 print("Count Points:\(route.geometry.points.count)")
                 for point_ in route.geometry.points
                 {
+                    locationsPointAR.append(CLLocation(latitude: point_.latitude, longitude: point_.longitude))
                     addRoutePointScene(index : index, rPoint : point_)
                     index += 1
                 }
@@ -151,6 +153,9 @@ extension MapsLayoutUnderSceneView{
         let mapObjects = mapView.mapWindow.map.mapObjects
         for route in routes {
             mapObjects.addPolyline(with: route.geometry)
+            for point in route.geometry.points {
+                locationsPointAR.append(CLLocation(latitude: point.latitude, longitude: point.longitude))
+            }
         }
     }
     

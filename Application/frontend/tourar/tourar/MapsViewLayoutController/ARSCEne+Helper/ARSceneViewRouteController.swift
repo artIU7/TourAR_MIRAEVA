@@ -9,8 +9,14 @@ import Foundation
 import ARKit
 import Vision
 import SceneKit
+import CoreLocation
 
 var lastMLClassificationOrDetectionObject = ""
+var locationsPointAR: [CLLocation] = []
+var startingLocation: CLLocation!
+
+var allowNode : SCNNode!
+var buildNode : SCNNode!
 
 let synthesizer = AVSpeechSynthesizer()
 let promtGigaChatLeft  = "Для обнаруженного обьекта камерой : ["
@@ -42,6 +48,8 @@ class ARSceneViewRouteController: UIViewController, UIGestureRecognizerDelegate,
     
     var sceneView = ARSCNView()
     let arButtonClose = UIButton(type: .system)
+    let routeShow     = UIButton(type: .system)
+
     // bool use type MLModel
     var isClassification = true
    /// The ML model to be used for recognition of arbitrary objects. - Classification
@@ -120,8 +128,27 @@ class ARSceneViewRouteController: UIViewController, UIGestureRecognizerDelegate,
         }
         arButtonClose.addTarget(self, action: #selector(closeARViewScene), for: .touchUpInside)
         
+        // route show
+        routeShow.backgroundColor = #colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)
+        routeShow.setTitleColor(.white, for: .normal)
+        routeShow.setTitle("Маршрут", for: .normal)
+        routeShow.layer.cornerRadius = 15
+
+        view.addSubview(routeShow)
+        routeShow.snp.makeConstraints { (marker) in
+            marker.topMargin.equalTo(arButtonClose).inset(60)
+            marker.rightMargin.equalToSuperview().inset(5)
+            marker.width.equalTo(100)
+            marker.height.equalTo(40)
+        }
+        routeShow.addTarget(self, action: #selector(showRouteButton), for: .touchUpInside)
+        
         self.restartSession()
         
+    }
+    @objc func showRouteButton()
+    {
+        drawARRoute()
     }
     @objc func closeARViewScene()
     {
@@ -235,6 +262,29 @@ class ARSceneViewRouteController: UIViewController, UIGestureRecognizerDelegate,
     private func restartSession() {
         let configuration = ARWorldTrackingConfiguration()
         sceneView.session.run(configuration, options: [.resetTracking, .removeExistingAnchors])
+    }
+    // draw Route
+    
+    // прориосвка маршрута
+    func drawARRoute() {
+        var routes = [SCNVector3]()
+        if locationsPointAR != [] {
+            for vector in locationsPointAR {
+                let p1 = CLLocationCoordinate2D(latitude: startingLocation.coordinate.latitude,
+                                                longitude: startingLocation.coordinate.longitude)
+                let p2 = CLLocationCoordinate2D(latitude: vector.coordinate.latitude,
+                                                longitude: vector.coordinate.longitude)
+                let offset = offsetComplete(p1, p2)
+                routes.append(SCNVector3(0 + offset[0], -1.25, 0 + offset[1] * -1))
+            }
+            for i in 0...routes.count - 1 {
+                if i != routes.count - 1 {
+                    draw3DLine(routes[i], routes[i + 1], orderIndex: 1, color: .green)
+                } else {
+                    self.arrowLoadMesh(routes[i])
+                }
+            }
+        }
     }
 }
 

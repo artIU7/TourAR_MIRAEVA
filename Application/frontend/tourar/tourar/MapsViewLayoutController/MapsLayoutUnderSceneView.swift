@@ -413,6 +413,7 @@ class MapsLayoutUnderSceneView: UIViewController, YMKLayersGeoObjectTapListener,
         //
         ROUTE_END_POINT =   YMKPoint(latitude: point.latitude,
                                      longitude: point.longitude)
+        locationsPointAR.append(CLLocation(latitude: point.latitude, longitude: point.longitude))
         // add routing service
         if ( isPedestrianRoute )
         {
@@ -537,6 +538,7 @@ extension MapsLayoutUnderSceneView: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         userLocation = YMKPoint(latitude: locations.last!.coordinate.latitude, longitude: locations.last!.coordinate.longitude)
         ROUTE_START_POINT = userLocation!
+        startingLocation = locations.last
         let userLocationString = "USER LOCATION:\(userLocation!.latitude) \(userLocation!.longitude)"
         if isNavigationMode == true
         {
