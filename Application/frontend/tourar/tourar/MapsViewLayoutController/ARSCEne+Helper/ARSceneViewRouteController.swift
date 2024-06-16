@@ -145,10 +145,14 @@ class ARSceneViewRouteController: UIViewController, UIGestureRecognizerDelegate,
         
         self.restartSession()
         
+        drawARRoute()
+        
     }
     @objc func showRouteButton()
     {
-        drawARRoute()
+        sceneView.scene.rootNode.enumerateChildNodes { (node, stop) in
+        node.removeFromParentNode() }      //drawARRoute()
+        
     }
     @objc func closeARViewScene()
     {

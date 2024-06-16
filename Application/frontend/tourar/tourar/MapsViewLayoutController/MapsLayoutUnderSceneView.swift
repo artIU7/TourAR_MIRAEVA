@@ -257,10 +257,12 @@ class MapsLayoutUnderSceneView: UIViewController, YMKLayersGeoObjectTapListener,
             if ( isPedestrianRoute )
             {
                 mapView.mapWindow.map.mapObjects.clear()
+                locationsPointAR.removeAll()
                 computedRoute()
             } else
             {
                 mapView.mapWindow.map.mapObjects.clear()
+                locationsPointAR.removeAll()
                 callRoutingResponse()
             }
         case 1:
@@ -269,10 +271,12 @@ class MapsLayoutUnderSceneView: UIViewController, YMKLayersGeoObjectTapListener,
             if ( isPedestrianRoute )
             {
                 mapView.mapWindow.map.mapObjects.clear()
+                locationsPointAR.removeAll()
                 computedRoute()
             } else
             {
                 mapView.mapWindow.map.mapObjects.clear()
+                locationsPointAR.removeAll()
                 callRoutingResponse()
             }
         default:
@@ -281,10 +285,12 @@ class MapsLayoutUnderSceneView: UIViewController, YMKLayersGeoObjectTapListener,
             if ( isPedestrianRoute )
             {
                 mapView.mapWindow.map.mapObjects.clear()
+                locationsPointAR.removeAll()
                 computedRoute()
             } else
             {
                 mapView.mapWindow.map.mapObjects.clear()
+                locationsPointAR.removeAll()
                 callRoutingResponse()
             }
         }
@@ -410,6 +416,7 @@ class MapsLayoutUnderSceneView: UIViewController, YMKLayersGeoObjectTapListener,
     func onMapLongTap(with map: YMKMap, point: YMKPoint) {
         print("Point Selection Coordinate:\(point)")
         mapView.mapWindow.map.mapObjects.clear()
+        locationsPointAR.removeAll()
         //
         ROUTE_END_POINT =   YMKPoint(latitude: point.latitude,
                                      longitude: point.longitude)
