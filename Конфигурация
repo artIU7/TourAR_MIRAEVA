@@ -17,3 +17,10 @@
 15.  Swift run
 16. docker-compose build
 17. docker compose run migrate
+
+
+Сборка ios Клиента 
+
+1. С яндекс диска (ссылка есть) скачать MLModel и положить в каталог
+2. В терминале ввести в каталоге проекта frontend/tourar ввести команду - pod update
+3. Открыть сгенерированный .workspace и сбилдить проект 
