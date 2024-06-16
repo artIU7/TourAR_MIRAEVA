@@ -81,25 +81,8 @@ class WelcomeViewController: UIViewController {
 //
 extension WelcomeViewController {
     @objc func viewTours() {
-        
-        // добавляем озвучку перехода на главный таб бар
-        let utterance = AVSpeechUtterance(string: "Открываем главный экран маршрутов")
-        // Configure the utterance.
-        utterance.rate = 0.57
-        utterance.pitchMultiplier = 0.8
-        utterance.postUtteranceDelay = 0.2
-        utterance.volume = 0.55
-        // Retrieve the British English voice.
-        let voice = AVSpeechSynthesisVoice(language: "ru-RU")
-        // Assign the voice to the utterance.
-        utterance.voice = voice
-        // Create a speech synthesizer.
-        let synthesizer = AVSpeechSynthesizer()
-        // Tell the synthesizer to speak the utterance.
-        synthesizer.speak(utterance)
-
-        // переходим на главный таб бар
-        let viewTours = MainViewController()
+        // переходим на view Login
+        let viewTours = LoginViewController()
         //startTest.modalTransitionStyle = .flipHorizontal
         viewTours.modalPresentationStyle = .fullScreen
         viewTours.modalTransitionStyle = .crossDissolve

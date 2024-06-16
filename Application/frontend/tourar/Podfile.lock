@@ -1,24 +1,32 @@
 PODS:
+  - ClickstreamSDK (1.4.0)
+  - SberIdSDK (3.6.1):
+    - ClickstreamSDK (~> 1.4)
   - ScalingCarousel (3.2.0)
   - SnapKit (5.6.0)
   - YandexMapsMobile (4.3.2-full)
 
 DEPENDENCIES:
+  - SberIdSDK (~> 3.6.1)
   - ScalingCarousel
   - SnapKit (~> 5.6.0)
   - YandexMapsMobile (= 4.3.2-full)
 
 SPEC REPOS:
   trunk:
+    - ClickstreamSDK
+    - SberIdSDK
     - ScalingCarousel
     - SnapKit
     - YandexMapsMobile
 
 SPEC CHECKSUMS:
+  ClickstreamSDK: 174c552eefa1ea9d0d5ecbb9a9524b3a3ba47954
+  SberIdSDK: 2ebfd2b4f593fcee1ccef3bf03fbc16ab0dc9ad1
   ScalingCarousel: d40f0ce438af5cfb2225e2f723f7161597961128
   SnapKit: e01d52ebb8ddbc333eefe2132acf85c8227d9c25
   YandexMapsMobile: c73c71ec041b215284efbe8a0ebd7cdb77aad8d7
 
-PODFILE CHECKSUM: d52f3dc16cc613b7acc1634ccaebb04387fa1d23
+PODFILE CHECKSUM: 406d9e3a7b76a3235cbc883eef6115bd0f72bf6b
 
 COCOAPODS: 1.10.1

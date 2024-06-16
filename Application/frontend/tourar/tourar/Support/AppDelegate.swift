@@ -8,7 +8,7 @@
 import UIKit
 import YandexMapsMobile
 import ARKit
-
+import SberIdSDK
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -20,6 +20,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     let MAPKIT_API_KEY = "2cd7ee1b-e363-4c18-8ee1-884ff30244f3"
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+        
+        SIDManager.initSberID(clientId: "clientId")
+
         // Override point for customization after application launch.
         /**
          * Set API key before interaction with MapKit.
