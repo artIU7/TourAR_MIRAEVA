@@ -1,0 +1,24 @@
+PODS:
+  - ScalingCarousel (3.2.0)
+  - SnapKit (5.6.0)
+  - YandexMapsMobile (4.3.2-full)
+
+DEPENDENCIES:
+  - ScalingCarousel
+  - SnapKit (~> 5.6.0)
+  - YandexMapsMobile (= 4.3.2-full)
+
+SPEC REPOS:
+  trunk:
+    - ScalingCarousel
+    - SnapKit
+    - YandexMapsMobile
+
+SPEC CHECKSUMS:
+  ScalingCarousel: d40f0ce438af5cfb2225e2f723f7161597961128
+  SnapKit: e01d52ebb8ddbc333eefe2132acf85c8227d9c25
+  YandexMapsMobile: c73c71ec041b215284efbe8a0ebd7cdb77aad8d7
+
+PODFILE CHECKSUM: d52f3dc16cc613b7acc1634ccaebb04387fa1d23
+
+COCOAPODS: 1.10.1

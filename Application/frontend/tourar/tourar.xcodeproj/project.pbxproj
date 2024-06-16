@@ -1,0 +1,550 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		0ABD0E66DDF418A56B1450FE /* libPods-tourar.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 14876466882712497ECFD3F8 /* libPods-tourar.a */; };
+		B77D9B152C1DDC6A007FCA33 /* MapsLayoutUnderSceneView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B77D9B142C1DDC6A007FCA33 /* MapsLayoutUnderSceneView.swift */; };
+		B77D9B182C1DDD46007FCA33 /* WebSocketConnectionConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = B77D9B172C1DDD46007FCA33 /* WebSocketConnectionConfiguration.swift */; };
+		B77D9B1B2C1DDE5D007FCA33 /* FetchDataFromServer+Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = B77D9B1A2C1DDE5D007FCA33 /* FetchDataFromServer+Helper.swift */; };
+		B77D9B1E2C1DE1E8007FCA33 /* down.scn in Resources */ = {isa = PBXBuildFile; fileRef = B77D9B1C2C1DE1E8007FCA33 /* down.scn */; };
+		B77D9B1F2C1DE1E8007FCA33 /* object.usdz in Resources */ = {isa = PBXBuildFile; fileRef = B77D9B1D2C1DE1E8007FCA33 /* object.usdz */; };
+		B791BC7A2C1B6C3C001B57E7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B791BC792C1B6C3C001B57E7 /* AppDelegate.swift */; };
+		B791BC7C2C1B6C3C001B57E7 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B791BC7B2C1B6C3C001B57E7 /* SceneDelegate.swift */; };
+		B791BC7E2C1B6C3C001B57E7 /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B791BC7D2C1B6C3C001B57E7 /* WelcomeViewController.swift */; };
+		B791BC832C1B6C3E001B57E7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B791BC822C1B6C3E001B57E7 /* Assets.xcassets */; };
+		B791BCAA2C1B7BA1001B57E7 /* MapsLayerMainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B791BCA92C1B7BA1001B57E7 /* MapsLayerMainViewController.swift */; };
+		B791BCAD2C1B84B5001B57E7 /* MainTabVBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B791BCAC2C1B84B5001B57E7 /* MainTabVBarController.swift */; };
+		B7A9A0D22C1F07FC00576A43 /* NetworkManager+GigaChat.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7A9A0D12C1F07FC00576A43 /* NetworkManager+GigaChat.swift */; };
+		B7B23E522C1DF3A1006008FB /* MapsViewBaseLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7B23E512C1DF3A1006008FB /* MapsViewBaseLayout.swift */; };
+		B7B23E552C1E61CA006008FB /* poi.scn in Resources */ = {isa = PBXBuildFile; fileRef = B7B23E532C1E61CA006008FB /* poi.scn */; };
+		B7B23E562C1E61CA006008FB /* tourist_prepare.scn in Resources */ = {isa = PBXBuildFile; fileRef = B7B23E542C1E61CA006008FB /* tourist_prepare.scn */; };
+		B7B23E592C1E6384006008FB /* LoginViewController+SberID.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7B23E582C1E6384006008FB /* LoginViewController+SberID.swift */; };
+		B7CEF9412C1EBA01007165CF /* MapKitComputedRoute.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7CEF9402C1EBA01007165CF /* MapKitComputedRoute.swift */; };
+		B7CEF9432C1ED53C007165CF /* ARSceneViewRouteController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7CEF9422C1ED53C007165CF /* ARSceneViewRouteController.swift */; };
+		B7CEF9462C1ED83E007165CF /* Inceptionv3.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = B7CEF9452C1ED83E007165CF /* Inceptionv3.mlmodel */; };
+		B7CEF9492C1EE3A7007165CF /* YOLOv3Tiny.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = B7CEF9482C1EE3A7007165CF /* YOLOv3Tiny.mlmodel */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		14876466882712497ECFD3F8 /* libPods-tourar.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-tourar.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		AFF9CB3ADB6675B24CB3F19C /* Pods-tourar.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-tourar.debug.xcconfig"; path = "Target Support Files/Pods-tourar/Pods-tourar.debug.xcconfig"; sourceTree = "<group>"; };
+		B77D9B142C1DDC6A007FCA33 /* MapsLayoutUnderSceneView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapsLayoutUnderSceneView.swift; sourceTree = "<group>"; };
+		B77D9B172C1DDD46007FCA33 /* WebSocketConnectionConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebSocketConnectionConfiguration.swift; sourceTree = "<group>"; };
+		B77D9B1A2C1DDE5D007FCA33 /* FetchDataFromServer+Helper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FetchDataFromServer+Helper.swift"; sourceTree = "<group>"; };
+		B77D9B1C2C1DE1E8007FCA33 /* down.scn */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = down.scn; sourceTree = "<group>"; };
+		B77D9B1D2C1DE1E8007FCA33 /* object.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = object.usdz; sourceTree = "<group>"; };
+		B791BC762C1B6C3C001B57E7 /* tourar.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = tourar.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		B791BC792C1B6C3C001B57E7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		B791BC7B2C1B6C3C001B57E7 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
+		B791BC7D2C1B6C3C001B57E7 /* WelcomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeViewController.swift; sourceTree = "<group>"; };
+		B791BC822C1B6C3E001B57E7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		B791BC872C1B6C3E001B57E7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B791BCA92C1B7BA1001B57E7 /* MapsLayerMainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapsLayerMainViewController.swift; sourceTree = "<group>"; };
+		B791BCAC2C1B84B5001B57E7 /* MainTabVBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabVBarController.swift; sourceTree = "<group>"; };
+		B7A9A0D12C1F07FC00576A43 /* NetworkManager+GigaChat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NetworkManager+GigaChat.swift"; sourceTree = "<group>"; };
+		B7B23E512C1DF3A1006008FB /* MapsViewBaseLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapsViewBaseLayout.swift; sourceTree = "<group>"; };
+		B7B23E532C1E61CA006008FB /* poi.scn */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = poi.scn; sourceTree = "<group>"; };
+		B7B23E542C1E61CA006008FB /* tourist_prepare.scn */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = tourist_prepare.scn; sourceTree = "<group>"; };
+		B7B23E582C1E6384006008FB /* LoginViewController+SberID.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LoginViewController+SberID.swift"; sourceTree = "<group>"; };
+		B7CEF9402C1EBA01007165CF /* MapKitComputedRoute.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapKitComputedRoute.swift; sourceTree = "<group>"; };
+		B7CEF9422C1ED53C007165CF /* ARSceneViewRouteController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARSceneViewRouteController.swift; sourceTree = "<group>"; };
+		B7CEF9452C1ED83E007165CF /* Inceptionv3.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = Inceptionv3.mlmodel; sourceTree = "<group>"; };
+		B7CEF9482C1EE3A7007165CF /* YOLOv3Tiny.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; name = YOLOv3Tiny.mlmodel; path = tourar/YOLOv3Tiny.mlmodel; sourceTree = SOURCE_ROOT; };
+		D47BA13DEA2FABAB072D3B42 /* Pods-tourar.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-tourar.release.xcconfig"; path = "Target Support Files/Pods-tourar/Pods-tourar.release.xcconfig"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		B791BC732C1B6C3C001B57E7 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0ABD0E66DDF418A56B1450FE /* libPods-tourar.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		62C09209666E240D06DE52FC /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				AFF9CB3ADB6675B24CB3F19C /* Pods-tourar.debug.xcconfig */,
+				D47BA13DEA2FABAB072D3B42 /* Pods-tourar.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		7FE674E6A595299F6E069353 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				14876466882712497ECFD3F8 /* libPods-tourar.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		B77D9B0F2C1DD867007FCA33 /* StartUpControllerApplication */ = {
+			isa = PBXGroup;
+			children = (
+				B7B23E532C1E61CA006008FB /* poi.scn */,
+				B7B23E542C1E61CA006008FB /* tourist_prepare.scn */,
+				B791BC7D2C1B6C3C001B57E7 /* WelcomeViewController.swift */,
+			);
+			path = StartUpControllerApplication;
+			sourceTree = "<group>";
+		};
+		B77D9B102C1DD885007FCA33 /* Support */ = {
+			isa = PBXGroup;
+			children = (
+				B791BC792C1B6C3C001B57E7 /* AppDelegate.swift */,
+				B791BC7B2C1B6C3C001B57E7 /* SceneDelegate.swift */,
+			);
+			path = Support;
+			sourceTree = "<group>";
+		};
+		B77D9B112C1DD8AE007FCA33 /* MapsViewLayoutController */ = {
+			isa = PBXGroup;
+			children = (
+				B7B23E512C1DF3A1006008FB /* MapsViewBaseLayout.swift */,
+				B77D9B1C2C1DE1E8007FCA33 /* down.scn */,
+				B77D9B1D2C1DE1E8007FCA33 /* object.usdz */,
+				B77D9B192C1DDE37007FCA33 /* FetchDataFromServer+Helper */,
+				B77D9B162C1DDD07007FCA33 /* WebSocketConnection+Helper */,
+				B791BCA92C1B7BA1001B57E7 /* MapsLayerMainViewController.swift */,
+				B77D9B142C1DDC6A007FCA33 /* MapsLayoutUnderSceneView.swift */,
+				B7CEF9402C1EBA01007165CF /* MapKitComputedRoute.swift */,
+				B7CEF9442C1ED549007165CF /* ARSCEne+Helper */,
+			);
+			path = MapsViewLayoutController;
+			sourceTree = "<group>";
+		};
+		B77D9B162C1DDD07007FCA33 /* WebSocketConnection+Helper */ = {
+			isa = PBXGroup;
+			children = (
+				B77D9B172C1DDD46007FCA33 /* WebSocketConnectionConfiguration.swift */,
+			);
+			path = "WebSocketConnection+Helper";
+			sourceTree = "<group>";
+		};
+		B77D9B192C1DDE37007FCA33 /* FetchDataFromServer+Helper */ = {
+			isa = PBXGroup;
+			children = (
+				B77D9B1A2C1DDE5D007FCA33 /* FetchDataFromServer+Helper.swift */,
+			);
+			path = "FetchDataFromServer+Helper";
+			sourceTree = "<group>";
+		};
+		B791BC6D2C1B6C3C001B57E7 = {
+			isa = PBXGroup;
+			children = (
+				B791BC782C1B6C3C001B57E7 /* tourar */,
+				B791BC772C1B6C3C001B57E7 /* Products */,
+				62C09209666E240D06DE52FC /* Pods */,
+				7FE674E6A595299F6E069353 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		B791BC772C1B6C3C001B57E7 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				B791BC762C1B6C3C001B57E7 /* tourar.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		B791BC782C1B6C3C001B57E7 /* tourar */ = {
+			isa = PBXGroup;
+			children = (
+				B7B23E572C1E635F006008FB /* LoginViewController */,
+				B77D9B102C1DD885007FCA33 /* Support */,
+				B77D9B0F2C1DD867007FCA33 /* StartUpControllerApplication */,
+				B791BCAB2C1B848C001B57E7 /* MainViewTabBarController */,
+				B77D9B112C1DD8AE007FCA33 /* MapsViewLayoutController */,
+				B791BC822C1B6C3E001B57E7 /* Assets.xcassets */,
+				B791BC872C1B6C3E001B57E7 /* Info.plist */,
+			);
+			path = tourar;
+			sourceTree = "<group>";
+		};
+		B791BCAB2C1B848C001B57E7 /* MainViewTabBarController */ = {
+			isa = PBXGroup;
+			children = (
+				B791BCAC2C1B84B5001B57E7 /* MainTabVBarController.swift */,
+			);
+			path = MainViewTabBarController;
+			sourceTree = "<group>";
+		};
+		B7B23E572C1E635F006008FB /* LoginViewController */ = {
+			isa = PBXGroup;
+			children = (
+				B7B23E582C1E6384006008FB /* LoginViewController+SberID.swift */,
+			);
+			path = LoginViewController;
+			sourceTree = "<group>";
+		};
+		B7CEF9442C1ED549007165CF /* ARSCEne+Helper */ = {
+			isa = PBXGroup;
+			children = (
+				B7CEF9472C1EE355007165CF /* Resource+MLModel */,
+				B7CEF9422C1ED53C007165CF /* ARSceneViewRouteController.swift */,
+				B7A9A0D12C1F07FC00576A43 /* NetworkManager+GigaChat.swift */,
+			);
+			path = "ARSCEne+Helper";
+			sourceTree = "<group>";
+		};
+		B7CEF9472C1EE355007165CF /* Resource+MLModel */ = {
+			isa = PBXGroup;
+			children = (
+				B7CEF9452C1ED83E007165CF /* Inceptionv3.mlmodel */,
+				B7CEF9482C1EE3A7007165CF /* YOLOv3Tiny.mlmodel */,
+			);
+			path = "Resource+MLModel";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		B791BC752C1B6C3C001B57E7 /* tourar */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B791BCA02C1B6C3E001B57E7 /* Build configuration list for PBXNativeTarget "tourar" */;
+			buildPhases = (
+				C666FACB63E3BA8A8A4DEFCD /* [CP] Check Pods Manifest.lock */,
+				B791BC722C1B6C3C001B57E7 /* Sources */,
+				B791BC732C1B6C3C001B57E7 /* Frameworks */,
+				B791BC742C1B6C3C001B57E7 /* Resources */,
+				5467765A00610F10C6C6FECD /* [CP] Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = tourar;
+			productName = tourar;
+			productReference = B791BC762C1B6C3C001B57E7 /* tourar.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		B791BC6E2C1B6C3C001B57E7 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1410;
+				LastUpgradeCheck = 1410;
+				TargetAttributes = {
+					B791BC752C1B6C3C001B57E7 = {
+						CreatedOnToolsVersion = 14.1;
+					};
+				};
+			};
+			buildConfigurationList = B791BC712C1B6C3C001B57E7 /* Build configuration list for PBXProject "tourar" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = B791BC6D2C1B6C3C001B57E7;
+			productRefGroup = B791BC772C1B6C3C001B57E7 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				B791BC752C1B6C3C001B57E7 /* tourar */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		B791BC742C1B6C3C001B57E7 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B7B23E562C1E61CA006008FB /* tourist_prepare.scn in Resources */,
+				B77D9B1F2C1DE1E8007FCA33 /* object.usdz in Resources */,
+				B7B23E552C1E61CA006008FB /* poi.scn in Resources */,
+				B77D9B1E2C1DE1E8007FCA33 /* down.scn in Resources */,
+				B791BC832C1B6C3E001B57E7 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		5467765A00610F10C6C6FECD /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-tourar/Pods-tourar-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-tourar/Pods-tourar-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-tourar/Pods-tourar-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		C666FACB63E3BA8A8A4DEFCD /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-tourar-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		B791BC722C1B6C3C001B57E7 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B77D9B1B2C1DDE5D007FCA33 /* FetchDataFromServer+Helper.swift in Sources */,
+				B77D9B182C1DDD46007FCA33 /* WebSocketConnectionConfiguration.swift in Sources */,
+				B7CEF9462C1ED83E007165CF /* Inceptionv3.mlmodel in Sources */,
+				B791BC7E2C1B6C3C001B57E7 /* WelcomeViewController.swift in Sources */,
+				B791BCAD2C1B84B5001B57E7 /* MainTabVBarController.swift in Sources */,
+				B7CEF9432C1ED53C007165CF /* ARSceneViewRouteController.swift in Sources */,
+				B77D9B152C1DDC6A007FCA33 /* MapsLayoutUnderSceneView.swift in Sources */,
+				B7A9A0D22C1F07FC00576A43 /* NetworkManager+GigaChat.swift in Sources */,
+				B791BCAA2C1B7BA1001B57E7 /* MapsLayerMainViewController.swift in Sources */,
+				B7CEF9492C1EE3A7007165CF /* YOLOv3Tiny.mlmodel in Sources */,
+				B7CEF9412C1EBA01007165CF /* MapKitComputedRoute.swift in Sources */,
+				B7B23E592C1E6384006008FB /* LoginViewController+SberID.swift in Sources */,
+				B791BC7A2C1B6C3C001B57E7 /* AppDelegate.swift in Sources */,
+				B7B23E522C1DF3A1006008FB /* MapsViewBaseLayout.swift in Sources */,
+				B791BC7C2C1B6C3C001B57E7 /* SceneDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		B791BC9E2C1B6C3E001B57E7 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.1;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		B791BC9F2C1B6C3E001B57E7 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.1;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		B791BCA12C1B6C3E001B57E7 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = AFF9CB3ADB6675B24CB3F19C /* Pods-tourar.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 9RCKEM6H93;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = tourar/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = tour.AR;
+				INFOPLIST_KEY_NSCameraUsageDescription = YES;
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.1;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "brazil-hack.tourar";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		B791BCA22C1B6C3E001B57E7 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = D47BA13DEA2FABAB072D3B42 /* Pods-tourar.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 9RCKEM6H93;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = tourar/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = tour.AR;
+				INFOPLIST_KEY_NSCameraUsageDescription = YES;
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.1;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "brazil-hack.tourar";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		B791BC712C1B6C3C001B57E7 /* Build configuration list for PBXProject "tourar" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B791BC9E2C1B6C3E001B57E7 /* Debug */,
+				B791BC9F2C1B6C3E001B57E7 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		B791BCA02C1B6C3E001B57E7 /* Build configuration list for PBXNativeTarget "tourar" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B791BCA12C1B6C3E001B57E7 /* Debug */,
+				B791BCA22C1B6C3E001B57E7 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = B791BC6E2C1B6C3C001B57E7 /* Project object */;
+}

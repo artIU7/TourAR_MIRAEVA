@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>baseURL</key>
+	<string>https://ngw.devices.sberbank.ru:9443/api/v2/oauth</string>
+	<key>followRedirect</key>
+	<false/>
+	<key>handleJSONPCallbacks</key>
+	<false/>
+	<key>headers</key>
+	<array>
+		<dict>
+			<key>header</key>
+			<string>Content-Type</string>
+			<key>inUse</key>
+			<true/>
+			<key>value</key>
+			<string>application/x-www-form-urlencoded</string>
+		</dict>
+		<dict>
+			<key>header</key>
+			<string>Accept</string>
+			<key>inUse</key>
+			<true/>
+			<key>value</key>
+			<string>application/json</string>
+		</dict>
+		<dict>
+			<key>header</key>
+			<string>RqUID</string>
+			<key>inUse</key>
+			<true/>
+			<key>value</key>
+			<string>6e031e2f-6d82-4334-a201-b922cbc3258c</string>
+		</dict>
+		<dict>
+			<key>header</key>
+			<string>Authorization</string>
+			<key>inUse</key>
+			<true/>
+			<key>value</key>
+			<string>Basic &lt;MDdmMDg5MmYtNDAzZC00MTBiLWI0ZTQtNTE2YzUwZTIxZTEwOjZlMDMxZTJmLTZkODItNDMzNC1hMjAxLWI5MjJjYmMzMjU4Yw&gt;</string>
+		</dict>
+	</array>
+	<key>httpMethod</key>
+	<string>POST</string>
+	<key>jsonpScript</key>
+	<string></string>
+	<key>paramBodyUIChoice</key>
+	<integer>0</integer>
+	<key>parameters</key>
+	<array/>
+	<key>parametersType</key>
+	<integer>0</integer>
+	<key>presentBeforeChallenge</key>
+	<false/>
+	<key>stringEncoding</key>
+	<integer>4</integer>
+	<key>usingHTTPBody</key>
+	<false/>
+</dict>
+</plist>

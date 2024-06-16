@@ -1,0 +1,19 @@
+Конфигурация сервера перед сборкой 
+
+1. Enable SSH - sudo systemctl enable ssh
+2.  sudo apt install clang libpython2.7 libpython2.7-dev
+3. wget x86_64
+4. tar xzf  swift-5.10.1-RELEASE-ubuntu22.04.tar.gz
+5.  echo "PATH=~/swift-5.10.1-RELEASE-ubuntu22.04/usr/bin:$PATH" >> ~/.bashrc
+6. . ~/.bashrc
+7.  sudo apt install make
+8.  git clone https://github.com/vapor/toolbox.git
+9.  cd toolbox
+10.  git checkout 18.7.4 (last release : releases)
+11.  make install
+12.  sudo apt-get install zlib1g-dev
+13.  Vapor new test -n
+14.  Cd test 
+15.  Swift run
+16. docker-compose build
+17. docker compose run migrate

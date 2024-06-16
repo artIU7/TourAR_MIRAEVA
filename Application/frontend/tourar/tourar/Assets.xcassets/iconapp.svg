@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="1035px" height="1030px" viewBox="0 0 1035 1030" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>Group 3</title>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Group-3" transform="translate(5.000000, 4.000000)">
+            <rect id="Rectangle" fill="#FFFFFF" x="0" y="0" width="1024" height="1024"></rect>
+            <polyline id="Path-5" stroke="#2B2E40" stroke-width="2" points="203.368647 1024 0 689.883891 534.13267 -1.13686838e-13 1024 512 0 191.917797 171.125763 -2.27373675e-13 534.13267 1024 1024 597.227413 0 889.104629 1024 0 0 403.091193 984.763043 1024"></polyline>
+            <g id="Group-2" transform="translate(811.711806, 23.000000)" stroke="#979797">
+                <path d="M0,102.07595 C1.94138717,71.814379 10.1407891,49.4548852 24.5982059,34.9974685 C46.284331,13.3113434 76.4744358,0 97.9240502,0 C120.358143,0 140.417512,6.0786231 169.775281,35.4363917 C189.347126,55.0082374 199.422033,77.2214235 200,102.07595 C165.047993,259.249046 131.022676,337.835594 97.9240502,337.835594 C64.8254242,337.835594 32.1840742,259.249046 0,102.07595 Z" id="Path-6" fill="#3ACDFF"></path>
+                <circle id="Oval" fill="#FFFFFF" cx="100.840506" cy="110.825317" r="57.8291142"></circle>
+            </g>
+            <text id="TAR" font-family="Phosphate-Inline, Phosphate" font-size="500" font-weight="normal" fill="#169CC9">
+                <tspan x="112" y="682">T</tspan>
+                <tspan x="307.5" y="682">AR</tspan>
+            </text>
+        </g>
+    </g>
+</svg>
