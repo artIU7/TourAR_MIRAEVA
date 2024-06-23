@@ -7,8 +7,13 @@
 
 import Foundation
 import YandexMapsMobile
+import AVFoundation
+
 
 class MapsLayoutTappedObject : NSObject, YMKMapObjectTapListener {
+    //
+    var player:AVPlayer?
+    var playerItem:AVPlayerItem?
     //
     var currentPointAppend : YMKPoint!
     // set controoller for request controller datat from tapped object
@@ -24,12 +29,12 @@ class MapsLayoutTappedObject : NSObject, YMKMapObjectTapListener {
     func onMapObjectTap(with mapObject: YMKMapObject, point: YMKPoint) -> Bool {
         if let objectTapped = mapObject as? YMKPlacemarkMapObject {
             if let userData = objectTapped.userData as? MapObjectTappedUserData {
-                selectedObjectSheetPresent(textTitleValue: userData.title,descriptionValue: userData.description, pointAdditional : point, imageValue: userData.image , controller: controller!)
+                selectedObjectSheetPresent(textTitleValue: userData.title,descriptionValue: userData.description, pointAdditional : point, imageValue: userData.image ,audioValue: userData.audio,group_1: userData.group_1,group_2: userData.group_2,group_3: userData.group_3, controller: controller!)
             }
         }
         return true;
     }
-    func selectedObjectSheetPresent(textTitleValue : String,descriptionValue : String ,pointAdditional : YMKPoint, imageValue : UIImage , controller: UIViewController?)
+    func selectedObjectSheetPresent(textTitleValue : String,descriptionValue : String ,pointAdditional : YMKPoint, imageValue : UIImage ,audioValue : AVAsset, group_1 : Bool,group_2:Bool,group_3: Bool, controller: UIViewController?)
     {
         if ( currentPointAppend != pointAdditional )
         {
@@ -53,9 +58,7 @@ class MapsLayoutTappedObject : NSObject, YMKMapObjectTapListener {
         textTitle.adjustsFontSizeToFitWidth = true
         textTitle.adjustsFontForContentSizeCategory = true
         textTitle.numberOfLines = 2
-        textTitle.font = UIFont(name: "Helvetica", size: 20)
-        textTitle.font = UIFont.boldSystemFont(ofSize: 25)
-
+        textTitle.font = UIFont.boldSystemFont(ofSize: 15)
         textTitle.textColor = #colorLiteral(red: 0.1960784314, green: 0.1960784314, blue: 0.1960784314, alpha: 1)
         // add title
         sheetController.view.addSubview(textTitle)
@@ -100,37 +103,41 @@ class MapsLayoutTappedObject : NSObject, YMKMapObjectTapListener {
         buttonOpenInfo.addTarget(self, action: #selector(fullViewInfo), for: .touchUpInside)
         // add button input point to route build
         // button continie
-        let buttonItem_1parametr =  UIButton(type: .system)
+        let buttonItem_1parametr =  UIButton()
         buttonItem_1parametr.setImage(UIImage(named: "groupDisableOne"), for: .normal)
         buttonItem_1parametr.imageView?.layer.cornerRadius = 10
-        buttonItem_1parametr.backgroundColor = #colorLiteral(red: 0.1960784314, green: 0.1960784314, blue: 0.1960784314, alpha: 1)
+        buttonItem_1parametr.layer.borderColor = #colorLiteral(red: 0.1960784314, green: 0.1960784314, blue: 0.1960784314, alpha: 1)
+        buttonItem_1parametr.layer.borderWidth = 3
+        buttonItem_1parametr.adjustsImageSizeForAccessibilityContentSizeCategory = true
         buttonItem_1parametr.layer.cornerRadius = 10
         //
         sheetController.view.addSubview(buttonItem_1parametr)
         buttonItem_1parametr.snp.makeConstraints { (marker) in
             marker.bottomMargin.equalToSuperview().inset(20 + 50 + 20)
             marker.left.equalToSuperview().inset(20)
-            marker.height.equalTo(35)
-            marker.width.equalTo(40)
+            marker.height.equalTo(40)
         }
-        let buttonItem_2parametr =  UIButton(type: .system)
+        let buttonItem_2parametr =  UIButton()
         buttonItem_2parametr.setImage(UIImage(named: "groupDisableTwo"), for: .normal)
         buttonItem_2parametr.imageView?.layer.cornerRadius = 10
-        buttonItem_2parametr.backgroundColor = #colorLiteral(red: 0.1960784314, green: 0.1960784314, blue: 0.1960784314, alpha: 1)
+        buttonItem_2parametr.layer.borderColor = #colorLiteral(red: 0.1960784314, green: 0.1960784314, blue: 0.1960784314, alpha: 1)
+        buttonItem_2parametr.layer.borderWidth = 3
+        buttonItem_2parametr.adjustsImageSizeForAccessibilityContentSizeCategory = true
         buttonItem_2parametr.layer.cornerRadius = 10
         //
         sheetController.view.addSubview(buttonItem_2parametr)
         buttonItem_2parametr.snp.makeConstraints { (marker) in
             marker.bottomMargin.equalToSuperview().inset(20 + 50 + 20)
             marker.left.equalToSuperview().inset(20 + 40 + 20)
-            marker.height.equalTo(35)
-            marker.width.equalTo(40)
+            marker.height.equalTo(40)
         }
         
-        let buttonItem_3parametr =  UIButton(type: .system)
+        let buttonItem_3parametr =  UIButton()
         buttonItem_3parametr.setImage(UIImage(named: "groupDisableTree"), for: .normal)
         buttonItem_3parametr.imageView?.layer.cornerRadius = 10
-        buttonItem_3parametr.backgroundColor = #colorLiteral(red: 0.1960784314, green: 0.1960784314, blue: 0.1960784314, alpha: 1)
+        buttonItem_3parametr.layer.borderColor = #colorLiteral(red: 0.1960784314, green: 0.1960784314, blue: 0.1960784314, alpha: 1)
+        buttonItem_3parametr.layer.borderWidth = 3
+        buttonItem_3parametr.adjustsImageSizeForAccessibilityContentSizeCategory = true
         buttonItem_3parametr.layer.cornerRadius = 10
         //
         sheetController.view.addSubview(buttonItem_3parametr)
@@ -138,9 +145,32 @@ class MapsLayoutTappedObject : NSObject, YMKMapObjectTapListener {
             marker.bottomMargin.equalToSuperview().inset(20 + 50 + 20)
             marker.left.equalToSuperview().inset(20 + 40 + 20 + 40 + 20)
             marker.right.equalToSuperview().inset(20)
-            marker.height.equalTo(35)
-            marker.width.equalTo(40)
+            marker.height.equalTo(40)
         }
+        let playerItem:AVPlayerItem = AVPlayerItem(asset: audioValue)
+        player = AVPlayer(playerItem: playerItem)
+        let playerLayer=AVPlayerLayer(player: player!)
+        playerLayer.frame=CGRect(x:0, y:0, width:10, height:50)
+        self.view.layer.addSublayer(playerLayer)
+        let buttonPlayAudio =  UIButton()
+        buttonPlayAudio.setImage(UIImage(named: "playAudioFile"), for: .normal)
+        buttonPlayAudio.imageView?.layer.cornerRadius = 10
+        buttonPlayAudio.layer.borderColor = #colorLiteral(red: 0.1960784314, green: 0.1960784314, blue: 0.1960784314, alpha: 1)
+        buttonPlayAudio.layer.borderWidth = 3
+        buttonPlayAudio.adjustsImageSizeForAccessibilityContentSizeCategory = true
+        buttonPlayAudio.layer.cornerRadius = 10
+        //
+        sheetController.view.addSubview(buttonPlayAudio)
+        buttonPlayAudio.snp.makeConstraints { (marker) in
+            marker.bottomMargin.equalToSuperview().inset(20 + 50 + 20)
+            marker.left.equalToSuperview().inset(20 + 40 + 20 + 40 + 20 + 40 + 20)
+            marker.right.equalToSuperview().inset(20)
+            marker.height.equalTo(40)
+            //marker.width.equalTo(40)
+        }
+        buttonPlayAudio.addTarget(self, action: #selector(self.playButtonTapped(_:)), for: .touchUpInside)
+
+        // add button
         let addPoint = UIButton(type: .system)
         addPoint.backgroundColor = #colorLiteral(red: 0.1960784314, green: 0.1960784314, blue: 0.1960784314, alpha: 1)
         addPoint.setTitle("Добавить точку", for: .normal)
@@ -159,6 +189,19 @@ class MapsLayoutTappedObject : NSObject, YMKMapObjectTapListener {
         //
         controller!.present(sheetController, animated: true)
     }
+    @objc func playButtonTapped(_ sender:UIButton){
+        if player?.rate == 0
+        {
+            player!.play()
+            playButton!.setImage(UIImage(named: "stopAudioFile"), forState: UIControlState.Normal)
+            //playButton!.setTitle("Pause", for: UIControl.State.normal)
+
+        } else {
+            player!.pause()
+            playButton!.setImage(UIImage(named: "playAudioFile"), forState: UIControlState.Normal)
+            //playButton!.setTitle("Play", for: UIControl.State.normal)
+        }
+    }
     @objc func appenPointToRoute()
     {
         controller!.onMapAddRoutePoint(appenPoint: currentPointAppend)
@@ -170,12 +213,10 @@ class MapsLayoutTappedObject : NSObject, YMKMapObjectTapListener {
                 if ( sheetPresentationControllerDidChangeSelectedDetentIdentifier(sheetController) == .medium )
                 {
                     sheetController.selectedDetentIdentifier = .large
-                    textHeader.isHidden = false
                 }
                 else
                 {
                     sheetController.selectedDetentIdentifier = .medium
-                    textHeader.isHidden = true
                 }
             }
         }
@@ -188,11 +229,19 @@ class MapsLayoutTappedObject : NSObject, YMKMapObjectTapListener {
     let title : String
     let description: String
     let image : UIImage
-     init(id: Int32,title : String, description: String,image : UIImage) {
+    let audio : AVAsset
+    let group_1 : Bool
+    let group_2 : Bool
+    let group_3 : Bool
+    init(id: Int32,title : String, description: String,image : UIImage,audio : AVAsset, group_1 : Bool, group_2 : Bool , group_3 : Bool) {
         self.id = id
         self.title = title
         self.description = description
         self.image = image
+        self.audio = audio
+        self.group_1 = group_1
+        self.group_2 = group_2
+        self.group_3 = group_3
     }
 }
 

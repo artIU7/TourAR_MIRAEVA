@@ -6,6 +6,7 @@
 //
 import Foundation
 import YandexMapsMobile
+import AVFoundation
 
 
 struct Coordinate {
@@ -37,6 +38,7 @@ var fetchDataLocationPoi    : [String : YMKPoint]  = [:]
 var fetchDataDescriptionPoi : [String : String  ]  = [:]
 var fetchDataTitlePoi       : [String : String  ]  = [:]
 var fetchDataImagesPoi      : [String : UIImage ]  = [:]
+var fetchDataAudioPoi       : [String : AVAsset ]  = [:]
 //var fetchDataAudioPoi       : [String : ]
 var isConnected = false
 
@@ -45,11 +47,14 @@ var sessionLoadFullData     = URLSession()
 var sessionLoadObjectPoi    = URLSession()
 var sessionLoadLocalPoint   = URLSession()
 var sessionLoadImage        = URLSession()
+var sessionLoadAudio        = URLSession()
+
 //
 var isSuspendSessionLoadFullData = false
 var isSuspendSessionLoadObjectPoi  = false
 var isSuspendsessionLoadLocalPoint = false
 var isSuspendSessionLoadImage = false
+var isSuspendSessionLoadAudio = false
 
 func checkServerConnection(ip_server : String)
 {
@@ -304,6 +309,32 @@ func fetchAudioGuidePoiLocal( uuid : String, uuidProvide : String, uuidAudio : S
         print("Failed URL_fetchLocalPoi : \(urlApi)")
         return
     }
+    //
+    let audioPoi = AVAsset(url: url)
+    if ( audioPoi != nil )
+    {
+        DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1)) {
+            fetchDataAudioPoi[uuid] = audioPoi
+        }
+    }
+    // dataTask loop
+    sessionLoadAudio = URLSession.shared
+    sessionLoadAudio.dataTask(with: url) { (data,response,error) in
+        if let response = response {
+            print("Response_fetchObjectPoi:\(response)")
+        }
+        if let error = error {
+            print("Error__fetchObjectPoi:\(error)")
+        }
+        guard let data = data else {return}
+       
+        //
+    }.resume()
+    print("URLSession_fetchLocalPoi :: Finiosh")
+    if ( sessionLoadAudio.dataTask(with: url).state != .canceling && sessionLoadAudio.dataTask(with: url).state != .running)
+    {
+        isSuspendSessionLoadAudio = true
+    }
     print("URLSession_fetchLocalPoi :: Start")
 }
 func fetchImagePoiLocal( uuid : String, uuidProvide : String, uuidImage : String)
@@ -342,7 +373,7 @@ func fetchImagePoiLocal( uuid : String, uuidProvide : String, uuidImage : String
 }
 func stateSessionComplete()->Bool
 {
-    if ( isSuspendsessionLoadLocalPoint && isSuspendSessionLoadImage && isSuspendSessionLoadFullData && isSuspendSessionLoadObjectPoi)
+    if ( isSuspendsessionLoadLocalPoint && isSuspendSessionLoadImage && isSuspendSessionLoadFullData && isSuspendSessionLoadObjectPoi && isSuspendSessionLoadAudio )
     {
         return true
     }
