@@ -6,7 +6,6 @@
 //
 import Foundation
 import YandexMapsMobile
-import AVFoundation
 
 
 struct Coordinate {
@@ -38,7 +37,7 @@ var fetchDataLocationPoi    : [String : YMKPoint]  = [:]
 var fetchDataDescriptionPoi : [String : String  ]  = [:]
 var fetchDataTitlePoi       : [String : String  ]  = [:]
 var fetchDataImagesPoi      : [String : UIImage ]  = [:]
-var fetchDataAudioPoi       : [String : AVAsset ]  = [:]
+var fetchDataAudioPoi       : [String : URL ]  = [:]
 //var fetchDataAudioPoi       : [String : ]
 var isConnected = false
 
@@ -310,13 +309,10 @@ func fetchAudioGuidePoiLocal( uuid : String, uuidProvide : String, uuidAudio : S
         return
     }
     //
-    let audioPoi = AVAsset(url: url)
-    if ( audioPoi != nil )
-    {
-        DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1)) {
-            fetchDataAudioPoi[uuid] = audioPoi
-        }
+    DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1)) {
+        fetchDataAudioPoi[uuid] = url
     }
+
     // dataTask loop
     sessionLoadAudio = URLSession.shared
     sessionLoadAudio.dataTask(with: url) { (data,response,error) in

@@ -14,6 +14,8 @@ class MapsLayoutTappedObject : NSObject, YMKMapObjectTapListener {
     //
     var player:AVPlayer?
     var playerItem:AVPlayerItem?
+    var buttonPlayAudio =  UIButton()
+
     //
     var currentPointAppend : YMKPoint!
     // set controoller for request controller datat from tapped object
@@ -34,7 +36,7 @@ class MapsLayoutTappedObject : NSObject, YMKMapObjectTapListener {
         }
         return true;
     }
-    func selectedObjectSheetPresent(textTitleValue : String,descriptionValue : String ,pointAdditional : YMKPoint, imageValue : UIImage ,audioValue : AVAsset, group_1 : Bool,group_2:Bool,group_3: Bool, controller: UIViewController?)
+    func selectedObjectSheetPresent(textTitleValue : String,descriptionValue : String ,pointAdditional : YMKPoint, imageValue : UIImage ,audioValue : URL, group_1 : Bool,group_2:Bool,group_3: Bool, controller: UIViewController?)
     {
         if ( currentPointAppend != pointAdditional )
         {
@@ -147,12 +149,14 @@ class MapsLayoutTappedObject : NSObject, YMKMapObjectTapListener {
             marker.right.equalToSuperview().inset(20)
             marker.height.equalTo(40)
         }
-        let playerItem:AVPlayerItem = AVPlayerItem(asset: audioValue)
+        let audioPoi = AVAsset(url: audioValue)
+        let playerItem:AVPlayerItem = AVPlayerItem(asset: audioPoi)
         player = AVPlayer(playerItem: playerItem)
         let playerLayer=AVPlayerLayer(player: player!)
         playerLayer.frame=CGRect(x:0, y:0, width:10, height:50)
-        self.view.layer.addSublayer(playerLayer)
-        let buttonPlayAudio =  UIButton()
+        sheetController.view.layer.addSublayer(playerLayer)
+        
+        buttonPlayAudio =  UIButton()
         buttonPlayAudio.setImage(UIImage(named: "playAudioFile"), for: .normal)
         buttonPlayAudio.imageView?.layer.cornerRadius = 10
         buttonPlayAudio.layer.borderColor = #colorLiteral(red: 0.1960784314, green: 0.1960784314, blue: 0.1960784314, alpha: 1)
@@ -163,7 +167,7 @@ class MapsLayoutTappedObject : NSObject, YMKMapObjectTapListener {
         sheetController.view.addSubview(buttonPlayAudio)
         buttonPlayAudio.snp.makeConstraints { (marker) in
             marker.bottomMargin.equalToSuperview().inset(20 + 50 + 20)
-            marker.left.equalToSuperview().inset(20 + 40 + 20 + 40 + 20 + 40 + 20)
+            marker.left.equalToSuperview().inset(20 + 40 + 80 + 40 + 20)
             marker.right.equalToSuperview().inset(20)
             marker.height.equalTo(40)
             //marker.width.equalTo(40)
@@ -193,12 +197,12 @@ class MapsLayoutTappedObject : NSObject, YMKMapObjectTapListener {
         if player?.rate == 0
         {
             player!.play()
-            playButton!.setImage(UIImage(named: "stopAudioFile"), forState: UIControlState.Normal)
+            buttonPlayAudio.setImage(UIImage(named: "stopAudioFile"), for: .normal)
             //playButton!.setTitle("Pause", for: UIControl.State.normal)
 
         } else {
             player!.pause()
-            playButton!.setImage(UIImage(named: "playAudioFile"), forState: UIControlState.Normal)
+            buttonPlayAudio.setImage(UIImage(named: "playAudioFile"), for: .normal)
             //playButton!.setTitle("Play", for: UIControl.State.normal)
         }
     }
@@ -229,11 +233,11 @@ class MapsLayoutTappedObject : NSObject, YMKMapObjectTapListener {
     let title : String
     let description: String
     let image : UIImage
-    let audio : AVAsset
+    let audio : URL
     let group_1 : Bool
     let group_2 : Bool
     let group_3 : Bool
-    init(id: Int32,title : String, description: String,image : UIImage,audio : AVAsset, group_1 : Bool, group_2 : Bool , group_3 : Bool) {
+    init(id: Int32,title : String, description: String,image : UIImage,audio : URL, group_1 : Bool, group_2 : Bool , group_3 : Bool) {
         self.id = id
         self.title = title
         self.description = description
