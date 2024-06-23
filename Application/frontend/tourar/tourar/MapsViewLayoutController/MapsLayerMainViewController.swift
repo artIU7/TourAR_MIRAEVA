@@ -47,6 +47,7 @@ class CodeCell: ScalingCarouselCell {
             marker.centerXWithinMargins.equalTo(mainView)
             marker.leftMargin.rightMargin.equalTo(mainView).inset(10)
         }
+        imageSlide = UIImageView(image: UIImage(named: "n_logo"))
         mainView.addSubview(imageSlide)
         self.imageSlide.snp.makeConstraints { (marker) in
             marker.top.equalTo(labelPoint).inset(10)

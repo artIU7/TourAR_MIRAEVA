@@ -24,13 +24,12 @@ class MapsLayoutTappedObject : NSObject, YMKMapObjectTapListener {
     func onMapObjectTap(with mapObject: YMKMapObject, point: YMKPoint) -> Bool {
         if let objectTapped = mapObject as? YMKPlacemarkMapObject {
             if let userData = objectTapped.userData as? MapObjectTappedUserData {
-                let message = "Object with id \(userData.id) and description '\(userData.description)' tapped";
-                selectedObjectSheetPresent(textTitleValue: userData.description, pointAdditional : point, imageValue: userData.image , controller: controller!)
+                selectedObjectSheetPresent(textTitleValue: userData.title,descriptionValue: userData.description, pointAdditional : point, imageValue: userData.image , controller: controller!)
             }
         }
         return true;
     }
-    func selectedObjectSheetPresent(textTitleValue : String,pointAdditional : YMKPoint, imageValue : UIImage , controller: UIViewController?)
+    func selectedObjectSheetPresent(textTitleValue : String,descriptionValue : String ,pointAdditional : YMKPoint, imageValue : UIImage , controller: UIViewController?)
     {
         if ( currentPointAppend != pointAdditional )
         {
@@ -47,13 +46,13 @@ class MapsLayoutTappedObject : NSObject, YMKMapObjectTapListener {
         }
         //
         sheetController.view.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+        // text title
         let textTitle = UILabel()
         // заголовок экрана приветсвия
-        textTitle.numberOfLines = 0
+        textTitle.text = textTitleValue
         textTitle.adjustsFontSizeToFitWidth = true
         textTitle.adjustsFontForContentSizeCategory = true
         textTitle.numberOfLines = 2
-        textTitle.text = textTitleValue
         textTitle.font = UIFont(name: "Helvetica", size: 20)
         textTitle.font = UIFont.boldSystemFont(ofSize: 25)
 
@@ -61,29 +60,30 @@ class MapsLayoutTappedObject : NSObject, YMKMapObjectTapListener {
         // add title
         sheetController.view.addSubview(textTitle)
         textTitle.snp.makeConstraints { (marker) in
-            marker.topMargin.equalToSuperview().inset(40)
+            marker.top.equalToSuperview().inset(20)
             marker.left.right.equalToSuperview().inset(10)
             marker.centerX.equalToSuperview()
         }
-        //
+        /*
         //
         textHeader = UITextField()
+        textHeader.text = descriptionValue
         textHeader.adjustsFontSizeToFitWidth = true
         textHeader.adjustsFontForContentSizeCategory = true
-        textHeader.text = textTitleValue
         textHeader.font = UIFont(name: "Helvetica", size: 20)
         textHeader.font = UIFont.boldSystemFont(ofSize: 25)
         textHeader.textColor = #colorLiteral(red: 0.1960784314, green: 0.1960784314, blue: 0.1960784314, alpha: 1)
         
         sheetController.view.addSubview(textHeader)
         textHeader.snp.makeConstraints { (marker) in
-            marker.bottomMargin.equalToSuperview().inset(50 + 10 + 10 + 100 )
+            marker.top.equalTo(textTitle).inset(40)
             marker.left.right.equalToSuperview().inset(10)
             marker.centerX.equalToSuperview()
         }
-        textHeader.isHidden = true
+        textHeader.isHidden = false
         //
-        var buttonOpenInfo = UIButton()
+         */
+        let buttonOpenInfo = UIButton()
         buttonOpenInfo.setImage(imageValue, for: .normal)
         buttonOpenInfo.imageView?.layer.cornerRadius = 10
         buttonOpenInfo.layer.cornerRadius = 10
@@ -92,38 +92,55 @@ class MapsLayoutTappedObject : NSObject, YMKMapObjectTapListener {
         buttonOpenInfo.adjustsImageSizeForAccessibilityContentSizeCategory = true
         sheetController.view.addSubview(buttonOpenInfo)
         buttonOpenInfo.snp.makeConstraints { (marker) in
-            marker.topMargin.equalTo(textTitle).inset(textTitle.bounds.height + 40)
-            marker.bottomMargin.equalToSuperview().inset(50 + 10 + 10 + textHeader.bounds.height + 10 )
+            marker.topMargin.equalTo(textTitle).inset(40 )
             marker.centerX.equalToSuperview()
             marker.left.right.equalToSuperview().inset(10)
+            marker.bottomMargin.equalToSuperview().inset(50 + 20 + 20 + 35 + 20 )
         }
         buttonOpenInfo.addTarget(self, action: #selector(fullViewInfo), for: .touchUpInside)
-        
-        //
-        /*var poiImage = UIImageView(image: imageValue)
-        sheetController.view.addSubview(poiImage)
-        poiImage.snp.makeConstraints { (marker) in
-            marker.topMargin.equalTo(textTitle).inset(textTitle.bounds.height + 20)
-            marker.bottom.equalToSuperview().inset(50 + 10 + 10 )
-            marker.centerX.equalToSuperview()
-            marker.left.right.equalToSuperview().inset(10)
-        }
-         */
-        // skip collection view
-        /*
-        // add slideCollectionView
-        sheetController.imageSetCollection = imageValue
-        sheetController.view.addSubview(sheetController.collectionViewSlide)
-        sheetController.collectionViewSlide.snp.makeConstraints { (marker) in
-            marker.topMargin.equalTo(textTitle).inset(40)
-            marker.centerX.equalToSuperview()
-            marker.left.right.equalToSuperview().inset(10)
-            marker.width.equalTo(200)
-            marker.height.equalTo(150)
-        }
-        */
         // add button input point to route build
         // button continie
+        let buttonItem_1parametr =  UIButton(type: .system)
+        buttonItem_1parametr.setImage(UIImage(named: "groupDisableOne"), for: .normal)
+        buttonItem_1parametr.imageView?.layer.cornerRadius = 10
+        buttonItem_1parametr.backgroundColor = #colorLiteral(red: 0.1960784314, green: 0.1960784314, blue: 0.1960784314, alpha: 1)
+        buttonItem_1parametr.layer.cornerRadius = 10
+        //
+        sheetController.view.addSubview(buttonItem_1parametr)
+        buttonItem_1parametr.snp.makeConstraints { (marker) in
+            marker.bottomMargin.equalToSuperview().inset(20 + 50 + 20)
+            marker.left.equalToSuperview().inset(20)
+            marker.height.equalTo(35)
+            marker.width.equalTo(40)
+        }
+        let buttonItem_2parametr =  UIButton(type: .system)
+        buttonItem_2parametr.setImage(UIImage(named: "groupDisableTwo"), for: .normal)
+        buttonItem_2parametr.imageView?.layer.cornerRadius = 10
+        buttonItem_2parametr.backgroundColor = #colorLiteral(red: 0.1960784314, green: 0.1960784314, blue: 0.1960784314, alpha: 1)
+        buttonItem_2parametr.layer.cornerRadius = 10
+        //
+        sheetController.view.addSubview(buttonItem_2parametr)
+        buttonItem_2parametr.snp.makeConstraints { (marker) in
+            marker.bottomMargin.equalToSuperview().inset(20 + 50 + 20)
+            marker.left.equalToSuperview().inset(20 + 40 + 20)
+            marker.height.equalTo(35)
+            marker.width.equalTo(40)
+        }
+        
+        let buttonItem_3parametr =  UIButton(type: .system)
+        buttonItem_3parametr.setImage(UIImage(named: "groupDisableTree"), for: .normal)
+        buttonItem_3parametr.imageView?.layer.cornerRadius = 10
+        buttonItem_3parametr.backgroundColor = #colorLiteral(red: 0.1960784314, green: 0.1960784314, blue: 0.1960784314, alpha: 1)
+        buttonItem_3parametr.layer.cornerRadius = 10
+        //
+        sheetController.view.addSubview(buttonItem_3parametr)
+        buttonItem_3parametr.snp.makeConstraints { (marker) in
+            marker.bottomMargin.equalToSuperview().inset(20 + 50 + 20)
+            marker.left.equalToSuperview().inset(20 + 40 + 20 + 40 + 20)
+            marker.right.equalToSuperview().inset(20)
+            marker.height.equalTo(35)
+            marker.width.equalTo(40)
+        }
         let addPoint = UIButton(type: .system)
         addPoint.backgroundColor = #colorLiteral(red: 0.1960784314, green: 0.1960784314, blue: 0.1960784314, alpha: 1)
         addPoint.setTitle("Добавить точку", for: .normal)
@@ -168,10 +185,12 @@ class MapsLayoutTappedObject : NSObject, YMKMapObjectTapListener {
 // class object tapped data
  class MapObjectTappedUserData {
     let id: Int32
+    let title : String
     let description: String
     let image : UIImage
-    init(id: Int32, description: String,image : UIImage) {
+     init(id: Int32,title : String, description: String,image : UIImage) {
         self.id = id
+        self.title = title
         self.description = description
         self.image = image
     }

@@ -35,6 +35,7 @@ let api_key = "7c6c2db9-d237-4411-aa0e-f89125312494"
 
 var fetchDataLocationPoi    : [String : YMKPoint]  = [:]
 var fetchDataDescriptionPoi : [String : String  ]  = [:]
+var fetchDataTitlePoi       : [String : String  ]  = [:]
 var fetchDataImagesPoi      : [String : UIImage ]  = [:]
 //var fetchDataAudioPoi       : [String : ]
 var isConnected = false
@@ -230,7 +231,9 @@ func fetchGetLocalPoi(uuid : String)
                     {
                         if ( uuidItem != nil )
                         {
-                            fetchDataLocationPoi[uuidItem!] = YMKPoint(latitude: lat!, longitude: lon!)
+                            DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1)) {
+                                fetchDataLocationPoi[uuidItem!] = YMKPoint(latitude: lat!, longitude: lon!)
+                            }
                         }
                     }
                 }
@@ -257,13 +260,26 @@ func fetchGetLocalPoi(uuid : String)
                             fetchImagePoiLocal(uuid : uuidItem!,uuidProvide: uuidProvide!, uuidImage: getImageObj!)
                         }
                     }
+                    // fetch title:
+                    let title = objP["title"] as? String
+                    if ( title != nil )
+                    {
+                        if ( uuidItem != nil )
+                        {
+                            DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1)) {
+                                fetchDataTitlePoi[uuidItem!] = title
+                            }
+                        }
+                    }
                     // fetch desc:
-                    let description = objP["title"] as? String
+                    let description = objP["desc"] as? String
                     if ( description != nil )
                     {
                         if ( uuidItem != nil )
                         {
-                            fetchDataDescriptionPoi[uuidItem!] = description
+                            DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1)) {
+                                fetchDataDescriptionPoi[uuidItem!] = description
+                            }
                         }
                     }
                 }
@@ -312,7 +328,9 @@ func fetchImagePoiLocal( uuid : String, uuidProvide : String, uuidImage : String
         let imagePoi = UIImage(data: data)
         if ( imagePoi != nil )
         {
-            fetchDataImagesPoi[uuid] = imagePoi
+            DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1)) {
+                fetchDataImagesPoi[uuid] = imagePoi
+            }
         }
         //
     }.resume()

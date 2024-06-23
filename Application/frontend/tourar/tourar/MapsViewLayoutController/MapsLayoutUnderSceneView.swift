@@ -272,18 +272,24 @@ class MapsLayoutUnderSceneView: UIViewController, YMKLayersGeoObjectTapListener,
                             {
                                 for img in fetchDataImagesPoi
                                 {
-                                    if ( point.key == desc.key && point.key == img.key )
+                                    if ( !fetchDataTitlePoi.isEmpty )
                                     {
-                                        let mapObjects = mapView.mapWindow.map.mapObjects;
-                                        let placemark = mapObjects.addPlacemark(with: point.value)
-                                            placemark.setIconWith(UIImage(named: "SearchResult")!)
-                                            // input placeMark
-                                        placemark.userData = MapObjectTappedUserData(id: 42, description: "\(desc.value)", image: img.value)
-                                            // Client code must retain strong reference to the listener.
-                                        mapObjectTapListener = MapsLayoutTappedObject(controller: self);
-                                        mapsObjectTapListener.append(mapObjectTapListener)
-                                        placemark.addTapListener(with: mapsObjectTapListener.last!)
-                                        mapsObjectPlaceMark.append(placemark)
+                                        for ttl in fetchDataTitlePoi
+                                        {
+                                            if ( point.key == desc.key && point.key == img.key  && point.key == ttl.key )
+                                            {
+                                                let mapObjects = mapView.mapWindow.map.mapObjects;
+                                                let placemark = mapObjects.addPlacemark(with: point.value)
+                                                    placemark.setIconWith(UIImage(named: "SearchResult")!)
+                                                    // input placeMark
+                                                placemark.userData = MapObjectTappedUserData(id: Int32.random(in: 0...10000) ,title: ttl.value, description: "\(desc.value)", image: img.value)
+                                                    // Client code must retain strong reference to the listener.
+                                                mapObjectTapListener = MapsLayoutTappedObject(controller: self)
+                                                mapsObjectTapListener.append(mapObjectTapListener)
+                                                placemark.addTapListener(with: mapsObjectTapListener.last!)
+                                                mapsObjectPlaceMark.append(placemark)
+                                            }
+                                        }
                                     }
                                 }
                             }
