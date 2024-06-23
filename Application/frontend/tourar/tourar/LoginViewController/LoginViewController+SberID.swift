@@ -126,7 +126,7 @@ extension LoginViewController {
     }
     @objc func nextControllerView() {
         // переходим на главный таб бар
-        let viewTours = MainViewController()
+        let viewTours = SubViewUserPermisionDataController()
         //startTest.modalTransitionStyle = .flipHorizontal
         viewTours.modalPresentationStyle = .fullScreen
         viewTours.modalTransitionStyle = .crossDissolve

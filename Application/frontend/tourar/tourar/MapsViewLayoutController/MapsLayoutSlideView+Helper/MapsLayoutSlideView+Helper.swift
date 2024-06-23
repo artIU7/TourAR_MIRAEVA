@@ -8,8 +8,13 @@
 import Foundation
 import ScalingCarousel
 import SnapKit
+import AVFoundation
 
 class SheetControllUnderCollectionView : UIViewController {
+    var player:AVPlayer?
+    var playerItem:AVPlayerItem?
+    var playerLayer:AVPlayerLayer?
+    //
     var collectionViewSlide: ScalingCarouselView!
     var imageSetCollection : UIImage!
     override func viewDidLoad() {
@@ -24,7 +29,15 @@ class SheetControllUnderCollectionView : UIViewController {
     }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
+      
+    }
+    override func viewDidDisappear(_ animated: Bool) {
+        //
         // Dispose of any resources that can be recreated.
+        if player?.rate != 0
+        {
+            player!.pause()
+        }
     }
     private func configCollectionView() {
         

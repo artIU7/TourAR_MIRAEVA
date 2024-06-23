@@ -15,6 +15,8 @@
 		B77D9B1B2C1DDE5D007FCA33 /* FetchDataFromServer+Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = B77D9B1A2C1DDE5D007FCA33 /* FetchDataFromServer+Helper.swift */; };
 		B77D9B1E2C1DE1E8007FCA33 /* down.scn in Resources */ = {isa = PBXBuildFile; fileRef = B77D9B1C2C1DE1E8007FCA33 /* down.scn */; };
 		B77D9B1F2C1DE1E8007FCA33 /* object.usdz in Resources */ = {isa = PBXBuildFile; fileRef = B77D9B1D2C1DE1E8007FCA33 /* object.usdz */; };
+		B77E0C002C287E7D001FD29E /* MapsLayoutRouteBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = B77E0BFF2C287E7D001FD29E /* MapsLayoutRouteBuilder.swift */; };
+		B77E0C022C28B5CF001FD29E /* SubViewUserPermissionData.swift in Sources */ = {isa = PBXBuildFile; fileRef = B77E0C012C28B5CF001FD29E /* SubViewUserPermissionData.swift */; };
 		B791BC7A2C1B6C3C001B57E7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B791BC792C1B6C3C001B57E7 /* AppDelegate.swift */; };
 		B791BC7C2C1B6C3C001B57E7 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B791BC7B2C1B6C3C001B57E7 /* SceneDelegate.swift */; };
 		B791BC7E2C1B6C3C001B57E7 /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B791BC7D2C1B6C3C001B57E7 /* WelcomeViewController.swift */; };
@@ -44,6 +46,8 @@
 		B77D9B1A2C1DDE5D007FCA33 /* FetchDataFromServer+Helper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FetchDataFromServer+Helper.swift"; sourceTree = "<group>"; };
 		B77D9B1C2C1DE1E8007FCA33 /* down.scn */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = down.scn; sourceTree = "<group>"; };
 		B77D9B1D2C1DE1E8007FCA33 /* object.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = object.usdz; sourceTree = "<group>"; };
+		B77E0BFF2C287E7D001FD29E /* MapsLayoutRouteBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapsLayoutRouteBuilder.swift; sourceTree = "<group>"; };
+		B77E0C012C28B5CF001FD29E /* SubViewUserPermissionData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubViewUserPermissionData.swift; sourceTree = "<group>"; };
 		B791BC762C1B6C3C001B57E7 /* tourar.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = tourar.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B791BC792C1B6C3C001B57E7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B791BC7B2C1B6C3C001B57E7 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -101,6 +105,7 @@
 				B7B23E532C1E61CA006008FB /* poi.scn */,
 				B7B23E542C1E61CA006008FB /* tourist_prepare.scn */,
 				B791BC7D2C1B6C3C001B57E7 /* WelcomeViewController.swift */,
+				B77E0C012C28B5CF001FD29E /* SubViewUserPermissionData.swift */,
 			);
 			path = StartUpControllerApplication;
 			sourceTree = "<group>";
@@ -128,6 +133,7 @@
 				B7B7A65D2C2374E100BEB8E1 /* MapsLayoutSlideView+Helper */,
 				B7CEF9402C1EBA01007165CF /* MapKitComputedRoute.swift */,
 				B7CEF9442C1ED549007165CF /* ARSCEne+Helper */,
+				B77E0BFF2C287E7D001FD29E /* MapsLayoutRouteBuilder.swift */,
 			);
 			path = MapsViewLayoutController;
 			sourceTree = "<group>";
@@ -374,6 +380,7 @@
 				B7CEF9462C1ED83E007165CF /* Inceptionv3.mlmodel in Sources */,
 				B791BC7E2C1B6C3C001B57E7 /* WelcomeViewController.swift in Sources */,
 				B791BCAD2C1B84B5001B57E7 /* MainTabVBarController.swift in Sources */,
+				B77E0C022C28B5CF001FD29E /* SubViewUserPermissionData.swift in Sources */,
 				B71C40BA2C1F768E0076E7DA /* ARSCeneHelperSceneNode.swift in Sources */,
 				B7CEF9432C1ED53C007165CF /* ARSceneViewRouteController.swift in Sources */,
 				B77D9B152C1DDC6A007FCA33 /* MapsLayoutUnderSceneView.swift in Sources */,
@@ -384,6 +391,7 @@
 				B7B7A65F2C23750700BEB8E1 /* MapsLayoutSlideView+Helper.swift in Sources */,
 				B7B23E592C1E6384006008FB /* LoginViewController+SberID.swift in Sources */,
 				B7DD94932C22D23E00B964D5 /* MapsLayoutTappedObject+HelperUnderViewScene.swift in Sources */,
+				B77E0C002C287E7D001FD29E /* MapsLayoutRouteBuilder.swift in Sources */,
 				B791BC7A2C1B6C3C001B57E7 /* AppDelegate.swift in Sources */,
 				B7B23E522C1DF3A1006008FB /* MapsViewBaseLayout.swift in Sources */,
 				B791BC7C2C1B6C3C001B57E7 /* SceneDelegate.swift in Sources */,

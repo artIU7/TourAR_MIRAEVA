@@ -275,11 +275,12 @@ class MapsLayoutUnderSceneView: UIViewController, YMKLayersGeoObjectTapListener,
                             {
                                 let mapObjects = mapView.mapWindow.map.mapObjects;
                                 let placemark = mapObjects.addPlacemark(with: point.value)
-                                placemark.setIconWith(UIImage(named: "SearchResult")!)
+                                placemark.setIconWith(UIImage(named: "custom_point")!)
                                 // input placeMark
                                 placemark.userData = MapObjectTappedUserData(id: Int32.random(in: 0...10000) ,
                                                                              title:  fetchDataTitlePoi[point.key]!,
                                                                              description: fetchDataDescriptionPoi[point.key]!,
+                                                                             point: point.value,
                                                                              image: fetchDataImagesPoi[point.key]!,
                                                                              audio: fetchDataAudioPoi[point.key]! ,
                                                                              group_1: true,
@@ -504,6 +505,36 @@ class MapsLayoutUnderSceneView: UIViewController, YMKLayersGeoObjectTapListener,
     func onMapAddRoutePoint( appenPoint : YMKPoint)
     {
         requestPoints.append(YMKRequestPoint(point: appenPoint, type: .waypoint, pointContext: nil))
+    }
+    func onMapRemovePoint( deletePoint : YMKPoint )
+    {
+        if ( !requestPoints.isEmpty )
+        {
+            var del_index : Int = 0
+            var index_del : Int = 0
+            for pp in requestPoints {
+                if (pp.point == deletePoint)
+                {
+                    del_index = index_del
+                }
+                index_del+=1
+            }
+            requestPoints.remove(at: del_index )
+        }
+    }
+    func onMapCurrentPointIsAppend( currentPoint : YMKPoint ) -> Bool
+    {
+        if ( !requestPoints.isEmpty )
+        {
+            for pp in requestPoints {
+                if (pp.point == currentPoint)
+                {
+                    return true
+                }
+            }
+            return false
+        }
+        return false
     }
     func onMapLongTap(with map: YMKMap, point: YMKPoint) {
         print("Point Selection Coordinate:\(point)")

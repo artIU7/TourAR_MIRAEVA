@@ -184,7 +184,7 @@ extension CodeViewController: UICollectionViewDelegate {
         //
         let mapObjects = mapView.mapWindow.map.mapObjects
         let placemark = mapObjects.addPlacemark(with: mocPositionPoint[index]!)
-        placemark.setIconWith(UIImage(named: "SearchResult")!)
+        placemark.setIconWith(UIImage(named: "custom_point")!)
         //
         mapView.mapWindow.map.move(
             with: YMKCameraPosition(target: mocPositionPoint[index]!, zoom: 17, azimuth: 40, tilt: 190.0),

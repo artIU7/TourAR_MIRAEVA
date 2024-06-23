@@ -142,8 +142,8 @@
             filePath = "tourar/MapsViewLayoutController/MapsLayoutUnderSceneView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "646"
-            endingLineNumber = "646"
+            startingLineNumber = "677"
+            endingLineNumber = "677"
             landmarkName = "locationManager(_:didUpdateLocations:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -158,8 +158,8 @@
             filePath = "tourar/MapsViewLayoutController/MapsLayoutUnderSceneView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "431"
-            endingLineNumber = "431"
+            startingLineNumber = "432"
+            endingLineNumber = "432"
             landmarkName = "locationAction(_:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -174,8 +174,8 @@
             filePath = "tourar/MapsViewLayoutController/MapsLayoutUnderSceneView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "434"
-            endingLineNumber = "434"
+            startingLineNumber = "435"
+            endingLineNumber = "435"
             landmarkName = "locationAction(_:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -190,8 +190,8 @@
             filePath = "tourar/MapsViewLayoutController/MapsLayoutUnderSceneView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "438"
-            endingLineNumber = "438"
+            startingLineNumber = "439"
+            endingLineNumber = "439"
             landmarkName = "locationAction(_:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -206,8 +206,8 @@
             filePath = "tourar/MapsViewLayoutController/MapsLayoutUnderSceneView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "377"
-            endingLineNumber = "377"
+            startingLineNumber = "378"
+            endingLineNumber = "378"
             landmarkName = "changeRoteType(segment:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -222,8 +222,8 @@
             filePath = "tourar/MapsViewLayoutController/MapsLayoutUnderSceneView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "380"
-            endingLineNumber = "380"
+            startingLineNumber = "381"
+            endingLineNumber = "381"
             landmarkName = "changeRoteType(segment:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -238,8 +238,8 @@
             filePath = "tourar/MapsViewLayoutController/MapsLayoutUnderSceneView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "387"
-            endingLineNumber = "387"
+            startingLineNumber = "388"
+            endingLineNumber = "388"
             landmarkName = "changeRoteType(segment:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -254,8 +254,8 @@
             filePath = "tourar/MapsViewLayoutController/MapsLayoutUnderSceneView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "392"
-            endingLineNumber = "392"
+            startingLineNumber = "393"
+            endingLineNumber = "393"
             landmarkName = "changeRoteType(segment:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -918,8 +918,8 @@
             filePath = "tourar/MapsViewLayoutController/MapsLayoutUnderSceneView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "644"
-            endingLineNumber = "644"
+            startingLineNumber = "675"
+            endingLineNumber = "675"
             landmarkName = "locationManager(_:didUpdateLocations:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -934,8 +934,8 @@
             filePath = "tourar/MapsViewLayoutController/MapsLayoutUnderSceneView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "639"
-            endingLineNumber = "639"
+            startingLineNumber = "670"
+            endingLineNumber = "670"
             landmarkName = "locationManager(_:didUpdateLocations:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -950,8 +950,8 @@
             filePath = "tourar/MapsViewLayoutController/MapsLayoutUnderSceneView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "636"
-            endingLineNumber = "636"
+            startingLineNumber = "667"
+            endingLineNumber = "667"
             landmarkName = "locationManager(_:didUpdateLocations:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1007,54 +1007,6 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "F25712C7-5AF3-45DE-8771-A1AC6818C4AA"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "tourar/MapsViewLayoutController/MapsLayoutTappedPoit+HelperInderScene/MapsLayoutTappedObject+HelperUnderViewScene.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "33"
-            endingLineNumber = "33"
-            landmarkName = "onMapObjectTap(with:point:)"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "F25712C7-5AF3-45DE-8771-A1AC6818C4AA - 437f4cd2f21b9c46"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "tourar.MapsLayoutTappedObject.onMapObjectTap(with: __C.YMKMapObject, point: __C.YMKPoint) -&gt; Swift.Bool"
-                  moduleName = "tourar"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/brazilec22/Desktop/MIRAEVA24/Application/frontend/tourar/tourar/MapsViewLayoutController/MapsLayoutTappedPoit+HelperInderScene/MapsLayoutTappedObject+HelperUnderViewScene.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "21"
-                  endingLineNumber = "21"
-                  offsetFromSymbolStart = "544">
-               </Location>
-               <Location
-                  uuid = "F25712C7-5AF3-45DE-8771-A1AC6818C4AA - 437f4cd2f21b9c46"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "tourar.MapsLayoutTappedObject.onMapObjectTap(with: __C.YMKMapObject, point: __C.YMKPoint) -&gt; Swift.Bool"
-                  moduleName = "tourar"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/brazilec22/Desktop/MIRAEVA24/Application/frontend/tourar/tourar/MapsViewLayoutController/MapsLayoutTappedPoit+HelperInderScene/MapsLayoutTappedObject+HelperUnderViewScene.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "21"
-                  endingLineNumber = "21"
-                  offsetFromSymbolStart = "808">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             uuid = "E45A6D34-3C9B-4E12-B6FC-B7C9E7661517"
             shouldBeEnabled = "No"
             ignoreCount = "0"
@@ -1062,8 +1014,8 @@
             filePath = "tourar/MapsViewLayoutController/MapsLayoutTappedPoit+HelperInderScene/MapsLayoutTappedObject+HelperUnderViewScene.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "32"
-            endingLineNumber = "32"
+            startingLineNumber = "35"
+            endingLineNumber = "35"
             landmarkName = "onMapObjectTap(with:point:)"
             landmarkType = "7">
             <Locations>
@@ -1190,8 +1142,8 @@
             filePath = "tourar/MapsViewLayoutController/MapsLayoutUnderSceneView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "302"
-            endingLineNumber = "302"
+            startingLineNumber = "303"
+            endingLineNumber = "303"
             landmarkName = "clearMapObjectRoutingType()"
             landmarkType = "7">
          </BreakpointContent>
@@ -1206,8 +1158,8 @@
             filePath = "tourar/MapsViewLayoutController/MapsLayoutUnderSceneView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "308"
-            endingLineNumber = "308"
+            startingLineNumber = "309"
+            endingLineNumber = "309"
             landmarkName = "clearMapObjectRoutingType()"
             landmarkType = "7">
          </BreakpointContent>
@@ -1216,22 +1168,6 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "89D6C4E0-D359-4069-B1C3-6E5FE3022EB4"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "tourar/MapsViewLayoutController/MapsLayoutUnderSceneView.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "304"
-            endingLineNumber = "304"
-            landmarkName = "clearMapObjectRoutingType()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "64CA57CC-C9BD-443A-BF52-FDF909FA2537"
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
@@ -1247,39 +1183,23 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
+            uuid = "64CA57CC-C9BD-443A-BF52-FDF909FA2537"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "tourar/MapsViewLayoutController/MapsLayoutUnderSceneView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "306"
+            endingLineNumber = "306"
+            landmarkName = "clearMapObjectRoutingType()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
             uuid = "14B61D1C-0341-4A40-B422-2D98B2DC2C06"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "tourar/MapsViewLayoutController/MapsLayoutUnderSceneView.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "310"
-            endingLineNumber = "310"
-            landmarkName = "clearMapObjectRoutingType()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "DD1F1680-7763-49E4-B928-335EE7EC6384"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "tourar/MapsViewLayoutController/MapsLayoutUnderSceneView.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "312"
-            endingLineNumber = "312"
-            landmarkName = "clearMapObjectRoutingType()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "71CCC568-73A7-4FB7-B8F2-2871DC64443D"
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
@@ -1295,6 +1215,38 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
+            uuid = "DD1F1680-7763-49E4-B928-335EE7EC6384"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "tourar/MapsViewLayoutController/MapsLayoutUnderSceneView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "313"
+            endingLineNumber = "313"
+            landmarkName = "clearMapObjectRoutingType()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "71CCC568-73A7-4FB7-B8F2-2871DC64443D"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "tourar/MapsViewLayoutController/MapsLayoutUnderSceneView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "312"
+            endingLineNumber = "312"
+            landmarkName = "clearMapObjectRoutingType()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
             uuid = "172B1449-7450-4626-860A-4230B7EE4611"
             shouldBeEnabled = "No"
             ignoreCount = "0"
@@ -1302,9 +1254,9 @@
             filePath = "tourar/MapsViewLayoutController/MapsLayoutSlideView+Helper/MapsLayoutSlideView+Helper.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "59"
-            endingLineNumber = "59"
-            landmarkName = "init(frame:)"
+            startingLineNumber = "72"
+            endingLineNumber = "72"
+            landmarkName = "init?(coder:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1318,8 +1270,8 @@
             filePath = "tourar/MapsViewLayoutController/MapsLayoutSlideView+Helper/MapsLayoutSlideView+Helper.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "53"
-            endingLineNumber = "53"
+            startingLineNumber = "66"
+            endingLineNumber = "66"
             landmarkName = "init(frame:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1334,8 +1286,8 @@
             filePath = "tourar/MapsViewLayoutController/MapsLayoutSlideView+Helper/MapsLayoutSlideView+Helper.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "75"
-            endingLineNumber = "75"
+            startingLineNumber = "88"
+            endingLineNumber = "88"
             landmarkName = "collectionView(_:cellForItemAt:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1350,8 +1302,8 @@
             filePath = "tourar/MapsViewLayoutController/MapsLayoutSlideView+Helper/MapsLayoutSlideView+Helper.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "54"
-            endingLineNumber = "54"
+            startingLineNumber = "67"
+            endingLineNumber = "67"
             landmarkName = "init(frame:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1446,8 +1398,8 @@
             filePath = "tourar/MapsViewLayoutController/MapsLayoutSlideView+Helper/MapsLayoutSlideView+Helper.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "77"
-            endingLineNumber = "77"
+            startingLineNumber = "90"
+            endingLineNumber = "90"
             landmarkName = "collectionView(_:cellForItemAt:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1462,8 +1414,8 @@
             filePath = "tourar/MapsViewLayoutController/MapsLayoutSlideView+Helper/MapsLayoutSlideView+Helper.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "76"
-            endingLineNumber = "76"
+            startingLineNumber = "89"
+            endingLineNumber = "89"
             landmarkName = "collectionView(_:cellForItemAt:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1478,8 +1430,8 @@
             filePath = "tourar/MapsViewLayoutController/MapsLayoutSlideView+Helper/MapsLayoutSlideView+Helper.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "79"
-            endingLineNumber = "79"
+            startingLineNumber = "92"
+            endingLineNumber = "92"
             landmarkName = "collectionView(_:cellForItemAt:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1494,8 +1446,8 @@
             filePath = "tourar/MapsViewLayoutController/MapsLayoutSlideView+Helper/MapsLayoutSlideView+Helper.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "78"
-            endingLineNumber = "78"
+            startingLineNumber = "91"
+            endingLineNumber = "91"
             landmarkName = "collectionView(_:cellForItemAt:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1776,14 +1728,14 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "C7884F94-74EA-422E-A5E8-E423A4E78E12"
-            shouldBeEnabled = "No"
+            shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "tourar/MapsViewLayoutController/MapsLayoutTappedPoit+HelperInderScene/MapsLayoutTappedObject+HelperUnderViewScene.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "254"
-            endingLineNumber = "254"
+            startingLineNumber = "313"
+            endingLineNumber = "313"
             landmarkName = "sheetPresentationControllerDidChangeSelectedDetentIdentifier(_:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1798,8 +1750,8 @@
             filePath = "tourar/MapsViewLayoutController/MapsLayoutTappedPoit+HelperInderScene/MapsLayoutTappedObject+HelperUnderViewScene.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "253"
-            endingLineNumber = "253"
+            startingLineNumber = "312"
+            endingLineNumber = "312"
             landmarkName = "sheetPresentationControllerDidChangeSelectedDetentIdentifier(_:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1814,8 +1766,8 @@
             filePath = "tourar/MapsViewLayoutController/MapsLayoutTappedPoit+HelperInderScene/MapsLayoutTappedObject+HelperUnderViewScene.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "215"
-            endingLineNumber = "215"
+            startingLineNumber = "264"
+            endingLineNumber = "264"
             landmarkName = "fullViewInfo()"
             landmarkType = "7">
          </BreakpointContent>
@@ -1830,24 +1782,8 @@
             filePath = "tourar/MapsViewLayoutController/MapsLayoutTappedPoit+HelperInderScene/MapsLayoutTappedObject+HelperUnderViewScene.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "214"
-            endingLineNumber = "214"
-            landmarkName = "fullViewInfo()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "E4B1079F-A9EF-4DFF-86A5-1DB330DEDCEE"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "tourar/MapsViewLayoutController/MapsLayoutTappedPoit+HelperInderScene/MapsLayoutTappedObject+HelperUnderViewScene.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "226"
-            endingLineNumber = "226"
+            startingLineNumber = "262"
+            endingLineNumber = "262"
             landmarkName = "fullViewInfo()"
             landmarkType = "7">
          </BreakpointContent>
@@ -1862,8 +1798,8 @@
             filePath = "tourar/MapsViewLayoutController/MapsLayoutTappedPoit+HelperInderScene/MapsLayoutTappedObject+HelperUnderViewScene.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "227"
-            endingLineNumber = "227"
+            startingLineNumber = "284"
+            endingLineNumber = "284"
             landmarkName = "fullViewInfo()"
             landmarkType = "7">
          </BreakpointContent>
@@ -1878,8 +1814,8 @@
             filePath = "tourar/MapsViewLayoutController/MapsLayoutTappedPoit+HelperInderScene/MapsLayoutTappedObject+HelperUnderViewScene.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "228"
-            endingLineNumber = "228"
+            startingLineNumber = "285"
+            endingLineNumber = "285"
             landmarkName = "fullViewInfo()"
             landmarkType = "7">
          </BreakpointContent>
@@ -1894,9 +1830,9 @@
             filePath = "tourar/MapsViewLayoutController/MapsLayoutTappedPoit+HelperInderScene/MapsLayoutTappedObject+HelperUnderViewScene.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "211"
-            endingLineNumber = "211"
-            landmarkName = "appenPointToRoute()"
+            startingLineNumber = "259"
+            endingLineNumber = "259"
+            landmarkName = "appenPointToRoute(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -2506,6 +2442,310 @@
             endingLineNumber = "313"
             landmarkName = "fetchAudioGuidePoiLocal(uuid:uuidProvide:uuidAudio:)"
             landmarkType = "9">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "589324DE-A7D0-44E0-A9D4-37EB8A9BC0B2"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "tourar/MapsViewLayoutController/MapsLayoutTappedPoit+HelperInderScene/MapsLayoutTappedObject+HelperUnderViewScene.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "194"
+            endingLineNumber = "194"
+            landmarkName = "selectedObjectSheetPresent(textTitleValue:descriptionValue:pointAdditional:imageValue:audioValue:group_1:group_2:group_3:controller:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "CE211B44-B4AE-4F09-B9F1-611330852693"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "tourar/MapsViewLayoutController/MapsLayoutTappedPoit+HelperInderScene/MapsLayoutTappedObject+HelperUnderViewScene.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "203"
+            endingLineNumber = "203"
+            landmarkName = "selectedObjectSheetPresent(textTitleValue:descriptionValue:pointAdditional:imageValue:audioValue:group_1:group_2:group_3:controller:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "24916C42-8E06-4459-9D97-F10EB8B54603"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "tourar/MapsViewLayoutController/MapsLayoutUnderSceneView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "527"
+            endingLineNumber = "527"
+            landmarkName = "onMapCurrentPointIsAppend(currentPoint:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "D9D67ADB-282B-4C22-8550-6A8BA2C33454"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "tourar/MapsViewLayoutController/MapsLayoutUnderSceneView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "528"
+            endingLineNumber = "528"
+            landmarkName = "onMapCurrentPointIsAppend(currentPoint:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "6188D959-F164-49FD-97D6-40B8ED04B42F"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "tourar/MapsViewLayoutController/MapsLayoutUnderSceneView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "530"
+            endingLineNumber = "530"
+            landmarkName = "onMapCurrentPointIsAppend(currentPoint:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "4294389B-5CE2-4BD8-B887-6C8F540C5B98"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "tourar/MapsViewLayoutController/MapsLayoutUnderSceneView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "531"
+            endingLineNumber = "531"
+            landmarkName = "onMapCurrentPointIsAppend(currentPoint:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "21A0D66D-59CF-4BDE-A286-3C90C118EA80"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "tourar/MapsViewLayoutController/MapsLayoutTappedPoit+HelperInderScene/MapsLayoutTappedObject+HelperUnderViewScene.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "191"
+            endingLineNumber = "191"
+            landmarkName = "selectedObjectSheetPresent(textTitleValue:descriptionValue:pointAdditional:imageValue:audioValue:group_1:group_2:group_3:controller:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "DAC28475-F1BB-4810-B21D-2949E095248B"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "tourar/MapsViewLayoutController/MapsLayoutTappedPoit+HelperInderScene/MapsLayoutTappedObject+HelperUnderViewScene.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "47"
+            endingLineNumber = "47"
+            landmarkName = "selectedObjectSheetPresent(textTitleValue:descriptionValue:pointAdditional:imageValue:audioValue:group_1:group_2:group_3:controller:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "6EBCFB5B-A1F6-4BF7-9FE8-438B576DB3FA"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "tourar/MapsViewLayoutController/MapsLayoutTappedPoit+HelperInderScene/MapsLayoutTappedObject+HelperUnderViewScene.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "45"
+            endingLineNumber = "45"
+            landmarkName = "selectedObjectSheetPresent(textTitleValue:descriptionValue:pointAdditional:imageValue:audioValue:group_1:group_2:group_3:controller:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "30F24C4C-A13A-4FCC-882B-5188DA4CFE43"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "tourar/MapsViewLayoutController/MapsLayoutUnderSceneView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "532"
+            endingLineNumber = "532"
+            landmarkName = "onMapCurrentPointIsAppend(currentPoint:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "0ADC3604-40BF-4177-AA75-FEE4C0092C8B"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "tourar/MapsViewLayoutController/MapsLayoutTappedPoit+HelperInderScene/MapsLayoutTappedObject+HelperUnderViewScene.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "244"
+            endingLineNumber = "244"
+            landmarkName = "appenPointToRoute(_:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "C698521A-E8AF-4A4B-A501-CF812393BCAB"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "tourar/MapsViewLayoutController/MapsLayoutUnderSceneView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "507"
+            endingLineNumber = "507"
+            landmarkName = "onMapAddRoutePoint(appenPoint:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "14C543C6-92E7-4812-AEBA-C4323D23FA7C"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "tourar/MapsViewLayoutController/MapsLayoutUnderSceneView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "526"
+            endingLineNumber = "526"
+            landmarkName = "onMapCurrentPointIsAppend(currentPoint:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "99D25E6F-282B-4E65-8478-7431AAE33EED"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "tourar/MapsViewLayoutController/MapsLayoutSlideView+Helper/MapsLayoutSlideView+Helper.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "32"
+            endingLineNumber = "32"
+            landmarkName = "didReceiveMemoryWarning()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "151DF666-F21F-431F-BEC8-6B19A3BABE62"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "tourar/MapsViewLayoutController/MapsLayoutSlideView+Helper/MapsLayoutSlideView+Helper.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "35"
+            endingLineNumber = "35"
+            landmarkName = "didReceiveMemoryWarning()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "3B9D73F0-C36D-42C3-87B1-ABCF4DBA142E"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "tourar/MapsViewLayoutController/MapsLayoutTappedPoit+HelperInderScene/MapsLayoutTappedObject+HelperUnderViewScene.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "163"
+            endingLineNumber = "163"
+            landmarkName = "selectedObjectSheetPresent(textTitleValue:descriptionValue:pointAdditional:imageValue:audioValue:group_1:group_2:group_3:controller:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "E00AB94C-164B-433B-8AF1-F75043883880"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "tourar/MapsViewLayoutController/MapsLayoutTappedPoit+HelperInderScene/MapsLayoutTappedObject+HelperUnderViewScene.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "162"
+            endingLineNumber = "162"
+            landmarkName = "selectedObjectSheetPresent(textTitleValue:descriptionValue:pointAdditional:imageValue:audioValue:group_1:group_2:group_3:controller:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "F95D0554-AD05-4901-BD87-4C143F5BBFD1"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "tourar/MapsViewLayoutController/MapsLayoutTappedPoit+HelperInderScene/MapsLayoutTappedObject+HelperUnderViewScene.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "161"
+            endingLineNumber = "161"
+            landmarkName = "selectedObjectSheetPresent(textTitleValue:descriptionValue:pointAdditional:imageValue:audioValue:group_1:group_2:group_3:controller:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "E82E1C71-4CBA-4A5E-BD67-FB543B59DA61"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "tourar/MapsViewLayoutController/MapsLayoutSlideView+Helper/MapsLayoutSlideView+Helper.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "39"
+            endingLineNumber = "39"
+            landmarkName = "viewDidDisappear(_:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>
