@@ -158,8 +158,6 @@ class MapsLayoutUnderSceneView: UIViewController, YMKLayersGeoObjectTapListener,
         }
         // setup connection webSocket
         setupConnection()
-        fetchAllDataPoint(cityName: "Noginsk")
-        //
         if ( isConnected )
         {
             checkRemoteServer.text = "server connected"

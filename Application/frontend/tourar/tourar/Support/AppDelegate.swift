@@ -40,6 +40,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
          * you should also explicitly call YMKMapKit.sharedInstance().onStart()
          */
         YMKMapKit.sharedInstance()
+        // preload data
+        fetchAllDataPoint(cityName: "Noginsk")
         
         guard ARWorldTrackingConfiguration.isSupported else {
             fatalError("""

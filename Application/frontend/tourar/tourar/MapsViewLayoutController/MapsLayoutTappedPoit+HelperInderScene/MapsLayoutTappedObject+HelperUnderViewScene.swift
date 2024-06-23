@@ -14,7 +14,8 @@ class MapsLayoutTappedObject : NSObject, YMKMapObjectTapListener {
     // set controoller for request controller datat from tapped object
     private weak var controller: MapsLayoutUnderSceneView?
     let sheetController = SheetControllUnderCollectionView()
-
+    
+    var textHeader : UITextField!
     
     init(controller: MapsLayoutUnderSceneView) {
         self.controller = controller
@@ -65,6 +66,23 @@ class MapsLayoutTappedObject : NSObject, YMKMapObjectTapListener {
             marker.centerX.equalToSuperview()
         }
         //
+        //
+        textHeader = UITextField()
+        textHeader.adjustsFontSizeToFitWidth = true
+        textHeader.adjustsFontForContentSizeCategory = true
+        textHeader.text = textTitleValue
+        textHeader.font = UIFont(name: "Helvetica", size: 20)
+        textHeader.font = UIFont.boldSystemFont(ofSize: 25)
+        textHeader.textColor = #colorLiteral(red: 0.1960784314, green: 0.1960784314, blue: 0.1960784314, alpha: 1)
+        
+        sheetController.view.addSubview(textHeader)
+        textHeader.snp.makeConstraints { (marker) in
+            marker.bottomMargin.equalToSuperview().inset(50 + 10 + 10 + 100 )
+            marker.left.right.equalToSuperview().inset(10)
+            marker.centerX.equalToSuperview()
+        }
+        textHeader.isHidden = true
+        //
         var buttonOpenInfo = UIButton()
         buttonOpenInfo.setImage(imageValue, for: .normal)
         buttonOpenInfo.imageView?.layer.cornerRadius = 10
@@ -75,12 +93,12 @@ class MapsLayoutTappedObject : NSObject, YMKMapObjectTapListener {
         sheetController.view.addSubview(buttonOpenInfo)
         buttonOpenInfo.snp.makeConstraints { (marker) in
             marker.topMargin.equalTo(textTitle).inset(textTitle.bounds.height + 40)
-            marker.bottom.equalToSuperview().inset(50 + 10 + 10 )
+            marker.bottomMargin.equalToSuperview().inset(50 + 10 + 10 + textHeader.bounds.height + 10 )
             marker.centerX.equalToSuperview()
             marker.left.right.equalToSuperview().inset(10)
         }
         buttonOpenInfo.addTarget(self, action: #selector(fullViewInfo), for: .touchUpInside)
-
+        
         //
         /*var poiImage = UIImageView(image: imageValue)
         sheetController.view.addSubview(poiImage)
@@ -132,9 +150,17 @@ class MapsLayoutTappedObject : NSObject, YMKMapObjectTapListener {
     {
         if let sheetController = sheetController.sheetPresentationController {
             sheetController.animateChanges {
-                sheetController.selectedDetentIdentifier = .large
+                if ( sheetPresentationControllerDidChangeSelectedDetentIdentifier(sheetController) == .medium )
+                {
+                    sheetController.selectedDetentIdentifier = .large
+                    textHeader.isHidden = false
+                }
+                else
+                {
+                    sheetController.selectedDetentIdentifier = .medium
+                    textHeader.isHidden = true
+                }
             }
-            sheetPresentationControllerDidChangeSelectedDetentIdentifier(sheetController)
         }
      else {}
     }
@@ -152,7 +178,7 @@ class MapsLayoutTappedObject : NSObject, YMKMapObjectTapListener {
 }
 
 extension MapsLayoutTappedObject: UISheetPresentationControllerDelegate {
-    func sheetPresentationControllerDidChangeSelectedDetentIdentifier(_ sheetPresentationController: UISheetPresentationController) {
-        print(sheetPresentationController.selectedDetentIdentifier == .large ? "large" : "medium")
+    func sheetPresentationControllerDidChangeSelectedDetentIdentifier(_ sheetPresentationController: UISheetPresentationController) -> UISheetPresentationController.Detent.Identifier?{
+        return sheetPresentationController.selectedDetentIdentifier
     }
 }

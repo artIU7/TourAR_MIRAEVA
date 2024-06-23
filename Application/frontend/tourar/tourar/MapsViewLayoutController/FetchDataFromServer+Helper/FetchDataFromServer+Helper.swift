@@ -123,7 +123,9 @@ func fetchAllDataPoint(cityName : String)
                         {
                             if ( categoryPoi == "walk")
                             {
-                                fetchObjectPoi(uuid: itemJson["uuid"] as! String)
+                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                                    fetchObjectPoi(uuid: itemJson["uuid"] as! String)
+                                }
                             }
                         }
                     }
@@ -132,10 +134,9 @@ func fetchAllDataPoint(cityName : String)
         } catch {
         print(error)
         }
-        //
     }.resume()
     print("Load DATA_fetchAllData :: Finish")
-    if ( sessionLoadFullData.dataTask(with: url).state == .completed )
+    if ( sessionLoadFullData.dataTask(with: url).state != .canceling && sessionLoadFullData.dataTask(with: url).state != .running)
     {
         isSuspendSessionLoadFullData = true
     }
@@ -182,14 +183,13 @@ func fetchObjectPoi(uuid : String)
         } catch {
         print(error)
         }
-        //
-        if ( sessionLoadObjectPoi.dataTask(with: url).state == .completed )
-        {
-            isSuspendSessionLoadObjectPoi = true
-        }
     }.resume()
    
     print("Load DATA_fetchObjectPoi :: Finish")
+    if ( sessionLoadObjectPoi.dataTask(with: url).state != .canceling && sessionLoadObjectPoi.dataTask(with: url).state != .running)
+    {
+        isSuspendSessionLoadObjectPoi = true
+    }
 }
 func fetchGetLocalPoi(uuid : String)
 {
@@ -271,13 +271,12 @@ func fetchGetLocalPoi(uuid : String)
         } catch {
         print(error)
         }
-        //
-        if ( sessionLoadLocalPoint.dataTask(with: url).state == .completed )
-        {
-            isSuspendsessionLoadLocalPoint = true
-        }
     }.resume()
     print("Load DATA_fetchLocalPoi :: Finish")
+    if ( sessionLoadLocalPoint.dataTask(with: url).state != .canceling && sessionLoadLocalPoint.dataTask(with: url).state != .running)
+    {
+        isSuspendsessionLoadLocalPoint = true
+    }
 }
 
 func fetchAudioGuidePoiLocal( uuid : String, uuidProvide : String, uuidAudio : String)
@@ -316,12 +315,12 @@ func fetchImagePoiLocal( uuid : String, uuidProvide : String, uuidImage : String
             fetchDataImagesPoi[uuid] = imagePoi
         }
         //
-        if ( sessionLoadImage.dataTask(with: url).state == .completed )
-        {
-            isSuspendSessionLoadImage = true
-        }
     }.resume()
-    print("URLSession_fetchLocalPoi :: Start")
+    print("URLSession_fetchLocalPoi :: Finiosh")
+    if ( sessionLoadImage.dataTask(with: url).state != .canceling && sessionLoadImage.dataTask(with: url).state != .running)
+    {
+        isSuspendSessionLoadImage = true
+    }
 }
 func stateSessionComplete()->Bool
 {
