@@ -26,53 +26,37 @@ class WelcomeViewController: UIViewController {
         self.configLayout()
     }
     func configLayout() {
-        view.backgroundColor = #colorLiteral(red: 0.3759136491, green: 0.6231091984, blue: 0.6783652551, alpha: 1)
+        view.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
         // заголовок экрана приветсвия
-        let titleScreenLeft = UILabel()
-        titleScreenLeft.numberOfLines = 0
-        titleScreenLeft.text = "tour"
-        titleScreenLeft.font = UIFont(name: "Copperplate", size: 30)
-        titleScreenLeft.textColor = UIColor.white
-        //
-        view.addSubview(titleScreenLeft)
-        titleScreenLeft.snp.makeConstraints { (marker) in
+        var labelImage = UIImageView(image: UIImage(named: "n_logo"))
+        view.addSubview(labelImage)
+        labelImage.snp.makeConstraints { (marker) in
+            marker.top.equalToSuperview().inset(150)
             marker.centerX.equalToSuperview()
-            marker.top.equalToSuperview().inset(80)
+            marker.width.equalTo(140)
+            marker.height.equalTo(100)
         }
-        let titleScreenRight = UILabel()
-        titleScreenRight.numberOfLines = 0
-        titleScreenRight.text = "AR"
-        titleScreenRight.font = UIFont(name: "Copperplate", size: 30)
-        titleScreenRight.textColor =  #colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)
-        //
-        view.addSubview(titleScreenRight)
-        titleScreenRight.snp.makeConstraints { (marker) in
-            marker.centerX.equalToSuperview()
-            marker.top.equalTo(titleScreenLeft.snp.bottom)
-        }
-        //
-        //
-
         // add scene view screen
         view.addSubview(sceneView)
         self.sceneView.snp.makeConstraints { (marker) in
-            marker.top.equalTo(titleScreenLeft).inset(100)
+            marker.top.equalTo(labelImage).inset(100)
             marker.left.right.equalTo(self.view).inset(40)
             marker.bottom.equalTo(self.view).inset(100)
         }
         // button continie
         let startTour = UIButton(type: .system)
-        startTour.backgroundColor = #colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)
+        startTour.backgroundColor = #colorLiteral(red: 0.1960784314, green: 0.1960784314, blue: 0.1960784314, alpha: 1)
         startTour.setTitle("Продолжить", for: .normal)
         startTour.setTitleColor(.white, for: .normal)
-        startTour.layer.cornerRadius = 15
+        startTour.layer.cornerRadius = 10
+        startTour.titleLabel?.font = UIFont.systemFont(ofSize: 15, weight: .bold)
 
         view.addSubview(startTour)
         startTour.snp.makeConstraints { (marker) in
             marker.bottom.equalToSuperview().inset(20)
             marker.centerX.equalToSuperview()
-            marker.width.equalTo(200)
-            marker.height.equalTo(40)
+            marker.left.right.equalToSuperview().inset(10)
+            marker.height.equalTo(50)
         }
         startTour.addTarget(self, action: #selector(viewTours), for: .touchUpInside)
 

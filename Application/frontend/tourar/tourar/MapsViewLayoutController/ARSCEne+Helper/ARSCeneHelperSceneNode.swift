@@ -144,4 +144,51 @@ extension ARSceneViewRouteController {
             print("Init : add object - build") // Focusw
     }
     
+    func createPointOnObjectDetection(_ text : String) -> SCNNode {
+        
+        // TEXT BILLBOARD CONSTRAINT
+        let billboardConstraint = SCNBillboardConstraint()
+        billboardConstraint.freeAxes = SCNBillboardAxis.Y
+        
+        // BUBBLE-TEXT
+        let pointOnObject = SCNText(string: text, extrusionDepth: CGFloat(pointOnObjectDepth))
+        var font = UIFont(name: "Futura", size: 0.15)
+        font = font?.withTraits(traits: .traitBold)
+        pointOnObject.font = font
+        pointOnObject.alignmentMode = CATextLayerAlignmentMode.center.rawValue
+        pointOnObject.firstMaterial?.diffuse.contents = UIColor.orange
+        pointOnObject.firstMaterial?.specular.contents = UIColor.white
+        pointOnObject.firstMaterial?.isDoubleSided = true
+        // bubble.flatness // setting this too low can cause crashes.
+        pointOnObject.chamferRadius = CGFloat(pointOnObjectDepth)
+        
+        // BUBBLE NODE
+        let (minBound, maxBound) = pointOnObject.boundingBox
+        let pointOnObjectNode = SCNNode(geometry: pointOnObject)
+        // Centre Node - to Centre-Bottom point
+        pointOnObjectNode.pivot = SCNMatrix4MakeTranslation( (maxBound.x - minBound.x)/2, minBound.y, Float(pointOnObjectDepth)/2)
+        // Reduce default text size
+        pointOnObjectNode.scale = SCNVector3Make(0.2, 0.2, 0.2)
+        
+        // CENTRE POINT NODE
+        let sphere = SCNSphere(radius: 0.005)
+        sphere.firstMaterial?.diffuse.contents = UIColor.cyan
+        let sphereNode = SCNNode(geometry: sphere)
+        
+        // BUBBLE PARENT NODE
+        let pointOnObjectNodeParent = SCNNode()
+        pointOnObjectNodeParent.addChildNode(pointOnObjectNode)
+        pointOnObjectNodeParent.addChildNode(sphereNode)
+        pointOnObjectNodeParent.constraints = [billboardConstraint]
+        
+        return pointOnObjectNodeParent
+    }
+    
+}
+extension UIFont {
+    // Based on: https://stackoverflow.com/questions/4713236/how-do-i-set-bold-and-italic-on-uilabel-of-iphone-ipad
+    func withTraits(traits:UIFontDescriptor.SymbolicTraits...) -> UIFont {
+        let descriptor = self.fontDescriptor.withSymbolicTraits(UIFontDescriptor.SymbolicTraits(traits))
+        return UIFont(descriptor: descriptor!, size: 0)
+    }
 }

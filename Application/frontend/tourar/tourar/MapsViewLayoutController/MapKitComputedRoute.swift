@@ -11,17 +11,15 @@ import YandexMapsMobile
 import CoreLocation
 
 extension MapsLayoutUnderSceneView{
-    // computed roiting for car
-    func callRoutingResponse()
+    // computed roiting - Driving Type
+    func callDrivingRoutingResponse()
     {
-        let requestPoints : [YMKRequestPoint] = [
-            YMKRequestPoint(point: ROUTE_START_POINT, type: .waypoint, pointContext: nil),
-            YMKRequestPoint(point: ROUTE_END_POINT, type: .waypoint, pointContext: nil),
-            ]
-        
+        if ( requestPoints.isEmpty ) {
+            return
+        }
         let responseHandler = {(routesResponse: [YMKDrivingRoute]?, error: Error?) -> Void in
             if let routes = routesResponse {
-                self.onRoutesReceived(routes)
+                self.onDrivingRoutesReceived(routes)
             } else {
                 self.onRoutesError(error!)
             }
@@ -35,87 +33,62 @@ extension MapsLayoutUnderSceneView{
             routeHandler: responseHandler)
     }
     // user routing method
-    func onRoutesReceived(_ routes: [YMKDrivingRoute]) {
-        var multiRoute = 0
+    func onDrivingRoutesReceived(_ routes: [YMKDrivingRoute]) {
         let mapObjects = mapView.mapWindow.map.mapObjects
-        //mapObjects.clear()
+        //
         routePoint.removeAll()
         routeLine.removeAll()
         removePrepareNodeRoute()
-        print("Count Route:\(routes.count)")
-        var numberRoute : Int = 0
-        switch(multiRoute) {
-            case 0:
-            // one route
-            let polyTest = mapObjects.addPolyline(with: routes.first!.geometry)
-            print("Count Points:\(routes.first?.geometry.points.count)")
-            var index = 0
-            var n_point = routes.first!.geometry.points.last
-            //for point_ in routes.first!.geometry.points
-            //{
-            //    addRoutePointScene(index : index, rPoint : point_)
-            //    index += 1
-            //}
-            addRoutePointScene(index: 1, rPoint: n_point!)
-            /*
-            // add line from point's
-            if (self.routePoint.count != 0 )
-            {
-                for i in 0...self.routePoint.count - 2
-                {
-                    self.lineNode(self.routePoint[i+0].routeNode.position,
-                                  self.routePoint[i+1].routeNode.position,
-                                  i,
-                                  i+1)
-                }
-            }
-            */
-            polyTest.strokeWidth = 5
-            polyTest.gapLength   = 5
-            polyTest.dashOffset  = 6
-            polyTest.dashLength  = 7
-            case 1:
-            // any routes
-            // get route geometry for building polyline and scene point route
-            for route in routes {
-                let polyTest = mapObjects.addPolyline(with: route.geometry)
-                var index = 0
-                print("Count Points:\(route.geometry.points.count)")
-                for point_ in route.geometry.points
-                {
-                    locationsPointAR.append(CLLocation(latitude: point_.latitude, longitude: point_.longitude))
-                    addRoutePointScene(index : index, rPoint : point_)
-                    index += 1
-                }
-                polyTest.strokeWidth = 5
-                polyTest.gapLength   = 5
-                polyTest.dashOffset  = 6
-                polyTest.dashLength  = 7
-                switch(numberRoute){
-                case 0:
-                    polyTest.outlineColor = UIColor.black
-                    polyTest.setStrokeColorWith(UIColor.red)
-                case 1:
-                    polyTest.outlineColor = UIColor.black
-                    polyTest.setStrokeColorWith(UIColor.green)
-                case 2:
-                    polyTest.outlineColor = UIColor.black
-                    polyTest.setStrokeColorWith(UIColor.blue)
-                case 3:
-                    polyTest.outlineColor = UIColor.black
-                    polyTest.setStrokeColorWith(UIColor.purple)
-                default:
-                    polyTest.outlineColor = UIColor.black
-                    polyTest.setStrokeColorWith(UIColor.orange)
-                }
-                numberRoute += 1
-            }
-            default:
-            print("not routes")
+        //
+        let route = routes.first
+        polyLineObjectDrivingRouter = mapObjects.addPolyline(with: route!.geometry)
+        polyLineObjectDrivingRouter!.strokeWidth = 5
+        polyLineObjectDrivingRouter!.gapLength   = 5
+        var index = 0
+        for point_ in route!.geometry.points {
+            locationsPointAR.append(CLLocation(latitude: point_.latitude, longitude: point_.longitude))
+            //addRoutePointScene(index : index, rPoint : point_)
+            index += 1
         }
-        mapObjects.traverse(with: self)
     }
+    // computed roiting - Pedestrian Type
+    func callPedestrianRoutingResponse() {
+      if ( requestPoints.isEmpty ) {
+          return
+      }
+      let pedestrianRouter = YMKTransport.sharedInstance().createPedestrianRouter()
+              pedestrianSession = pedestrianRouter.requestRoutes(with: requestPoints,
+                                                                 timeOptions: YMKTimeOptions(),
+              routeHandler: { (routesResponse : [YMKMasstransitRoute]?, error :Error?) in
+               if let routes = routesResponse {
+                  self.onPedestrianRoutesReceived(routes)
+               } else {
+                   self.onRoutesError(error!)
+              }
+          })
+      }
     
+    func onPedestrianRoutesReceived(_ routes: [YMKMasstransitRoute]) {
+        let mapObjects = mapView.mapWindow.map.mapObjects
+        //
+        routePoint.removeAll()
+        routeLine.removeAll()
+        removePrepareNodeRoute()
+        //
+        var route = routes.first
+        polyLineObjectPedestrianRoute = mapObjects.addPolyline(with: route!.geometry)
+        polyLineObjectPedestrianRoute!.strokeWidth = 5
+        polyLineObjectPedestrianRoute!.gapLength   = 5
+        polyLineObjectPedestrianRoute!.dashOffset  = 6
+        polyLineObjectPedestrianRoute!.dashLength  = 7
+        var index = 0
+        for point_ in route!.geometry.points {
+            locationsPointAR.append(CLLocation(latitude: point_.latitude, longitude: point_.longitude))
+            //addRoutePointScene(index : index, rPoint : point_)
+            index += 1
+        }
+    }
+    // Event Error Response Build Route / ALL Type
     func onRoutesError(_ error: Error) {
         let routingError = (error as NSError).userInfo[YRTUnderlyingErrorKey] as! YRTError
         var errorMessage = "Unknown error"
@@ -124,39 +97,8 @@ extension MapsLayoutUnderSceneView{
         } else if routingError.isKind(of: YRTRemoteError.self) {
             errorMessage = "Remote server error"
         }
-        
         let alert = UIAlertController(title: "Error", message: errorMessage, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-        
         present(alert, animated: true, completion: nil)
     }
-    // pedistrain type
-    func computedRoute() {
-      let requestPoints : [YMKRequestPoint] = [
-          YMKRequestPoint(point: ROUTE_START_POINT, type: .waypoint, pointContext: nil),
-          YMKRequestPoint(point: ROUTE_END_POINT, type: .waypoint, pointContext: nil),
-          ]
-      let pedestrianRouter = YMKTransport.sharedInstance().createPedestrianRouter()
-              pedestrianSession = pedestrianRouter.requestRoutes(with: requestPoints,
-                                                                 timeOptions: YMKTimeOptions(),
-              routeHandler: { (routesResponse : [YMKMasstransitRoute]?, error :Error?) in
-               if let routes = routesResponse {
-                  print("route pedestrian \(routes.count)")
-                  self.onRoutesPedestrian(routes)
-               } else {
-                  print("errr")
-              }
-          })
-      }
-    
-    func onRoutesPedestrian(_ routes: [YMKMasstransitRoute]) {
-        let mapObjects = mapView.mapWindow.map.mapObjects
-        for route in routes {
-            mapObjects.addPolyline(with: route.geometry)
-            for point in route.geometry.points {
-                locationsPointAR.append(CLLocation(latitude: point.latitude, longitude: point.longitude))
-            }
-        }
-    }
-    
 }

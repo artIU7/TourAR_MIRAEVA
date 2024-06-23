@@ -10,6 +10,8 @@ import ARKit
 import Vision
 import SceneKit
 import CoreLocation
+import AVFoundation
+
 
 var lastMLClassificationOrDetectionObject = ""
 var locationsPointAR: [CLLocation] = []
@@ -46,6 +48,15 @@ public func voiceHelperUI(textSpeech : String)
 
 class ARSceneViewRouteController: UIViewController, UIGestureRecognizerDelegate, ARSessionDelegate {
     
+    //
+    let pointOnObjectDepth = 0.01 // the 'depth' of 3D text
+    var latestPrediction : String = "…" // a variable containing the latest CoreML prediction
+
+    //
+    var rootLayer: CALayer! = nil
+    //
+    private var detectionOverlay: CALayer! = nil
+
     var sceneView = ARSCNView()
     let arButtonClose = UIButton(type: .system)
     let routeShow     = UIButton(type: .system)
@@ -84,6 +95,45 @@ class ARSceneViewRouteController: UIViewController, UIGestureRecognizerDelegate,
             return _yolo3Model
         }
     }
+    //
+    func createTextSubLayerInBounds(_ bounds: CGRect, identifier: String, confidence: VNConfidence) -> CATextLayer {
+        let textLayer = CATextLayer()
+        textLayer.name = "Object Label"
+        let formattedString = NSMutableAttributedString(string: String(format: "\(identifier)\nConfidence:  %.2f", confidence))
+        let largeFont = UIFont(name: "Helvetica", size: 24.0)!
+        formattedString.addAttributes([NSAttributedString.Key.font: largeFont], range: NSRange(location: 0, length: identifier.count))
+        textLayer.string = formattedString
+        textLayer.bounds = CGRect(x: 0, y: 0, width: bounds.size.height - 10, height: bounds.size.width - 10)
+        textLayer.position = CGPoint(x: bounds.midX, y: bounds.midY)
+        textLayer.shadowOpacity = 0.7
+        textLayer.shadowOffset = CGSize(width: 2, height: 2)
+        textLayer.foregroundColor = CGColor(colorSpace: CGColorSpaceCreateDeviceRGB(), components: [0.0, 0.0, 0.0, 1.0])
+        textLayer.contentsScale = 2.0 // retina rendering
+        // rotate the layer into screen orientation and scale and mirror
+        textLayer.setAffineTransform(CGAffineTransform(rotationAngle: CGFloat(.pi / 2.0)).scaledBy(x: 1.0, y: -1.0))
+        return textLayer
+    }
+    
+    func createRoundedRectLayerWithBounds(_ bounds: CGRect) -> CALayer {
+        let shapeLayer = CALayer()
+        shapeLayer.bounds = bounds
+        shapeLayer.position = CGPoint(x: bounds.midX, y: bounds.midY)
+        shapeLayer.name = "Found Object"
+        shapeLayer.backgroundColor = CGColor(colorSpace: CGColorSpaceCreateDeviceRGB(), components: [1.0, 1.0, 0.2, 0.4])
+        shapeLayer.cornerRadius = 7
+        return shapeLayer
+    }
+    //
+    func setupLayers() {
+        detectionOverlay = CALayer() // container layer that has all the renderings of the observations
+        detectionOverlay.name = "DetectionOverlay"
+        detectionOverlay.bounds = CGRect(x: 0.0,
+                                         y: 0.0,
+                                         width: self.view.bounds.width,
+                                         height: self.view.bounds.height)
+        detectionOverlay.position = CGPoint(x: rootLayer.bounds.midX, y: rootLayer.bounds.midY)
+        rootLayer.addSublayer(detectionOverlay)
+    }
     // MARK: - View controller lifecycle
     
     override func viewDidLoad() {
@@ -98,13 +148,15 @@ class ARSceneViewRouteController: UIViewController, UIGestureRecognizerDelegate,
             marker.top.bottom.equalToSuperview().inset(0)
             marker.left.right.equalToSuperview().inset(0)
         }
+        rootLayer = self.view.layer
         // type routing
         let itemsSegment = ["Классификация","Детектирование"]
         var typeMLModelUse = UISegmentedControl(items: itemsSegment)
+        typeMLModelUse.setTitleTextAttributes([NSAttributedString.Key.font: UIFont.preferredFont(forTextStyle: .headline)], for: .selected)
         typeMLModelUse.selectedSegmentIndex = 0
         typeMLModelUse.layer.cornerRadius = 5.0
-        typeMLModelUse.tintColor = #colorLiteral(red: 0.2392156869, green: 0.6745098233, blue: 0.9686274529, alpha: 1)
-        typeMLModelUse.backgroundColor = #colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)
+        typeMLModelUse.tintColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+        typeMLModelUse.backgroundColor = #colorLiteral(red: 0.1960784314, green: 0.1960784314, blue: 0.1960784314, alpha: 1)
         typeMLModelUse.addTarget(self, action: #selector(self.changeTypeMLModelUse), for: .valueChanged)
         view.addSubview(typeMLModelUse)
         typeMLModelUse.snp.makeConstraints { (marker) in
@@ -114,7 +166,7 @@ class ARSceneViewRouteController: UIViewController, UIGestureRecognizerDelegate,
             marker.left.right.equalToSuperview().inset(40)
         }
         // ar close
-        arButtonClose.backgroundColor = #colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)
+        arButtonClose.backgroundColor = #colorLiteral(red: 0.1960784314, green: 0.1960784314, blue: 0.1960784314, alpha: 1)
         arButtonClose.setTitleColor(.white, for: .normal)
         arButtonClose.setTitle("X", for: .normal)
         arButtonClose.layer.cornerRadius = 15
@@ -129,7 +181,7 @@ class ARSceneViewRouteController: UIViewController, UIGestureRecognizerDelegate,
         arButtonClose.addTarget(self, action: #selector(closeARViewScene), for: .touchUpInside)
         
         // route show
-        routeShow.backgroundColor = #colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)
+        routeShow.backgroundColor = #colorLiteral(red: 0.1960784314, green: 0.1960784314, blue: 0.1960784314, alpha: 1)
         routeShow.setTitleColor(.white, for: .normal)
         routeShow.setTitle("Маршрут", for: .normal)
         routeShow.layer.cornerRadius = 15
@@ -146,8 +198,38 @@ class ARSceneViewRouteController: UIViewController, UIGestureRecognizerDelegate,
         self.restartSession()
         
         drawARRoute()
-        
+        //
+        setupLayers()
+        updateLayerGeometry()
+        //
+        /*
+        // Tap Gesture Recognizer
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.handleTap(gestureRecognize:)))
+        view.addGestureRecognizer(tapGesture)
+        */
+
     }
+    // MARK: - Interaction
+    
+    func setAnchorObjectDetection() {
+        // HIT TEST : REAL WORLD
+        // Get Screen Centre
+        let screenCentre : CGPoint = CGPoint(x: self.sceneView.bounds.midX, y: self.sceneView.bounds.midY)
+        
+        let arHitTestResults : [ARHitTestResult] = sceneView.hitTest(screenCentre, types: [.featurePoint]) // Alternatively, we could use '.existingPlaneUsingExtent' for more grounded hit-test-points.
+        
+        if let closestResult = arHitTestResults.first {
+            // Get Coordinates of HitTest
+            let transform : matrix_float4x4 = closestResult.worldTransform
+            let worldCoord : SCNVector3 = SCNVector3Make(transform.columns.3.x, transform.columns.3.y, transform.columns.3.z)
+            
+            // Create 3D Text
+            let node : SCNNode = createPointOnObjectDetection(latestPrediction)
+            sceneView.scene.rootNode.addChildNode(node)
+            node.position = worldCoord
+        }
+    }
+    
     @objc func showRouteButton()
     {
         sceneView.scene.rootNode.enumerateChildNodes { (node, stop) in
@@ -246,6 +328,9 @@ class ARSceneViewRouteController: UIViewController, UIGestureRecognizerDelegate,
     //
     func showDetectionResult(_ results: [Any])
     {
+        CATransaction.begin()
+        CATransaction.setValue(kCFBooleanTrue, forKey: kCATransactionDisableActions)
+        detectionOverlay.sublayers = nil // remove all the old recognized objects
         for observation in results where observation is VNRecognizedObjectObservation {
             guard let objectObservation = observation as? VNRecognizedObjectObservation else {
                 continue
@@ -253,16 +338,52 @@ class ARSceneViewRouteController: UIViewController, UIGestureRecognizerDelegate,
             // Select only the label with the highest confidence.
             let topLabelObservation = objectObservation.labels[0]
             print("Detection [object] : \(topLabelObservation.identifier) with [confidence] : \(topLabelObservation.confidence * 100)")
-            if ( topLabelObservation.confidence * 100 > 90 ) {
-                if ( lastMLClassificationOrDetectionObject != topLabelObservation.identifier )
-                {
+            if ( topLabelObservation.confidence * 100 > 80 ) {
+                //if ( lastMLClassificationOrDetectionObject != topLabelObservation.identifier )
+                //{
                     getTokenToGigaChat(requestString: promtGigaChatLeft + "\(topLabelObservation.identifier)" + promtGigaChatRight)
                     lastMLClassificationOrDetectionObject = topLabelObservation.identifier
-                }
+                    //
+                    let objectBounds = VNImageRectForNormalizedRect(objectObservation.boundingBox, Int(self.view.bounds.width), Int(self.view.bounds.height))
+                    
+                    let shapeLayer = self.createRoundedRectLayerWithBounds(objectBounds)
+                    
+                    let textLayer = self.createTextSubLayerInBounds(objectBounds,
+                                                                    identifier: topLabelObservation.identifier,
+                                                                    confidence: topLabelObservation.confidence)
+                    shapeLayer.addSublayer(textLayer)
+                    detectionOverlay.addSublayer(shapeLayer)
+                    self.latestPrediction = topLabelObservation.identifier
+                    setAnchorObjectDetection()
+                // }
             }
         }
+        updateLayerGeometry()
+        CATransaction.commit()
     }
     //
+    func updateLayerGeometry() {
+        let bounds = rootLayer.bounds
+        var scale: CGFloat
+        
+        let xScale: CGFloat = bounds.size.width / self.view.bounds.height
+        let yScale: CGFloat = bounds.size.height / self.view.bounds.width
+        
+        scale = fmax(xScale, yScale)
+        if scale.isInfinite {
+            scale = 1.0
+        }
+        CATransaction.begin()
+        CATransaction.setValue(kCFBooleanTrue, forKey: kCATransactionDisableActions)
+        
+        // rotate the layer into screen orientation and scale and mirror
+        detectionOverlay.setAffineTransform(CGAffineTransform(rotationAngle: CGFloat(.pi / 2.0)).scaledBy(x: scale, y: -scale))
+        // center the layer
+        detectionOverlay.position = CGPoint(x: bounds.midX, y: bounds.midY)
+        
+        CATransaction.commit()
+        
+    }
     private func restartSession() {
         let configuration = ARWorldTrackingConfiguration()
         sceneView.session.run(configuration, options: [.resetTracking, .removeExistingAnchors])
@@ -446,3 +567,4 @@ extension CGImagePropertyOrientation {
         }
     }
 }
+

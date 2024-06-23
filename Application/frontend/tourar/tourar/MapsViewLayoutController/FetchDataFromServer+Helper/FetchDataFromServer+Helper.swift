@@ -33,10 +33,22 @@ struct ImageObjectPoi{
 
 let api_key = "7c6c2db9-d237-4411-aa0e-f89125312494"
 
-var poiPointArray : [YMKPoint]  = []
-
+var fetchDataLocationPoi    : [String : YMKPoint]  = [:]
+var fetchDataDescriptionPoi : [String : String  ]  = [:]
+var fetchDataImagesPoi      : [String : UIImage ]  = [:]
+//var fetchDataAudioPoi       : [String : ]
 var isConnected = false
 
+var sessionServerConnection = URLSession()
+var sessionLoadFullData     = URLSession()
+var sessionLoadObjectPoi    = URLSession()
+var sessionLoadLocalPoint   = URLSession()
+var sessionLoadImage        = URLSession()
+//
+var isSuspendSessionLoadFullData = false
+var isSuspendSessionLoadObjectPoi  = false
+var isSuspendsessionLoadLocalPoint = false
+var isSuspendSessionLoadImage = false
 
 func checkServerConnection(ip_server : String)
 {
@@ -48,8 +60,8 @@ func checkServerConnection(ip_server : String)
         return
     }
     print("URLSession :: Start")
-    let session = URLSession.shared
-    session.dataTask(with: url) { (data,response,error) in
+    sessionServerConnection = URLSession.shared
+    sessionServerConnection.dataTask(with: url) { (data,response,error) in
         if let response = response {
             print("Response_checkServerConnection:\(response)")
             if let response = response as? HTTPURLResponse {
@@ -85,8 +97,8 @@ func fetchAllDataPoint(cityName : String)
         return
     }
     print("URLSession :: Start")
-    let session = URLSession.shared
-    session.dataTask(with: url) { (data,response,error) in
+    sessionLoadFullData = URLSession.shared
+    sessionLoadFullData.dataTask(with: url) { (data,response,error) in
         if let response = response {
             print("Response_fetchAllData:\(response)")
         }
@@ -123,6 +135,10 @@ func fetchAllDataPoint(cityName : String)
         //
     }.resume()
     print("Load DATA_fetchAllData :: Finish")
+    if ( sessionLoadFullData.dataTask(with: url).state == .completed )
+    {
+        isSuspendSessionLoadFullData = true
+    }
 }
 func fetchObjectPoi(uuid : String)
 {
@@ -135,8 +151,8 @@ func fetchObjectPoi(uuid : String)
         return
     }
     print("URLSession_fetchObjectPoi :: Start")
-    let session = URLSession.shared
-    session.dataTask(with: url) { (data,response,error) in
+    sessionLoadObjectPoi = URLSession.shared
+    sessionLoadObjectPoi.dataTask(with: url) { (data,response,error) in
         if let response = response {
             print("Response_fetchObjectPoi:\(response)")
         }
@@ -163,12 +179,16 @@ func fetchObjectPoi(uuid : String)
                     }
                 }
             }
-            
         } catch {
         print(error)
         }
         //
+        if ( sessionLoadObjectPoi.dataTask(with: url).state == .completed )
+        {
+            isSuspendSessionLoadObjectPoi = true
+        }
     }.resume()
+   
     print("Load DATA_fetchObjectPoi :: Finish")
 }
 func fetchGetLocalPoi(uuid : String)
@@ -181,8 +201,8 @@ func fetchGetLocalPoi(uuid : String)
         return
     }
     print("URLSession_fetchLocalPoi :: Start")
-    let session = URLSession.shared
-    session.dataTask(with: url) { (data,response,error) in
+    sessionLoadLocalPoint = URLSession.shared
+    sessionLoadLocalPoint.dataTask(with: url) { (data,response,error) in
         if let response = response {
             print("Response_fetchLocalPoi:\(response)")
         }
@@ -195,6 +215,7 @@ func fetchGetLocalPoi(uuid : String)
             let preload = json as? [[String:Any]]
             for itemJson in preload!
             {
+                let uuidItem        = itemJson["uuid"] as? String
                 let contentUUIDJSON = itemJson["content_provider"] as? [String:Any]
                 let uuidProvide = contentUUIDJSON!["uuid"] as? String
                 let objPoiArray = itemJson["content"] as! [[String:Any]]
@@ -207,10 +228,13 @@ func fetchGetLocalPoi(uuid : String)
                    
                     if ( lat != nil && lon != nil )
                     {
-                        poiPointArray.append(YMKPoint(latitude: lat!, longitude: lon!))
+                        if ( uuidItem != nil )
+                        {
+                            fetchDataLocationPoi[uuidItem!] = YMKPoint(latitude: lat!, longitude: lon!)
+                        }
                     }
                 }
-                // load source info
+                // load source info after content preload
                 for objP in objPoiArray
                 {
                     // fetch audi [array]
@@ -220,7 +244,7 @@ func fetchGetLocalPoi(uuid : String)
                         for objAudioUUID in audioUUID!
                         {
                             let getAudioObj = objAudioUUID["uuid"] as? String
-                            fetchAudioGuidePoiLocal(uuidProvide: uuidProvide!, uuidAudio: getAudioObj!)
+                            fetchAudioGuidePoiLocal(uuid : uuidItem!, uuidProvide: uuidProvide!, uuidAudio: getAudioObj!)
                         }
                     }
                     // fetch image [array]
@@ -230,7 +254,16 @@ func fetchGetLocalPoi(uuid : String)
                         for objImageUUID in imageUUID!
                         {
                             let getImageObj = objImageUUID["uuid"] as? String
-                            fetchImagePoiLocal(uuidProvide: uuidProvide!, uuidImage: getImageObj!)
+                            fetchImagePoiLocal(uuid : uuidItem!,uuidProvide: uuidProvide!, uuidImage: getImageObj!)
+                        }
+                    }
+                    // fetch desc:
+                    let description = objP["title"] as? String
+                    if ( description != nil )
+                    {
+                        if ( uuidItem != nil )
+                        {
+                            fetchDataDescriptionPoi[uuidItem!] = description
                         }
                     }
                 }
@@ -239,15 +272,65 @@ func fetchGetLocalPoi(uuid : String)
         print(error)
         }
         //
+        if ( sessionLoadLocalPoint.dataTask(with: url).state == .completed )
+        {
+            isSuspendsessionLoadLocalPoint = true
+        }
     }.resume()
     print("Load DATA_fetchLocalPoi :: Finish")
 }
 
-func fetchAudioGuidePoiLocal( uuidProvide : String, uuidAudio : String)
+func fetchAudioGuidePoiLocal( uuid : String, uuidProvide : String, uuidAudio : String)
 {
-    
+    let urlApi = "https://media.izi.travel/\(uuidProvide)/\(uuidAudio).m4a?api_key=\(api_key)"
+    guard let url = URL(string: urlApi)
+    else
+    {
+        print("Failed URL_fetchLocalPoi : \(urlApi)")
+        return
+    }
+    print("URLSession_fetchLocalPoi :: Start")
 }
-func fetchImagePoiLocal( uuidProvide : String, uuidImage : String)
+func fetchImagePoiLocal( uuid : String, uuidProvide : String, uuidImage : String)
 {
-    
+    let urlApi = "https://media.izi.travel/\(uuidProvide)/\(uuidImage)_800x600.jpg?api_key=\(api_key)"
+    guard let url = URL(string: urlApi)
+    else
+    {
+        print("Failed URL_fetchLocalPoi : \(urlApi)")
+        return
+    }
+    // dataTask loop
+    sessionLoadImage = URLSession.shared
+    sessionLoadImage.dataTask(with: url) { (data,response,error) in
+        if let response = response {
+            print("Response_fetchObjectPoi:\(response)")
+        }
+        if let error = error {
+            print("Error__fetchObjectPoi:\(error)")
+        }
+        guard let data = data else {return}
+        let imagePoi = UIImage(data: data)
+        if ( imagePoi != nil )
+        {
+            fetchDataImagesPoi[uuid] = imagePoi
+        }
+        //
+        if ( sessionLoadImage.dataTask(with: url).state == .completed )
+        {
+            isSuspendSessionLoadImage = true
+        }
+    }.resume()
+    print("URLSession_fetchLocalPoi :: Start")
+}
+func stateSessionComplete()->Bool
+{
+    if ( isSuspendsessionLoadLocalPoint && isSuspendSessionLoadImage && isSuspendSessionLoadFullData && isSuspendSessionLoadObjectPoi)
+    {
+        return true
+    }
+    else
+    {
+        return false
+    }
 }

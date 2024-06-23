@@ -58,20 +58,21 @@ class LoginViewController: UIViewController {
         self.configLayout()
     }
     func configLayout() {
-        view.backgroundColor = #colorLiteral(red: 0.3759136491, green: 0.6231091984, blue: 0.6783652551, alpha: 1)
-        var labelImage = UIImageView(image: UIImage(named: "Image"))
+        view.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+        var labelImage = UIImageView(image: UIImage(named: "n_logo"))
         view.addSubview(labelImage)
         labelImage.snp.makeConstraints { (marker) in
             marker.top.equalToSuperview().inset(150)
             marker.centerX.equalToSuperview()
-            marker.width.equalTo(80)
-            marker.height.equalTo(80)
+            marker.width.equalTo(140)
+            marker.height.equalTo(100)
         }
         let uiEntryLoginLabel = UILabel()
         uiEntryLoginLabel.numberOfLines = 0
         uiEntryLoginLabel.text = "Войдите по Сбер ID"
-        uiEntryLoginLabel.font = UIFont(name: "Helvetica", size: 25)
-        uiEntryLoginLabel.textColor = UIColor.white
+        uiEntryLoginLabel.font = UIFont(name: "Helvetica", size: 30)
+        uiEntryLoginLabel.font = UIFont.boldSystemFont(ofSize: 25)
+        uiEntryLoginLabel.textColor = #colorLiteral(red: 0.1960784314, green: 0.1960784314, blue: 0.1960784314, alpha: 1)
         //
         view.addSubview(uiEntryLoginLabel)
         uiEntryLoginLabel.snp.makeConstraints { (marker) in
@@ -85,30 +86,32 @@ class LoginViewController: UIViewController {
         loginSberSDk.backgroundColor = #colorLiteral(red: 0.1287833452, green: 0.6253849268, blue: 0.2183291316, alpha: 1)
         loginSberSDk.setTitle("Войти по Сбер ID", for: .normal)
         loginSberSDk.setTitleColor(.white, for: .normal)
-        loginSberSDk.layer.cornerRadius = 15
-
+        loginSberSDk.layer.cornerRadius = 10
+        loginSberSDk.titleLabel?.font = UIFont.systemFont(ofSize: 15, weight: .bold)
+        
         view.addSubview(loginSberSDk)
         loginSberSDk.snp.makeConstraints { (marker) in
             marker.top.equalTo(uiEntryLoginLabel).inset(100)
             marker.centerX.equalToSuperview()
-            marker.width.equalTo(200)
-            marker.height.equalTo(40)
+            marker.left.right.equalToSuperview().inset(10)
+            marker.height.equalTo(50)
         }
         loginSberSDk.addTarget(self, action: #selector(loginSberID), for: .touchUpInside)
         // continue
         // button continie
         let nextController = UIButton(type: .system)
-        nextController.backgroundColor = #colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)
+        nextController.backgroundColor = #colorLiteral(red: 0.1960784314, green: 0.1960784314, blue: 0.1960784314, alpha: 1)
         nextController.setTitle("Войти без регистрации", for: .normal)
         nextController.setTitleColor(.white, for: .normal)
-        nextController.layer.cornerRadius = 15
+        nextController.layer.cornerRadius = 10
+        nextController.titleLabel?.font = UIFont.systemFont(ofSize: 15, weight: .bold)
 
         view.addSubview(nextController)
         nextController.snp.makeConstraints { (marker) in
             marker.bottom.equalToSuperview().inset(20)
             marker.centerX.equalToSuperview()
-            marker.width.equalTo(200)
-            marker.height.equalTo(40)
+            marker.left.right.equalToSuperview().inset(10)
+            marker.height.equalTo(50)
         }
         nextController.addTarget(self, action: #selector(nextControllerView), for: .touchUpInside)
     }

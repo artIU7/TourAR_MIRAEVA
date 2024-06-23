@@ -22,7 +22,9 @@ var mocPositionPoint  = [0:YMKPoint(latitude: 55.73, longitude: 35.28),
                          3:YMKPoint(latitude: 56.73, longitude: 34.28)]
 //
 class CodeCell: ScalingCarouselCell {
+    
     var labelPoint = UILabel()
+    var imageSlide = UIImageView()
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -36,15 +38,23 @@ class CodeCell: ScalingCarouselCell {
             mainView.topAnchor.constraint(equalTo: contentView.topAnchor),
             mainView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
             ])
-        labelPoint.textColor = UIColor.yellow
+    }
+    func setConstraintsItem()
+    {
         mainView.addSubview(labelPoint)
         self.labelPoint.snp.makeConstraints { (marker) in
-            marker.top.equalTo(mainView).inset(0)
-            marker.left.right.equalTo(mainView).inset(10)
-            marker.bottom.equalTo(mainView).inset(0)
+            marker.topMargin.equalTo(mainView).inset(10)
+            marker.centerXWithinMargins.equalTo(mainView)
+            marker.leftMargin.rightMargin.equalTo(mainView).inset(10)
+        }
+        mainView.addSubview(imageSlide)
+        self.imageSlide.snp.makeConstraints { (marker) in
+            marker.top.equalTo(labelPoint).inset(10)
+            marker.centerXWithinMargins.equalTo(mainView)
+            marker.leftMargin.rightMargin.equalTo(mainView).inset(10)
+            marker.bottomMargin.equalTo(mainView).inset(10)
         }
     }
-    
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -88,10 +98,10 @@ class CodeViewController: UIViewController {
            super.viewWillAppear(animated)
           
            if tabBarTag == true {
-            self.tabBarController?.tabBar.tintColor =  #colorLiteral(red: 0.3759136491, green: 0.6231091984, blue: 0.6783652551, alpha: 1)
-            self.tabBarController?.tabBar.backgroundColor = #colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)
+            self.tabBarController?.tabBar.tintColor =  #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+            self.tabBarController?.tabBar.backgroundColor = #colorLiteral(red: 0.1960784314, green: 0.1960784314, blue: 0.1960784314, alpha: 1)
            } else {
-               self.tabBarController?.tabBar.tintColor = #colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)
+               self.tabBarController?.tabBar.tintColor = #colorLiteral(red: 0.1960784314, green: 0.1960784314, blue: 0.1960784314, alpha: 1)
            }
     }
     
@@ -129,12 +139,16 @@ extension CodeViewController: UICollectionViewDataSource {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath)
         
         if let scalingCell = cell as? CodeCell {
+            // label
             scalingCell.labelPoint.text = "Test : \(mocObjectTourPoint[indexPath.item]!)"
             scalingCell.labelPoint.adjustsFontSizeToFitWidth = true
             scalingCell.labelPoint.adjustsFontForContentSizeCategory = true
             scalingCell.labelPoint.numberOfLines = 2
             scalingCell.labelPoint.textColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
-            scalingCell.mainView.backgroundColor = #colorLiteral(red: 0.3759136491, green: 0.6231091984, blue: 0.6783652551, alpha: 1)
+            // image
+            scalingCell.imageSlide  = UIImageView(image: UIImage(named: "n_logo"))
+            scalingCell.mainView.backgroundColor = #colorLiteral(red: 0.8078431487, green: 0.02745098062, blue: 0.3333333433, alpha: 1)
+            scalingCell.setConstraintsItem()
         }
         DispatchQueue.main.async {
             cell.setNeedsLayout()

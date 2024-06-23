@@ -26,10 +26,12 @@
 		B7B23E552C1E61CA006008FB /* poi.scn in Resources */ = {isa = PBXBuildFile; fileRef = B7B23E532C1E61CA006008FB /* poi.scn */; };
 		B7B23E562C1E61CA006008FB /* tourist_prepare.scn in Resources */ = {isa = PBXBuildFile; fileRef = B7B23E542C1E61CA006008FB /* tourist_prepare.scn */; };
 		B7B23E592C1E6384006008FB /* LoginViewController+SberID.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7B23E582C1E6384006008FB /* LoginViewController+SberID.swift */; };
+		B7B7A65F2C23750700BEB8E1 /* MapsLayoutSlideView+Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7B7A65E2C23750700BEB8E1 /* MapsLayoutSlideView+Helper.swift */; };
 		B7CEF9412C1EBA01007165CF /* MapKitComputedRoute.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7CEF9402C1EBA01007165CF /* MapKitComputedRoute.swift */; };
 		B7CEF9432C1ED53C007165CF /* ARSceneViewRouteController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7CEF9422C1ED53C007165CF /* ARSceneViewRouteController.swift */; };
 		B7CEF9462C1ED83E007165CF /* Inceptionv3.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = B7CEF9452C1ED83E007165CF /* Inceptionv3.mlmodel */; };
 		B7CEF9492C1EE3A7007165CF /* YOLOv3Tiny.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = B7CEF9482C1EE3A7007165CF /* YOLOv3Tiny.mlmodel */; };
+		B7DD94932C22D23E00B964D5 /* MapsLayoutTappedObject+HelperUnderViewScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7DD94922C22D23E00B964D5 /* MapsLayoutTappedObject+HelperUnderViewScene.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -55,10 +57,12 @@
 		B7B23E532C1E61CA006008FB /* poi.scn */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = poi.scn; sourceTree = "<group>"; };
 		B7B23E542C1E61CA006008FB /* tourist_prepare.scn */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = tourist_prepare.scn; sourceTree = "<group>"; };
 		B7B23E582C1E6384006008FB /* LoginViewController+SberID.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LoginViewController+SberID.swift"; sourceTree = "<group>"; };
+		B7B7A65E2C23750700BEB8E1 /* MapsLayoutSlideView+Helper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MapsLayoutSlideView+Helper.swift"; sourceTree = "<group>"; };
 		B7CEF9402C1EBA01007165CF /* MapKitComputedRoute.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapKitComputedRoute.swift; sourceTree = "<group>"; };
 		B7CEF9422C1ED53C007165CF /* ARSceneViewRouteController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARSceneViewRouteController.swift; sourceTree = "<group>"; };
 		B7CEF9452C1ED83E007165CF /* Inceptionv3.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = Inceptionv3.mlmodel; sourceTree = "<group>"; };
 		B7CEF9482C1EE3A7007165CF /* YOLOv3Tiny.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; name = YOLOv3Tiny.mlmodel; path = tourar/YOLOv3Tiny.mlmodel; sourceTree = SOURCE_ROOT; };
+		B7DD94922C22D23E00B964D5 /* MapsLayoutTappedObject+HelperUnderViewScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MapsLayoutTappedObject+HelperUnderViewScene.swift"; sourceTree = "<group>"; };
 		D47BA13DEA2FABAB072D3B42 /* Pods-tourar.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-tourar.release.xcconfig"; path = "Target Support Files/Pods-tourar/Pods-tourar.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -113,6 +117,7 @@
 		B77D9B112C1DD8AE007FCA33 /* MapsViewLayoutController */ = {
 			isa = PBXGroup;
 			children = (
+				B7DD94912C22C9F500B964D5 /* MapsLayoutTappedPoit+HelperInderScene */,
 				B7B23E512C1DF3A1006008FB /* MapsViewBaseLayout.swift */,
 				B77D9B1C2C1DE1E8007FCA33 /* down.scn */,
 				B77D9B1D2C1DE1E8007FCA33 /* object.usdz */,
@@ -120,6 +125,7 @@
 				B77D9B162C1DDD07007FCA33 /* WebSocketConnection+Helper */,
 				B791BCA92C1B7BA1001B57E7 /* MapsLayerMainViewController.swift */,
 				B77D9B142C1DDC6A007FCA33 /* MapsLayoutUnderSceneView.swift */,
+				B7B7A65D2C2374E100BEB8E1 /* MapsLayoutSlideView+Helper */,
 				B7CEF9402C1EBA01007165CF /* MapKitComputedRoute.swift */,
 				B7CEF9442C1ED549007165CF /* ARSCEne+Helper */,
 			);
@@ -190,6 +196,14 @@
 			path = LoginViewController;
 			sourceTree = "<group>";
 		};
+		B7B7A65D2C2374E100BEB8E1 /* MapsLayoutSlideView+Helper */ = {
+			isa = PBXGroup;
+			children = (
+				B7B7A65E2C23750700BEB8E1 /* MapsLayoutSlideView+Helper.swift */,
+			);
+			path = "MapsLayoutSlideView+Helper";
+			sourceTree = "<group>";
+		};
 		B7CEF9442C1ED549007165CF /* ARSCEne+Helper */ = {
 			isa = PBXGroup;
 			children = (
@@ -209,6 +223,14 @@
 				B7CEF9482C1EE3A7007165CF /* YOLOv3Tiny.mlmodel */,
 			);
 			path = "Resource+MLModel";
+			sourceTree = "<group>";
+		};
+		B7DD94912C22C9F500B964D5 /* MapsLayoutTappedPoit+HelperInderScene */ = {
+			isa = PBXGroup;
+			children = (
+				B7DD94922C22D23E00B964D5 /* MapsLayoutTappedObject+HelperUnderViewScene.swift */,
+			);
+			path = "MapsLayoutTappedPoit+HelperInderScene";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -359,7 +381,9 @@
 				B791BCAA2C1B7BA1001B57E7 /* MapsLayerMainViewController.swift in Sources */,
 				B7CEF9492C1EE3A7007165CF /* YOLOv3Tiny.mlmodel in Sources */,
 				B7CEF9412C1EBA01007165CF /* MapKitComputedRoute.swift in Sources */,
+				B7B7A65F2C23750700BEB8E1 /* MapsLayoutSlideView+Helper.swift in Sources */,
 				B7B23E592C1E6384006008FB /* LoginViewController+SberID.swift in Sources */,
+				B7DD94932C22D23E00B964D5 /* MapsLayoutTappedObject+HelperUnderViewScene.swift in Sources */,
 				B791BC7A2C1B6C3C001B57E7 /* AppDelegate.swift in Sources */,
 				B7B23E522C1DF3A1006008FB /* MapsViewBaseLayout.swift in Sources */,
 				B791BC7C2C1B6C3C001B57E7 /* SceneDelegate.swift in Sources */,
