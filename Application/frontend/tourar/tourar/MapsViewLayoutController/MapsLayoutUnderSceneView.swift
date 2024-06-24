@@ -211,7 +211,7 @@ class MapsLayoutUnderSceneView: UIViewController, YMKLayersGeoObjectTapListener,
         layerButton.backgroundColor = #colorLiteral(red: 0.1960784314, green: 0.1960784314, blue: 0.1960784314, alpha: 1)
         layerButton.layer.cornerRadius = 5
         view.addSubview(layerButton)
-        layerButton.addTarget(self, action: #selector(self.locationAction(_:)), for: .touchUpInside)
+        layerButton.addTarget(self, action: #selector(self.layerAction(_:)), for: .touchUpInside)
         layerButton.snp.makeConstraints { (marker) in
             marker.height.equalTo(42.5)
             marker.width.equalTo(42.5)
@@ -224,11 +224,11 @@ class MapsLayoutUnderSceneView: UIViewController, YMKLayersGeoObjectTapListener,
         plusZoomButton.backgroundColor = #colorLiteral(red: 0.1960784314, green: 0.1960784314, blue: 0.1960784314, alpha: 1)
         plusZoomButton.layer.cornerRadius = 5
         view.addSubview(plusZoomButton)
-        plusZoomButton.addTarget(self, action: #selector(self.locationAction(_:)), for: .touchUpInside)
+        plusZoomButton.addTarget(self, action: #selector(self.zoomPlusAction(_:)), for: .touchUpInside)
         plusZoomButton.snp.makeConstraints { (marker) in
             marker.height.equalTo(42.5)
             marker.width.equalTo(42.5)
-            marker.topMargin.equalTo(layerButton).inset(60)
+            marker.topMargin.equalTo(layerButton).inset(100)
             marker.rightMargin.equalToSuperview().inset(5)
         }
         // minusZoom button
@@ -237,7 +237,7 @@ class MapsLayoutUnderSceneView: UIViewController, YMKLayersGeoObjectTapListener,
         minusZoomButton.backgroundColor = #colorLiteral(red: 0.1960784314, green: 0.1960784314, blue: 0.1960784314, alpha: 1)
         minusZoomButton.layer.cornerRadius = 5
         view.addSubview(minusZoomButton)
-        minusZoomButton.addTarget(self, action: #selector(self.locationAction(_:)), for: .touchUpInside)
+        minusZoomButton.addTarget(self, action: #selector(self.zoomMinusAction(_:)), for: .touchUpInside)
         minusZoomButton.snp.makeConstraints { (marker) in
             marker.height.equalTo(42.5)
             marker.width.equalTo(42.5)
@@ -254,14 +254,14 @@ class MapsLayoutUnderSceneView: UIViewController, YMKLayersGeoObjectTapListener,
         locationButton.snp.makeConstraints { (marker) in
             marker.height.equalTo(42.5)
             marker.width.equalTo(42.5)
-            marker.topMargin.equalTo(minusZoomButton).inset(40)
+            marker.topMargin.equalTo(minusZoomButton).inset(60)
             marker.rightMargin.equalToSuperview().inset(5)
         }
         // showPoint
         showPoiButton.setImage(UIImage(named: "poi_show_on"), for: .normal)
         showPoiButton.isEnabled = false
         showPoiButton.tintColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
-        showPoiButton.backgroundColor = #colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)
+        showPoiButton.backgroundColor = #colorLiteral(red: 0.1960784314, green: 0.1960784314, blue: 0.1960784314, alpha: 1)
         showPoiButton.layer.cornerRadius = 5
         view.addSubview(showPoiButton)
         showPoiButton.addTarget(self, action: #selector(self.showPoiAction(_:)), for: .touchUpInside)
@@ -274,7 +274,7 @@ class MapsLayoutUnderSceneView: UIViewController, YMKLayersGeoObjectTapListener,
         // drawRouteButton
         drawRouteButton.setImage(UIImage(named: "route_show_on"), for: .normal)
         drawRouteButton.tintColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
-        drawRouteButton.backgroundColor = #colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)
+        drawRouteButton.backgroundColor = #colorLiteral(red: 0.1960784314, green: 0.1960784314, blue: 0.1960784314, alpha: 1)
         drawRouteButton.layer.cornerRadius = 5
         view.addSubview(drawRouteButton)
         drawRouteButton.addTarget(self, action: #selector(self.drawRouteAction(_:)), for: .touchUpInside)
@@ -292,6 +292,13 @@ class MapsLayoutUnderSceneView: UIViewController, YMKLayersGeoObjectTapListener,
         {
             if ( !fetchDataLocationPoi.isEmpty )
             {
+                // temp test poi
+                fetchDataLocationPoi["test::uuid"] = YMKPoint(latitude: 55.789969, longitude: 38.442341)
+                fetchDataDescriptionPoi["test::uuid"] = "КЦ Октябрь в городе Электросталь"
+                fetchDataImagesPoi["test::uuid"]      = fetchDataImagesPoi.first?.value
+                fetchDataTitlePoi["test::uuid"]       = "КЦ Октябрь"
+                fetchDataAudioPoi["test::uuid"]       = fetchDataAudioPoi.first?.value
+                //
                 for point in fetchDataLocationPoi
                 {
                     if ( !fetchDataDescriptionPoi.isEmpty && !fetchDataImagesPoi.isEmpty &&  !fetchDataTitlePoi.isEmpty && !fetchDataAudioPoi.isEmpty )
@@ -342,7 +349,25 @@ class MapsLayoutUnderSceneView: UIViewController, YMKLayersGeoObjectTapListener,
                 polyLineObjectPedestrianRoute = nil
             }
     }
-    
+    @objc func layerAction(_ sender:UIButton)
+    {
+        let layerController = LayerViewController()
+        layerController.modalPresentationStyle = .formSheet
+        //layerController.modalTransitionStyle = .crossDissolve
+        show(layerController, sender: self)
+        //present(layerController, animated: true, completion: nil)
+    }
+    @objc func zoomPlusAction(_ sender:UIButton)
+    {
+        var maps = mapView.mapWindow.map
+        let zoom = maps.cameraPosition.zoom + 1
+        maps.move(with: YMKCameraPosition(target: maps.cameraPosition.target, zoom: zoom, azimuth: maps.cameraPosition.azimuth, tilt: maps.cameraPosition.tilt))
+    }
+    @objc func zoomMinusAction(_ sender:UIButton)
+    {
+        var maps = mapView.mapWindow.map
+        let zoom = maps.cameraPosition.zoom - 1
+        maps.move(with: YMKCameraPosition(target: maps.cameraPosition.target, zoom: zoom, azimuth: maps.cameraPosition.azimuth, tilt: maps.cameraPosition.tilt))    }
     @objc func showPoiAction(_ sender:UIButton)
     {
         if ( sender.imageView?.image == UIImage(named: "poi_show_on"))
@@ -376,6 +401,7 @@ class MapsLayoutUnderSceneView: UIViewController, YMKLayersGeoObjectTapListener,
             sender.backgroundColor = #colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)
             //
             clearMapObjectRoutingType()
+            locationsPointAR.removeAll()
             if ( isPedestrianRoute )
             {
                 callPedestrianRoutingResponse()
@@ -401,19 +427,19 @@ class MapsLayoutUnderSceneView: UIViewController, YMKLayersGeoObjectTapListener,
             // set Pedestrian Type
             isPedestrianRoute = true
             clearMapObjectRoutingType()
-            //locationsPointAR.removeAll()
+            locationsPointAR.removeAll()
             callPedestrianRoutingResponse()
         case 1:
             // set Driving Type
             isPedestrianRoute = false
             clearMapObjectRoutingType()
-            //locationsPointAR.removeAll()
+            locationsPointAR.removeAll()
             callDrivingRoutingResponse()
         default:
             // set Pedestrian Type
             isPedestrianRoute = true
             clearMapObjectRoutingType()
-            //locationsPointAR.removeAll()
+            locationsPointAR.removeAll()
             callPedestrianRoutingResponse()
         }
     }
@@ -674,7 +700,6 @@ extension MapsLayoutUnderSceneView: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         userLocation = YMKPoint(latitude: locations.last!.coordinate.latitude, longitude: locations.last!.coordinate.longitude)
         ROUTE_START_POINT = userLocation!
-        requestPoints.insert(YMKRequestPoint(point: ROUTE_START_POINT, type: .waypoint, pointContext: nil), at: 0)
         startingLocation = locations.last
         let userLocationString = "USER LOCATION:\(userLocation!.latitude) \(userLocation!.longitude)"
         // comment naviation mode

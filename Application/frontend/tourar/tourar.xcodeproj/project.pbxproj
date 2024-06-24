@@ -34,6 +34,7 @@
 		B7CEF9462C1ED83E007165CF /* Inceptionv3.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = B7CEF9452C1ED83E007165CF /* Inceptionv3.mlmodel */; };
 		B7CEF9492C1EE3A7007165CF /* YOLOv3Tiny.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = B7CEF9482C1EE3A7007165CF /* YOLOv3Tiny.mlmodel */; };
 		B7DD94932C22D23E00B964D5 /* MapsLayoutTappedObject+HelperUnderViewScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7DD94922C22D23E00B964D5 /* MapsLayoutTappedObject+HelperUnderViewScene.swift */; };
+		B7EE372D2C2929850092F98A /* LayerViewControlller+Help.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7EE372C2C2929850092F98A /* LayerViewControlller+Help.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -67,6 +68,7 @@
 		B7CEF9452C1ED83E007165CF /* Inceptionv3.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = Inceptionv3.mlmodel; sourceTree = "<group>"; };
 		B7CEF9482C1EE3A7007165CF /* YOLOv3Tiny.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; name = YOLOv3Tiny.mlmodel; path = tourar/YOLOv3Tiny.mlmodel; sourceTree = SOURCE_ROOT; };
 		B7DD94922C22D23E00B964D5 /* MapsLayoutTappedObject+HelperUnderViewScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MapsLayoutTappedObject+HelperUnderViewScene.swift"; sourceTree = "<group>"; };
+		B7EE372C2C2929850092F98A /* LayerViewControlller+Help.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LayerViewControlller+Help.swift"; sourceTree = "<group>"; };
 		D47BA13DEA2FABAB072D3B42 /* Pods-tourar.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-tourar.release.xcconfig"; path = "Target Support Files/Pods-tourar/Pods-tourar.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -134,6 +136,7 @@
 				B7CEF9402C1EBA01007165CF /* MapKitComputedRoute.swift */,
 				B7CEF9442C1ED549007165CF /* ARSCEne+Helper */,
 				B77E0BFF2C287E7D001FD29E /* MapsLayoutRouteBuilder.swift */,
+				B7EE372C2C2929850092F98A /* LayerViewControlller+Help.swift */,
 			);
 			path = MapsViewLayoutController;
 			sourceTree = "<group>";
@@ -392,6 +395,7 @@
 				B7B23E592C1E6384006008FB /* LoginViewController+SberID.swift in Sources */,
 				B7DD94932C22D23E00B964D5 /* MapsLayoutTappedObject+HelperUnderViewScene.swift in Sources */,
 				B77E0C002C287E7D001FD29E /* MapsLayoutRouteBuilder.swift in Sources */,
+				B7EE372D2C2929850092F98A /* LayerViewControlller+Help.swift in Sources */,
 				B791BC7A2C1B6C3C001B57E7 /* AppDelegate.swift in Sources */,
 				B7B23E522C1DF3A1006008FB /* MapsViewBaseLayout.swift in Sources */,
 				B791BC7C2C1B6C3C001B57E7 /* SceneDelegate.swift in Sources */,

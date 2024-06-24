@@ -64,12 +64,13 @@ class MapsLayoutTappedObject : NSObject, YMKMapObjectTapListener {
         textTitle.adjustsFontSizeToFitWidth = true
         textTitle.adjustsFontForContentSizeCategory = true
         textTitle.numberOfLines = 2
-        textTitle.font = UIFont.boldSystemFont(ofSize: 15)
+        textTitle.font = UIFont.boldSystemFont(ofSize: 20)
         textTitle.textColor = #colorLiteral(red: 0.1960784314, green: 0.1960784314, blue: 0.1960784314, alpha: 1)
+        textTitle.textAlignment = .center
         // add title
         sheetController.view.addSubview(textTitle)
         textTitle.snp.makeConstraints { (marker) in
-            marker.top.equalToSuperview().inset(20)
+            marker.top.equalToSuperview().inset(10)
             marker.left.right.equalToSuperview().inset(10)
             marker.centerXWithinMargins.equalToSuperview()
         }
@@ -101,7 +102,7 @@ class MapsLayoutTappedObject : NSObject, YMKMapObjectTapListener {
         buttonOpenInfo.adjustsImageSizeForAccessibilityContentSizeCategory = true
         sheetController.view.addSubview(buttonOpenInfo)
         buttonOpenInfo.snp.makeConstraints { (marker) in
-            marker.topMargin.equalTo(textTitle).inset(20)
+            marker.topMargin.equalTo(textTitle).inset(20 + 5)
             marker.centerX.equalToSuperview()
             marker.left.right.equalToSuperview().inset(20)
             marker.bottomMargin.equalToSuperview().inset(50 + 20 + 20 + 35 + 20 )

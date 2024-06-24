@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="20px" height="21px" viewBox="0 0 20 21" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>Group 11</title>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Group-11" transform="translate(0.000000, 0.989011)">
+            <g id="plus-svgrepo-com-2" transform="translate(0.000000, 1.843284)" fill="#FFFFFF" fill-rule="nonzero">
+                <polygon id="Path" points="20 0 10.6593407 0 9.34065933 0 0 0 0 1.81306645 9.34065933 1.81306645 10.6593407 1.81306645 20 1.81306645"></polygon>
+            </g>
+            <g id="plus-svgrepo-com-2" transform="translate(0.000000, 9.176131)" fill="#FFFFFF" fill-rule="nonzero">
+                <polygon id="Path" points="20 5.72420747e-17 10.6593407 5.72420747e-17 9.34065933 5.72420747e-17 0 5.72420747e-17 0 1.81306645 9.34065933 1.81306645 10.6593407 1.81306645 20 1.81306645"></polygon>
+            </g>
+            <g id="plus-svgrepo-com-2" transform="translate(0.000000, 16.508977)" fill="#FFFFFF" fill-rule="nonzero">
+                <polygon id="Path" points="20 5.72420747e-17 10.6593407 5.72420747e-17 9.34065933 5.72420747e-17 0 5.72420747e-17 0 1.81306645 9.34065933 1.81306645 10.6593407 1.81306645 20 1.81306645"></polygon>
+            </g>
+            <line x1="15.1425" y1="0" x2="15.1425" y2="5.33430691" id="Path-3" stroke="#FFFFFF" stroke-width="2"></line>
+            <line x1="4.14250003" y1="7.33284655" x2="4.14250003" y2="12.6671535" id="Path-3" stroke="#FFFFFF" stroke-width="2"></line>
+            <line x1="11.1425" y1="14.6656931" x2="11.1425" y2="20" id="Path-3" stroke="#FFFFFF" stroke-width="2"></line>
+        </g>
+    </g>
+</svg>

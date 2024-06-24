@@ -17,6 +17,9 @@ extension MapsLayoutUnderSceneView{
         if ( requestPoints.isEmpty ) {
             return
         }
+        let userLocation = YMKPoint(latitude: startingLocation.coordinate.latitude, longitude: startingLocation.coordinate.longitude)
+        requestPoints.insert(YMKRequestPoint(point: userLocation, type: .waypoint, pointContext: nil), at: 0)
+
         let responseHandler = {(routesResponse: [YMKDrivingRoute]?, error: Error?) -> Void in
             if let routes = routesResponse {
                 self.onDrivingRoutesReceived(routes)
@@ -50,6 +53,8 @@ extension MapsLayoutUnderSceneView{
             //addRoutePointScene(index : index, rPoint : point_)
             index += 1
         }
+        // focus to route
+        
     }
     // computed roiting - Pedestrian Type
     func callPedestrianRoutingResponse() {
