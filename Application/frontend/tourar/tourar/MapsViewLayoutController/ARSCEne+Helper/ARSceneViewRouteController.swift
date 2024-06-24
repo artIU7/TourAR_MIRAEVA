@@ -49,7 +49,7 @@ public func voiceHelperUI(textSpeech : String)
 class ARSceneViewRouteController: UIViewController, UIGestureRecognizerDelegate, ARSessionDelegate {
     
     //
-    var routes : [SCNVector3]()
+    var routes = [SCNVector3]()
     //
     let pointOnObjectDepth = 0.01 // the 'depth' of 3D text
     var latestPrediction : String = "…" // a variable containing the latest CoreML prediction

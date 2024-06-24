@@ -224,6 +224,7 @@ class MapsLayoutUnderSceneView: UIViewController, YMKLayersGeoObjectTapListener,
             marker.bottom.top.equalToSuperview().inset(10)
             marker.left.equalToSuperview().inset(10)
             marker.height.equalTo(40)
+            marker.width.equalTo(120)
         }
         // ar helper
         arButton.backgroundColor = #colorLiteral(red: 0.3411764801, green: 0.6235294342, blue: 0.1686274558, alpha: 1)
@@ -235,9 +236,9 @@ class MapsLayoutUnderSceneView: UIViewController, YMKLayersGeoObjectTapListener,
         viewNavigationStart.addSubview(arButton)
         arButton.snp.makeConstraints { (marker) in
             marker.bottom.top.equalToSuperview().inset(10)
-            marker.right.equalToSuperview().inset(10)
-            marker.leftMargin.equalTo(buttonNavigationStart).inset(10)
+            marker.rightMargin.equalToSuperview().inset(10)
             marker.height.equalTo(40)
+            marker.width.equalTo(80)
         }
         arButton.addTarget(self, action: #selector(showARViewScene), for: .touchUpInside)
         // layer button
@@ -420,11 +421,13 @@ class MapsLayoutUnderSceneView: UIViewController, YMKLayersGeoObjectTapListener,
         {
             isNavigationMode = true
             buttonNavigationStart.setTitle("Завершить", for: .normal)
+            viewRouteCreate.isHidden = true
         }
         else
         {
             isNavigationMode = false
             buttonNavigationStart.setTitle("Начать", for: .normal)
+            viewRouteCreate.isHidden = false
         }
     }
     @objc func layerAction(_ sender:UIButton)
