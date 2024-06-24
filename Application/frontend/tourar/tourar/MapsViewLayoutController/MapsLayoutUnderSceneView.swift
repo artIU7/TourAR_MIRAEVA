@@ -56,7 +56,11 @@ class MapsLayoutUnderSceneView: UIViewController, YMKLayersGeoObjectTapListener,
     var mapsObjectPlaceMark : [YMKPlacemarkMapObject] = []
     // BUTTON IN
     // location zoom
+    let layerButton         = UIButton(type: .system)
+    let plusZoomButton      = UIButton(type: .system)
+    let minusZoomButton     = UIButton(type: .system)
     let locationButton      = UIButton(type: .system)
+    
     let showPoiButton       = UIButton(type: .system)
     let drawRouteButton     = UIButton(type: .system)
     let resetPointsButton   = UIButton(type: .system)
@@ -191,7 +195,7 @@ class MapsLayoutUnderSceneView: UIViewController, YMKLayersGeoObjectTapListener,
         arButton.backgroundColor = #colorLiteral(red: 0.1960784314, green: 0.1960784314, blue: 0.1960784314, alpha: 1)
         arButton.setTitleColor(.white, for: .normal)
         arButton.setTitle("AR", for: .normal)
-        arButton.layer.cornerRadius = 10
+        arButton.layer.cornerRadius = 5
 
         view.addSubview(arButton)
         arButton.snp.makeConstraints { (marker) in
@@ -201,6 +205,45 @@ class MapsLayoutUnderSceneView: UIViewController, YMKLayersGeoObjectTapListener,
             marker.height.equalTo(40)
         }
         arButton.addTarget(self, action: #selector(showARViewScene), for: .touchUpInside)
+        // layer button
+        layerButton.setImage(UIImage(named: "layer_bt"), for: .normal)
+        layerButton.tintColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+        layerButton.backgroundColor = #colorLiteral(red: 0.1960784314, green: 0.1960784314, blue: 0.1960784314, alpha: 1)
+        layerButton.layer.cornerRadius = 5
+        view.addSubview(layerButton)
+        layerButton.addTarget(self, action: #selector(self.locationAction(_:)), for: .touchUpInside)
+        layerButton.snp.makeConstraints { (marker) in
+            marker.height.equalTo(42.5)
+            marker.width.equalTo(42.5)
+            marker.topMargin.equalTo(arButton).inset(60)
+            marker.rightMargin.equalToSuperview().inset(5)
+        }
+        // plusZoom button
+        plusZoomButton.setImage(UIImage(named: "zoomPlus_bt"), for: .normal)
+        plusZoomButton.tintColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+        plusZoomButton.backgroundColor = #colorLiteral(red: 0.1960784314, green: 0.1960784314, blue: 0.1960784314, alpha: 1)
+        plusZoomButton.layer.cornerRadius = 5
+        view.addSubview(plusZoomButton)
+        plusZoomButton.addTarget(self, action: #selector(self.locationAction(_:)), for: .touchUpInside)
+        plusZoomButton.snp.makeConstraints { (marker) in
+            marker.height.equalTo(42.5)
+            marker.width.equalTo(42.5)
+            marker.topMargin.equalTo(layerButton).inset(60)
+            marker.rightMargin.equalToSuperview().inset(5)
+        }
+        // minusZoom button
+        minusZoomButton.setImage(UIImage(named: "zoomMinus_bt"), for: .normal)
+        minusZoomButton.tintColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+        minusZoomButton.backgroundColor = #colorLiteral(red: 0.1960784314, green: 0.1960784314, blue: 0.1960784314, alpha: 1)
+        minusZoomButton.layer.cornerRadius = 5
+        view.addSubview(minusZoomButton)
+        minusZoomButton.addTarget(self, action: #selector(self.locationAction(_:)), for: .touchUpInside)
+        minusZoomButton.snp.makeConstraints { (marker) in
+            marker.height.equalTo(42.5)
+            marker.width.equalTo(42.5)
+            marker.topMargin.equalTo(plusZoomButton).inset(40)
+            marker.rightMargin.equalToSuperview().inset(5)
+        }
         // location
         locationButton.setImage(UIImage(named: "location_on"), for: .normal)
         locationButton.tintColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
@@ -211,7 +254,7 @@ class MapsLayoutUnderSceneView: UIViewController, YMKLayersGeoObjectTapListener,
         locationButton.snp.makeConstraints { (marker) in
             marker.height.equalTo(42.5)
             marker.width.equalTo(42.5)
-            marker.topMargin.equalTo(arButton).inset(60)
+            marker.topMargin.equalTo(minusZoomButton).inset(40)
             marker.rightMargin.equalToSuperview().inset(5)
         }
         // showPoint
@@ -239,19 +282,6 @@ class MapsLayoutUnderSceneView: UIViewController, YMKLayersGeoObjectTapListener,
             marker.height.equalTo(42.5)
             marker.width.equalTo(42.5)
             marker.topMargin.equalTo(showPoiButton).inset(100)
-            marker.rightMargin.equalToSuperview().inset(5)
-        }
-        // resetPointsButton
-        resetPointsButton.setImage(UIImage(named: "route_show_off"), for: .normal)
-        resetPointsButton.tintColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
-        resetPointsButton.backgroundColor = #colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)
-        resetPointsButton.layer.cornerRadius = 5
-        view.addSubview(resetPointsButton)
-        resetPointsButton.addTarget(self, action: #selector(self.resetPointsAction(_:)), for: .touchUpInside)
-        resetPointsButton.snp.makeConstraints { (marker) in
-            marker.height.equalTo(42.5)
-            marker.width.equalTo(42.5)
-            marker.topMargin.equalTo(drawRouteButton).inset(100)
             marker.rightMargin.equalToSuperview().inset(5)
         }
     }
@@ -361,16 +391,6 @@ class MapsLayoutUnderSceneView: UIViewController, YMKLayersGeoObjectTapListener,
             //
             clearMapObjectRoutingType()
             requestPoints.removeAll()
-        }
-    }
-    @objc func resetPointsAction(_ sender:UIButton)
-    {
-        if ( sender.imageView?.image == UIImage(named: "location_on"))
-        {
-            sender.setImage(UIImage(named: "location_off"), for: .normal)
-        }
-        else {
-            sender.setImage(UIImage(named: "location_on"), for: .normal)
         }
     }
     @objc func changeRoteType( segment : UISegmentedControl)
@@ -654,8 +674,7 @@ extension MapsLayoutUnderSceneView: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         userLocation = YMKPoint(latitude: locations.last!.coordinate.latitude, longitude: locations.last!.coordinate.longitude)
         ROUTE_START_POINT = userLocation!
-        //requestPoints.append(YMKRequestPoint(point: ROUTE_START_POINT, type: .waypoint, pointContext: nil))
-
+        requestPoints.insert(YMKRequestPoint(point: ROUTE_START_POINT, type: .waypoint, pointContext: nil), at: 0)
         startingLocation = locations.last
         let userLocationString = "USER LOCATION:\(userLocation!.latitude) \(userLocation!.longitude)"
         // comment naviation mode
