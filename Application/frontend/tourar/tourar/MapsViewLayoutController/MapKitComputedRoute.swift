@@ -50,17 +50,18 @@ extension MapsLayoutUnderSceneView{
         var index = 0
         for point_ in route!.geometry.points {
             locationsPointAR.append(CLLocation(latitude: point_.latitude, longitude: point_.longitude))
-            //addRoutePointScene(index : index, rPoint : point_)
             index += 1
         }
-        // focus to route
-        
+        addRoutePointScene(index : index, rPoint : route!.geometry.points.last! )
     }
     // computed roiting - Pedestrian Type
     func callPedestrianRoutingResponse() {
       if ( requestPoints.isEmpty ) {
           return
       }
+    
+      let userLocation = YMKPoint(latitude: startingLocation.coordinate.latitude, longitude: startingLocation.coordinate.longitude)
+      requestPoints.insert(YMKRequestPoint(point: userLocation, type: .waypoint, pointContext: nil), at: 0)
       let pedestrianRouter = YMKTransport.sharedInstance().createPedestrianRouter()
               pedestrianSession = pedestrianRouter.requestRoutes(with: requestPoints,
                                                                  timeOptions: YMKTimeOptions(),
@@ -89,9 +90,9 @@ extension MapsLayoutUnderSceneView{
         var index = 0
         for point_ in route!.geometry.points {
             locationsPointAR.append(CLLocation(latitude: point_.latitude, longitude: point_.longitude))
-            //addRoutePointScene(index : index, rPoint : point_)
             index += 1
         }
+        addRoutePointScene(index : index, rPoint : route!.geometry.points.last! )
     }
     // Event Error Response Build Route / ALL Type
     func onRoutesError(_ error: Error) {

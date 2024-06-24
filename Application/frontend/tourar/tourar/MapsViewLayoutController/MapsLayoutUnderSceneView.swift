@@ -44,6 +44,11 @@ struct linesSceneDynamics{
 }
 
 class MapsLayoutUnderSceneView: UIViewController, YMKLayersGeoObjectTapListener, YMKMapInputListener,YMKUserLocationObjectListener, YMKMapCameraListener {
+    // var
+    var viewRouteCreate : UIView!
+    var viewNavigationStart : UIView!
+    var buttonCreateRoute : UIButton!
+    var buttonNavigationStart : UIButton!
     // global var polyline DrivingRouter
     var polyLineObjectDrivingRouter   : YMKPolylineMapObject? = nil
     // global var polyline PedestrianRoute
@@ -191,17 +196,47 @@ class MapsLayoutUnderSceneView: UIViewController, YMKLayersGeoObjectTapListener,
             marker.topMargin.equalToSuperview().inset(20)
             marker.left.right.equalToSuperview().inset(40)
         }
+        // viewNavigationMode
+        viewNavigationStart = UIView(frame: CGRect(x: 0, y: self.view.frame.height/4, width: self.view.frame.width - 40, height: 100))
+        viewNavigationStart.layer.backgroundColor  =  #colorLiteral(red: 0.1960784314, green: 0.1960784314, blue: 0.1960784314, alpha: 1)
+        viewNavigationStart.layer.cornerRadius = 10
+        viewNavigationStart.layer.shadowColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+        viewNavigationStart.layer.shadowRadius = 4
+        view.addSubview(viewNavigationStart)
+        viewNavigationStart.snp.makeConstraints { (marker) in
+            marker.height.equalTo(60)
+            marker.width.equalTo(self.view.frame.width - 40)
+            marker.topMargin.equalTo(typeRouting).inset(60)
+            marker.leftMargin.equalToSuperview().inset(10)
+        }
+        viewNavigationStart.isHidden = true
+        //
+        buttonNavigationStart = UIButton()
+        // button continie
+        buttonNavigationStart.backgroundColor = #colorLiteral(red: 0.2392156869, green: 0.6745098233, blue: 0.9686274529, alpha: 1)
+        buttonNavigationStart.setTitle("Начать", for: .normal)
+        buttonNavigationStart.setTitleColor(#colorLiteral(red: 0.1960784314, green: 0.1960784314, blue: 0.1960784314, alpha: 1), for: .normal)
+        buttonNavigationStart.layer.cornerRadius = 10
+        buttonNavigationStart.titleLabel?.font = UIFont.systemFont(ofSize: 15, weight: .bold)
+        buttonNavigationStart.addTarget(self, action: #selector(self.navigationStart(_:)), for: .touchUpInside)
+        viewNavigationStart.addSubview(buttonNavigationStart)
+        buttonNavigationStart.snp.makeConstraints { (marker) in
+            marker.bottom.top.equalToSuperview().inset(10)
+            marker.left.equalToSuperview().inset(10)
+            marker.height.equalTo(40)
+        }
         // ar helper
-        arButton.backgroundColor = #colorLiteral(red: 0.1960784314, green: 0.1960784314, blue: 0.1960784314, alpha: 1)
-        arButton.setTitleColor(.white, for: .normal)
+        arButton.backgroundColor = #colorLiteral(red: 0.3411764801, green: 0.6235294342, blue: 0.1686274558, alpha: 1)
+        arButton.setTitleColor(#colorLiteral(red: 0.1960784314, green: 0.1960784314, blue: 0.1960784314, alpha: 1), for: .normal)
+        arButton.titleLabel?.font = UIFont.systemFont(ofSize: 15, weight: .bold)
         arButton.setTitle("AR", for: .normal)
         arButton.layer.cornerRadius = 5
 
-        view.addSubview(arButton)
+        viewNavigationStart.addSubview(arButton)
         arButton.snp.makeConstraints { (marker) in
-            marker.topMargin.equalTo(typeRouting).inset(60)
-            marker.rightMargin.equalToSuperview().inset(5)
-            marker.width.equalTo(100)
+            marker.bottom.top.equalToSuperview().inset(10)
+            marker.right.equalToSuperview().inset(10)
+            marker.leftMargin.equalTo(buttonNavigationStart).inset(10)
             marker.height.equalTo(40)
         }
         arButton.addTarget(self, action: #selector(showARViewScene), for: .touchUpInside)
@@ -284,6 +319,36 @@ class MapsLayoutUnderSceneView: UIViewController, YMKLayersGeoObjectTapListener,
             marker.topMargin.equalTo(showPoiButton).inset(100)
             marker.rightMargin.equalToSuperview().inset(5)
         }
+        viewRouteCreate = UIView(frame: CGRect(x: 0, y: self.view.frame.height/4, width: self.view.frame.width - 40, height: 100))
+        viewRouteCreate.layer.backgroundColor  =  #colorLiteral(red: 0.1960784314, green: 0.1960784314, blue: 0.1960784314, alpha: 1)
+        viewRouteCreate.layer.cornerRadius = 10
+        viewRouteCreate.layer.shadowColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+        viewRouteCreate.layer.shadowRadius = 4
+        view.addSubview(viewRouteCreate)
+        viewRouteCreate.snp.makeConstraints { (marker) in
+            marker.height.equalTo(100)
+            marker.width.equalTo(self.view.frame.width - 40)
+            marker.bottomMargin.equalToSuperview().inset(10)
+            marker.rightMargin.leftMargin.equalToSuperview().inset(0)
+            marker.centerX.equalToSuperview()
+        }
+        viewRouteCreate.isHidden = true
+        //
+        buttonCreateRoute = UIButton()
+        // button continie
+        buttonCreateRoute.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+        buttonCreateRoute.setTitle("Построить маршрут", for: .normal)
+        buttonCreateRoute.setTitleColor(#colorLiteral(red: 0.1960784314, green: 0.1960784314, blue: 0.1960784314, alpha: 1), for: .normal)
+        buttonCreateRoute.layer.cornerRadius = 10
+        buttonCreateRoute.titleLabel?.font = UIFont.systemFont(ofSize: 15, weight: .bold)
+        buttonCreateRoute.addTarget(self, action: #selector(self.routeDrawAction(_:)), for: .touchUpInside)
+        viewRouteCreate.addSubview(buttonCreateRoute)
+        buttonCreateRoute.snp.makeConstraints { (marker) in
+            marker.bottom.equalToSuperview().inset(20)
+            marker.centerX.equalToSuperview()
+            marker.left.right.equalToSuperview().inset(30)
+            marker.height.equalTo(50)
+        }
     }
     // method Draw PlaceMark Poi Point
     func drawFromFetchDataPoint()
@@ -349,6 +414,19 @@ class MapsLayoutUnderSceneView: UIViewController, YMKLayersGeoObjectTapListener,
                 polyLineObjectPedestrianRoute = nil
             }
     }
+    @objc func navigationStart(_ sender : UIButton )
+    {
+        if ( sender.titleLabel?.text == "Начать")
+        {
+            isNavigationMode = true
+            buttonNavigationStart.setTitle("Завершить", for: .normal)
+        }
+        else
+        {
+            isNavigationMode = false
+            buttonNavigationStart.setTitle("Начать", for: .normal)
+        }
+    }
     @objc func layerAction(_ sender:UIButton)
     {
         let layerController = LayerViewController()
@@ -387,6 +465,52 @@ class MapsLayoutUnderSceneView: UIViewController, YMKLayersGeoObjectTapListener,
                 mapView.mapWindow.map.mapObjects.remove(with: object)
             }
             mapsObjectPlaceMark.removeAll()
+        }
+    }
+    func clearSelectedPointOnMap(){
+        for pp in requestPoints {
+            for plm in mapsObjectPlaceMark
+            {
+                var llm = plm.userData as? MapObjectTappedUserData
+                
+                if (pp.point == llm?.point )
+                {
+                    plm.setIconWith(UIImage(named: "custom_point")!)
+                }
+            }
+        }
+    }
+    @objc func routeDrawAction(_ sender : UIButton )
+    {
+        if ( requestPoints.isEmpty ) {
+            return
+        }
+        //
+        if ( sender.titleLabel?.text == "Построить маршрут")
+        {
+            sender.setTitle("Сбросить маршрут", for: .normal)
+            sender.backgroundColor = #colorLiteral(red: 0.8665164076, green: 0.2626616855, blue: 0.1656771706, alpha: 1)
+            //
+            clearMapObjectRoutingType()
+            locationsPointAR.removeAll()
+            if ( isPedestrianRoute )
+            {
+                callPedestrianRoutingResponse()
+            } else
+            {
+                callDrivingRoutingResponse()
+            }
+            viewNavigationStart.isHidden = false
+        }
+        else {
+            sender.setTitle("Построить маршрут", for: .normal)
+            sender.backgroundColor = .white
+            //
+            clearSelectedPointOnMap()
+            clearMapObjectRoutingType()
+            requestPoints.removeAll()
+            viewRouteCreate.isHidden = true
+            viewNavigationStart.isHidden = true
         }
     }
     @objc func drawRouteAction(_ sender:UIButton)
@@ -551,6 +675,27 @@ class MapsLayoutUnderSceneView: UIViewController, YMKLayersGeoObjectTapListener,
     func onMapAddRoutePoint( appenPoint : YMKPoint)
     {
         requestPoints.append(YMKRequestPoint(point: appenPoint, type: .waypoint, pointContext: nil))
+        if ( requestPoints.count > 1 )
+        {
+            if ( viewRouteCreate.isHidden == true )
+            {
+                
+            }
+            viewRouteCreate.isHidden = false
+            if ( buttonCreateRoute.titleLabel?.text != "Построить маршрут" )
+            {
+                // grebuild new route
+                clearMapObjectRoutingType()
+                locationsPointAR.removeAll()
+                if ( isPedestrianRoute )
+                {
+                    callPedestrianRoutingResponse()
+                } else
+                {
+                    callDrivingRoutingResponse()
+                }
+            }
+        }
     }
     func onMapRemovePoint( deletePoint : YMKPoint )
     {
@@ -566,6 +711,20 @@ class MapsLayoutUnderSceneView: UIViewController, YMKLayersGeoObjectTapListener,
                 index_del+=1
             }
             requestPoints.remove(at: del_index )
+            //
+            if ( buttonCreateRoute.titleLabel?.text != "Построить маршрут" )
+            {
+                // grebuild new route
+                clearMapObjectRoutingType()
+                locationsPointAR.removeAll()
+                if ( isPedestrianRoute )
+                {
+                    callPedestrianRoutingResponse()
+                } else
+                {
+                    callDrivingRoutingResponse()
+                }
+            }
         }
     }
     func onMapCurrentPointIsAppend( currentPoint : YMKPoint ) -> Bool
@@ -703,18 +862,20 @@ extension MapsLayoutUnderSceneView: CLLocationManagerDelegate {
         startingLocation = locations.last
         let userLocationString = "USER LOCATION:\(userLocation!.latitude) \(userLocation!.longitude)"
         // comment naviation mode
-        /*
+        
         if isNavigationMode == true
         {
+            // grebuild new route
+            clearMapObjectRoutingType()
+            locationsPointAR.removeAll()
             if ( isPedestrianRoute )
             {
-                computedRoute()
+                callPedestrianRoutingResponse()
             } else
             {
-                callRoutingResponse()
+                callDrivingRoutingResponse()
             }
         }
-        */
         // send to server location
         print("SEND TO SERVER:\(userLocationString)")
         socketConnection.send(message: userLocationString)

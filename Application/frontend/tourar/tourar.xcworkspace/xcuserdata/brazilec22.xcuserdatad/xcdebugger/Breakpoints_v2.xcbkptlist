@@ -142,8 +142,8 @@
             filePath = "tourar/MapsViewLayoutController/MapsLayoutUnderSceneView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "721"
-            endingLineNumber = "721"
+            startingLineNumber = "882"
+            endingLineNumber = "882"
             landmarkName = "locationManager(_:didUpdateLocations:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -158,8 +158,8 @@
             filePath = "tourar/MapsViewLayoutController/MapsLayoutUnderSceneView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "478"
-            endingLineNumber = "478"
+            startingLineNumber = "602"
+            endingLineNumber = "602"
             landmarkName = "locationAction(_:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -174,8 +174,8 @@
             filePath = "tourar/MapsViewLayoutController/MapsLayoutUnderSceneView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "481"
-            endingLineNumber = "481"
+            startingLineNumber = "605"
+            endingLineNumber = "605"
             landmarkName = "locationAction(_:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -190,8 +190,8 @@
             filePath = "tourar/MapsViewLayoutController/MapsLayoutUnderSceneView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "485"
-            endingLineNumber = "485"
+            startingLineNumber = "609"
+            endingLineNumber = "609"
             landmarkName = "locationAction(_:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -206,8 +206,8 @@
             filePath = "tourar/MapsViewLayoutController/MapsLayoutUnderSceneView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "424"
-            endingLineNumber = "424"
+            startingLineNumber = "548"
+            endingLineNumber = "548"
             landmarkName = "changeRoteType(segment:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -222,8 +222,8 @@
             filePath = "tourar/MapsViewLayoutController/MapsLayoutUnderSceneView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "427"
-            endingLineNumber = "427"
+            startingLineNumber = "551"
+            endingLineNumber = "551"
             landmarkName = "changeRoteType(segment:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -238,8 +238,8 @@
             filePath = "tourar/MapsViewLayoutController/MapsLayoutUnderSceneView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "434"
-            endingLineNumber = "434"
+            startingLineNumber = "558"
+            endingLineNumber = "558"
             landmarkName = "changeRoteType(segment:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -254,8 +254,8 @@
             filePath = "tourar/MapsViewLayoutController/MapsLayoutUnderSceneView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "439"
-            endingLineNumber = "439"
+            startingLineNumber = "563"
+            endingLineNumber = "563"
             landmarkName = "changeRoteType(segment:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -270,10 +270,10 @@
             filePath = "tourar/MapsViewLayoutController/ARSCEne+Helper/ARSceneViewRouteController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "514"
-            endingLineNumber = "514"
-            landmarkName = "displayClassifierResults()"
-            landmarkType = "7">
+            startingLineNumber = "518"
+            endingLineNumber = "518"
+            landmarkName = "ARSceneViewRouteController"
+            landmarkType = "21">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -286,10 +286,10 @@
             filePath = "tourar/MapsViewLayoutController/ARSCEne+Helper/ARSceneViewRouteController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "326"
-            endingLineNumber = "326"
-            landmarkName = "ARSceneViewRouteController"
-            landmarkType = "3">
+            startingLineNumber = "330"
+            endingLineNumber = "330"
+            landmarkName = "confidence"
+            landmarkType = "24">
             <Locations>
                <Location
                   uuid = "59E27DDD-FBE6-4A08-8FFB-92215A044E1D - 95c389973726a46f"
@@ -394,8 +394,8 @@
             filePath = "tourar/MapsViewLayoutController/ARSCEne+Helper/ARSceneViewRouteController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "323"
-            endingLineNumber = "323"
+            startingLineNumber = "327"
+            endingLineNumber = "327"
             landmarkName = "ARSceneViewRouteController"
             landmarkType = "3">
             <Locations>
@@ -442,8 +442,8 @@
             filePath = "tourar/MapsViewLayoutController/ARSCEne+Helper/ARSceneViewRouteController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "321"
-            endingLineNumber = "321"
+            startingLineNumber = "325"
+            endingLineNumber = "325"
             landmarkName = "ARSceneViewRouteController"
             landmarkType = "3">
             <Locations>
@@ -490,8 +490,8 @@
             filePath = "tourar/MapsViewLayoutController/ARSCEne+Helper/ARSceneViewRouteController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "320"
-            endingLineNumber = "320"
+            startingLineNumber = "324"
+            endingLineNumber = "324"
             landmarkName = "ARSceneViewRouteController"
             landmarkType = "3">
             <Locations>
@@ -598,8 +598,8 @@
             filePath = "tourar/MapsViewLayoutController/ARSCEne+Helper/ARSceneViewRouteController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "249"
-            endingLineNumber = "249"
+            startingLineNumber = "253"
+            endingLineNumber = "253"
             landmarkName = "changeTypeMLModelUse(segment:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -614,8 +614,8 @@
             filePath = "tourar/MapsViewLayoutController/ARSCEne+Helper/ARSceneViewRouteController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "302"
-            endingLineNumber = "302"
+            startingLineNumber = "306"
+            endingLineNumber = "306"
             landmarkName = "detectionRequest"
             landmarkType = "24">
          </BreakpointContent>
@@ -630,8 +630,8 @@
             filePath = "tourar/MapsViewLayoutController/ARSCEne+Helper/ARSceneViewRouteController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "437"
-            endingLineNumber = "437"
+            startingLineNumber = "441"
+            endingLineNumber = "441"
             landmarkName = "session(_:didUpdate:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -918,40 +918,8 @@
             filePath = "tourar/MapsViewLayoutController/MapsLayoutUnderSceneView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "719"
-            endingLineNumber = "719"
-            landmarkName = "locationManager(_:didUpdateLocations:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "74794DF1-E0C5-402E-B8AE-95862FF203A7"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "tourar/MapsViewLayoutController/MapsLayoutUnderSceneView.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "714"
-            endingLineNumber = "714"
-            landmarkName = "locationManager(_:didUpdateLocations:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "A1A05672-1CD6-4847-9F70-3089CEED656E"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "tourar/MapsViewLayoutController/MapsLayoutUnderSceneView.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "711"
-            endingLineNumber = "711"
+            startingLineNumber = "880"
+            endingLineNumber = "880"
             landmarkName = "locationManager(_:didUpdateLocations:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -966,10 +934,10 @@
             filePath = "tourar/MapsViewLayoutController/ARSCEne+Helper/ARSceneViewRouteController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "439"
-            endingLineNumber = "439"
-            landmarkName = "session(_:didUpdate:)"
-            landmarkType = "7">
+            startingLineNumber = "443"
+            endingLineNumber = "443"
+            landmarkName = "ARSceneViewRouteController"
+            landmarkType = "21">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -982,8 +950,8 @@
             filePath = "tourar/MapsViewLayoutController/ARSCEne+Helper/ARSceneViewRouteController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "396"
-            endingLineNumber = "396"
+            startingLineNumber = "400"
+            endingLineNumber = "400"
             landmarkName = "drawARRoute()"
             landmarkType = "7">
          </BreakpointContent>
@@ -998,8 +966,8 @@
             filePath = "tourar/MapsViewLayoutController/ARSCEne+Helper/ARSceneViewRouteController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "395"
-            endingLineNumber = "395"
+            startingLineNumber = "399"
+            endingLineNumber = "399"
             landmarkName = "drawARRoute()"
             landmarkType = "7">
          </BreakpointContent>
@@ -1142,8 +1110,8 @@
             filePath = "tourar/MapsViewLayoutController/MapsLayoutUnderSceneView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "340"
-            endingLineNumber = "340"
+            startingLineNumber = "405"
+            endingLineNumber = "405"
             landmarkName = "clearMapObjectRoutingType()"
             landmarkType = "7">
          </BreakpointContent>
@@ -1158,8 +1126,8 @@
             filePath = "tourar/MapsViewLayoutController/MapsLayoutUnderSceneView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "346"
-            endingLineNumber = "346"
+            startingLineNumber = "411"
+            endingLineNumber = "411"
             landmarkName = "clearMapObjectRoutingType()"
             landmarkType = "7">
          </BreakpointContent>
@@ -1174,8 +1142,8 @@
             filePath = "tourar/MapsViewLayoutController/MapsLayoutUnderSceneView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "342"
-            endingLineNumber = "342"
+            startingLineNumber = "407"
+            endingLineNumber = "407"
             landmarkName = "clearMapObjectRoutingType()"
             landmarkType = "7">
          </BreakpointContent>
@@ -1190,8 +1158,8 @@
             filePath = "tourar/MapsViewLayoutController/MapsLayoutUnderSceneView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "343"
-            endingLineNumber = "343"
+            startingLineNumber = "408"
+            endingLineNumber = "408"
             landmarkName = "clearMapObjectRoutingType()"
             landmarkType = "7">
          </BreakpointContent>
@@ -1206,8 +1174,8 @@
             filePath = "tourar/MapsViewLayoutController/MapsLayoutUnderSceneView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "348"
-            endingLineNumber = "348"
+            startingLineNumber = "413"
+            endingLineNumber = "413"
             landmarkName = "clearMapObjectRoutingType()"
             landmarkType = "7">
          </BreakpointContent>
@@ -1222,8 +1190,8 @@
             filePath = "tourar/MapsViewLayoutController/MapsLayoutUnderSceneView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "350"
-            endingLineNumber = "350"
+            startingLineNumber = "415"
+            endingLineNumber = "415"
             landmarkName = "clearMapObjectRoutingType()"
             landmarkType = "7">
          </BreakpointContent>
@@ -1238,8 +1206,8 @@
             filePath = "tourar/MapsViewLayoutController/MapsLayoutUnderSceneView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "349"
-            endingLineNumber = "349"
+            startingLineNumber = "414"
+            endingLineNumber = "414"
             landmarkName = "clearMapObjectRoutingType()"
             landmarkType = "7">
          </BreakpointContent>
@@ -1638,8 +1606,8 @@
             filePath = "tourar/MapsViewLayoutController/ARSCEne+Helper/ARSceneViewRouteController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "210"
-            endingLineNumber = "210"
+            startingLineNumber = "214"
+            endingLineNumber = "214"
             landmarkName = "viewDidLoad()"
             landmarkType = "7">
          </BreakpointContent>
@@ -1670,8 +1638,8 @@
             filePath = "tourar/MapsViewLayoutController/MapsLayoutUnderSceneView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "291"
-            endingLineNumber = "291"
+            startingLineNumber = "356"
+            endingLineNumber = "356"
             landmarkName = "drawFromFetchDataPoint()"
             landmarkType = "7">
          </BreakpointContent>
@@ -1686,8 +1654,8 @@
             filePath = "tourar/MapsViewLayoutController/MapsLayoutUnderSceneView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "293"
-            endingLineNumber = "293"
+            startingLineNumber = "358"
+            endingLineNumber = "358"
             landmarkName = "drawFromFetchDataPoint()"
             landmarkType = "7">
          </BreakpointContent>
@@ -1702,8 +1670,8 @@
             filePath = "tourar/MapsViewLayoutController/MapsLayoutUnderSceneView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "302"
-            endingLineNumber = "302"
+            startingLineNumber = "367"
+            endingLineNumber = "367"
             landmarkName = "drawFromFetchDataPoint()"
             landmarkType = "7">
          </BreakpointContent>
@@ -1718,8 +1686,8 @@
             filePath = "tourar/MapsViewLayoutController/MapsLayoutUnderSceneView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "304"
-            endingLineNumber = "304"
+            startingLineNumber = "369"
+            endingLineNumber = "369"
             landmarkName = "drawFromFetchDataPoint()"
             landmarkType = "7">
          </BreakpointContent>
@@ -2486,8 +2454,8 @@
             filePath = "tourar/MapsViewLayoutController/MapsLayoutUnderSceneView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "573"
-            endingLineNumber = "573"
+            startingLineNumber = "732"
+            endingLineNumber = "732"
             landmarkName = "onMapCurrentPointIsAppend(currentPoint:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -2502,8 +2470,8 @@
             filePath = "tourar/MapsViewLayoutController/MapsLayoutUnderSceneView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "574"
-            endingLineNumber = "574"
+            startingLineNumber = "733"
+            endingLineNumber = "733"
             landmarkName = "onMapCurrentPointIsAppend(currentPoint:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -2518,8 +2486,8 @@
             filePath = "tourar/MapsViewLayoutController/MapsLayoutUnderSceneView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "576"
-            endingLineNumber = "576"
+            startingLineNumber = "735"
+            endingLineNumber = "735"
             landmarkName = "onMapCurrentPointIsAppend(currentPoint:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -2534,8 +2502,8 @@
             filePath = "tourar/MapsViewLayoutController/MapsLayoutUnderSceneView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "577"
-            endingLineNumber = "577"
+            startingLineNumber = "736"
+            endingLineNumber = "736"
             landmarkName = "onMapCurrentPointIsAppend(currentPoint:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -2598,8 +2566,8 @@
             filePath = "tourar/MapsViewLayoutController/MapsLayoutUnderSceneView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "578"
-            endingLineNumber = "578"
+            startingLineNumber = "737"
+            endingLineNumber = "737"
             landmarkName = "onMapCurrentPointIsAppend(currentPoint:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -2630,8 +2598,8 @@
             filePath = "tourar/MapsViewLayoutController/MapsLayoutUnderSceneView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "553"
-            endingLineNumber = "553"
+            startingLineNumber = "677"
+            endingLineNumber = "677"
             landmarkName = "onMapAddRoutePoint(appenPoint:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -2646,8 +2614,8 @@
             filePath = "tourar/MapsViewLayoutController/MapsLayoutUnderSceneView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "572"
-            endingLineNumber = "572"
+            startingLineNumber = "731"
+            endingLineNumber = "731"
             landmarkName = "onMapCurrentPointIsAppend(currentPoint:)"
             landmarkType = "7">
          </BreakpointContent>

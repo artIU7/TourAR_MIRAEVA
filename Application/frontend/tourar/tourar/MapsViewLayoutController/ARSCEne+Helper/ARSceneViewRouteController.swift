@@ -49,6 +49,8 @@ public func voiceHelperUI(textSpeech : String)
 class ARSceneViewRouteController: UIViewController, UIGestureRecognizerDelegate, ARSessionDelegate {
     
     //
+    var routes : [SCNVector3]()
+    //
     let pointOnObjectDepth = 0.01 // the 'depth' of 3D text
     var latestPrediction : String = "…" // a variable containing the latest CoreML prediction
 
@@ -198,6 +200,8 @@ class ARSceneViewRouteController: UIViewController, UIGestureRecognizerDelegate,
         self.restartSession()
         
         drawARRoute()
+        //
+        self.initTap()
         //
         setupLayers()
         updateLayerGeometry()
@@ -392,7 +396,7 @@ class ARSceneViewRouteController: UIViewController, UIGestureRecognizerDelegate,
     
     // прориосвка маршрута
     func drawARRoute() {
-        var routes = [SCNVector3]()
+        routes = [SCNVector3]()
         if locationsPointAR != [] {
             for vector in locationsPointAR {
                 let p1 = CLLocationCoordinate2D(latitude: startingLocation.coordinate.latitude,
@@ -568,3 +572,67 @@ extension CGImagePropertyOrientation {
     }
 }
 
+extension ARSceneViewRouteController {
+    func addPlane(content : UIImage, place : SCNVector3){
+               let plane = Plane(content : content, doubleSided: true, horizontal: true, plot: false)
+                plane.position = place//SCNVector3(10, 0, 0)
+                let yFreeConstraint = SCNBillboardConstraint()
+                yFreeConstraint.freeAxes = [.Y] // optionally
+                plane.constraints = [yFreeConstraint] // apply the constraint to the parent node
+                plane.name = "plane \(UIImage.description())"
+                self.sceneView.scene.rootNode.addChildNode(plane)
+    }
+}
+//
+class Plane: SCNNode{
+    init(width: CGFloat = 3, height: CGFloat = 2, content: Any, doubleSided: Bool, horizontal: Bool, plot : Bool) {
+        super.init()
+        if plot == true {
+            self.geometry = SCNPlane(width: width + 2, height: height + 1)
+        } else {
+            self.geometry = SCNPlane(width: width - 2, height: height - 1)
+        }
+        let material = SCNMaterial()
+        if let colour = content as? UIColor{
+            material.diffuse.contents = colour
+        } else if let image = content as? UIImage{
+            material.diffuse.contents = image
+        }else{
+            material.diffuse.contents = UIColor.cyan
+        }
+        if plot == true {
+            self.geometry?.firstMaterial?.colorBufferWriteMask = .alpha
+        } else {
+            self.geometry?.firstMaterial = material
+        }
+        if doubleSided{
+            material.isDoubleSided = true
+        }
+        if horizontal{
+            self.transform = SCNMatrix4Mult(self.transform, SCNMatrix4MakeRotation(Float(Double.pi), 1, 0, 1))
+            self.transform = SCNMatrix4Mult(self.transform, SCNMatrix4MakeRotation(-Float(Double.pi)/1.0, 1, 0, 1))
+        }
+    }
+    required init?(coder aDecoder: NSCoder) { fatalError("Plane Node Coder Not Implemented") }
+}
+extension ARSceneViewRouteController {
+    func initTap() {
+         let tapRec = UITapGestureRecognizer(target: self,
+                                             action: #selector(ARSceneViewRouteController.handleTap(rec:)))
+         tapRec.numberOfTouchesRequired = 1
+         self.sceneView.addGestureRecognizer(tapRec)
+    }
+     @objc func handleTap(rec: UITapGestureRecognizer){
+        if rec.state == .ended {
+            let location: CGPoint = rec.location(in: sceneView)
+            let hits = self.sceneView.hitTest(location, options: nil)
+            if let tappednode = hits.first?.node {
+                if ( !routes.isEmpty)
+                {
+                    self.addPlane(content: UIImage(named: "oct")!, place: routes.last!)
+                }
+                print("Tap name +++\(tappednode.name)+++")
+            }
+        }
+    }
+}
