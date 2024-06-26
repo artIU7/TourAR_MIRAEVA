@@ -55,23 +55,19 @@ extension ARSceneViewRouteController {
         return positionInPOV.z < 0
        }
     func addLabel(_ position : SCNVector3, _ value : String, isCamera : Bool) {
-             let text = SCNText(string: value, extrusionDepth: 1)
-             let material = SCNMaterial()
-             let pointXColor = #colorLiteral(red: 0.5725490451, green: 0, blue: 0.2313725501, alpha: 1)
-             material.diffuse.contents = pointXColor
-             text.materials = [material]
-             let node = SCNNode()
-             node.position = position//SCNVector3(0,2, 2)
-             node.scale = SCNVector3(0.1, 0.1, 0.1)
+             let directionScene = SCNScene(named: "direction.usdz")!
+             let directionNode = directionScene.rootNode.childNodes.first!
+             directionNode.position = SCNVector3(x: position.x, y: position.y - 0.5, z: position.z)//SCNVector3(0,2, 2)
+             directionNode.scale = SCNVector3(0.005, 0.005, 0.005)
              let billboardConstraint = SCNBillboardConstraint()
              billboardConstraint.freeAxes = SCNBillboardAxis.Y
-             node.constraints = [billboardConstraint]
-             node.geometry = text
-             node.name = "labelAR"
+             directionNode.constraints = [billboardConstraint]
+             directionNode.name = "direction"
              if isCamera == true {
                 //  self.isNodeInFrontOfCamera(node, scnView: sceneView)
              }
-             sceneView.scene.rootNode.addChildNode(node)
+        directionNode.isHidden = true
+             sceneView.scene.rootNode.addChildNode(directionNode)
          }
     func billboardnew(_ position : SCNVector3, value : String) {
               let material = SCNMaterial()
@@ -182,6 +178,13 @@ extension ARSceneViewRouteController {
         pointOnObjectNodeParent.constraints = [billboardConstraint]
         
         return pointOnObjectNodeParent
+    }
+    func createEarthShared() -> SCNNode {
+        let earthShared = SCNScene(named: "earth.scn")!
+        let earthSharedNode = earthShared.rootNode.childNodes.first!
+        earthSharedNode.scale = SCNVector3Make(0.005, 0.005, 0.005)
+        earthSharedNode.name = "earth"
+        return earthSharedNode
     }
     
 }

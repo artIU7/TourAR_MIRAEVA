@@ -10,11 +10,12 @@
 		0ABD0E66DDF418A56B1450FE /* libPods-tourar.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 14876466882712497ECFD3F8 /* libPods-tourar.a */; };
 		B71C40B82C1F76050076E7DA /* ARSceneDrawRoute+Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = B71C40B72C1F76050076E7DA /* ARSceneDrawRoute+Helper.swift */; };
 		B71C40BA2C1F768E0076E7DA /* ARSCeneHelperSceneNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = B71C40B92C1F768D0076E7DA /* ARSCeneHelperSceneNode.swift */; };
+		B724C3ED2C2ACC4F0035679F /* SessionARMultipleer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B724C3EC2C2ACC4F0035679F /* SessionARMultipleer.swift */; };
 		B77D9B152C1DDC6A007FCA33 /* MapsLayoutUnderSceneView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B77D9B142C1DDC6A007FCA33 /* MapsLayoutUnderSceneView.swift */; };
 		B77D9B182C1DDD46007FCA33 /* WebSocketConnectionConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = B77D9B172C1DDD46007FCA33 /* WebSocketConnectionConfiguration.swift */; };
 		B77D9B1B2C1DDE5D007FCA33 /* FetchDataFromServer+Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = B77D9B1A2C1DDE5D007FCA33 /* FetchDataFromServer+Helper.swift */; };
 		B77D9B1E2C1DE1E8007FCA33 /* down.scn in Resources */ = {isa = PBXBuildFile; fileRef = B77D9B1C2C1DE1E8007FCA33 /* down.scn */; };
-		B77D9B1F2C1DE1E8007FCA33 /* object.usdz in Resources */ = {isa = PBXBuildFile; fileRef = B77D9B1D2C1DE1E8007FCA33 /* object.usdz */; };
+		B77D9B1F2C1DE1E8007FCA33 /* direction.usdz in Resources */ = {isa = PBXBuildFile; fileRef = B77D9B1D2C1DE1E8007FCA33 /* direction.usdz */; };
 		B77E0C002C287E7D001FD29E /* MapsLayoutRouteBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = B77E0BFF2C287E7D001FD29E /* MapsLayoutRouteBuilder.swift */; };
 		B77E0C022C28B5CF001FD29E /* SubViewUserPermissionData.swift in Sources */ = {isa = PBXBuildFile; fileRef = B77E0C012C28B5CF001FD29E /* SubViewUserPermissionData.swift */; };
 		B791BC7A2C1B6C3C001B57E7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B791BC792C1B6C3C001B57E7 /* AppDelegate.swift */; };
@@ -35,6 +36,7 @@
 		B7CEF9492C1EE3A7007165CF /* YOLOv3Tiny.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = B7CEF9482C1EE3A7007165CF /* YOLOv3Tiny.mlmodel */; };
 		B7DD94932C22D23E00B964D5 /* MapsLayoutTappedObject+HelperUnderViewScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7DD94922C22D23E00B964D5 /* MapsLayoutTappedObject+HelperUnderViewScene.swift */; };
 		B7EE372D2C2929850092F98A /* LayerViewControlller+Help.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7EE372C2C2929850092F98A /* LayerViewControlller+Help.swift */; };
+		B7EE372F2C2970AE0092F98A /* earth.scn in Resources */ = {isa = PBXBuildFile; fileRef = B7EE372E2C2970AE0092F98A /* earth.scn */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -42,11 +44,12 @@
 		AFF9CB3ADB6675B24CB3F19C /* Pods-tourar.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-tourar.debug.xcconfig"; path = "Target Support Files/Pods-tourar/Pods-tourar.debug.xcconfig"; sourceTree = "<group>"; };
 		B71C40B72C1F76050076E7DA /* ARSceneDrawRoute+Helper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ARSceneDrawRoute+Helper.swift"; sourceTree = "<group>"; };
 		B71C40B92C1F768D0076E7DA /* ARSCeneHelperSceneNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARSCeneHelperSceneNode.swift; sourceTree = "<group>"; };
+		B724C3EC2C2ACC4F0035679F /* SessionARMultipleer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionARMultipleer.swift; sourceTree = "<group>"; };
 		B77D9B142C1DDC6A007FCA33 /* MapsLayoutUnderSceneView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapsLayoutUnderSceneView.swift; sourceTree = "<group>"; };
 		B77D9B172C1DDD46007FCA33 /* WebSocketConnectionConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebSocketConnectionConfiguration.swift; sourceTree = "<group>"; };
 		B77D9B1A2C1DDE5D007FCA33 /* FetchDataFromServer+Helper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FetchDataFromServer+Helper.swift"; sourceTree = "<group>"; };
 		B77D9B1C2C1DE1E8007FCA33 /* down.scn */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = down.scn; sourceTree = "<group>"; };
-		B77D9B1D2C1DE1E8007FCA33 /* object.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = object.usdz; sourceTree = "<group>"; };
+		B77D9B1D2C1DE1E8007FCA33 /* direction.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = direction.usdz; sourceTree = "<group>"; };
 		B77E0BFF2C287E7D001FD29E /* MapsLayoutRouteBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapsLayoutRouteBuilder.swift; sourceTree = "<group>"; };
 		B77E0C012C28B5CF001FD29E /* SubViewUserPermissionData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubViewUserPermissionData.swift; sourceTree = "<group>"; };
 		B791BC762C1B6C3C001B57E7 /* tourar.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = tourar.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -69,6 +72,7 @@
 		B7CEF9482C1EE3A7007165CF /* YOLOv3Tiny.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; name = YOLOv3Tiny.mlmodel; path = tourar/YOLOv3Tiny.mlmodel; sourceTree = SOURCE_ROOT; };
 		B7DD94922C22D23E00B964D5 /* MapsLayoutTappedObject+HelperUnderViewScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MapsLayoutTappedObject+HelperUnderViewScene.swift"; sourceTree = "<group>"; };
 		B7EE372C2C2929850092F98A /* LayerViewControlller+Help.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LayerViewControlller+Help.swift"; sourceTree = "<group>"; };
+		B7EE372E2C2970AE0092F98A /* earth.scn */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = earth.scn; sourceTree = "<group>"; };
 		D47BA13DEA2FABAB072D3B42 /* Pods-tourar.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-tourar.release.xcconfig"; path = "Target Support Files/Pods-tourar/Pods-tourar.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -101,6 +105,14 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		B724C3EB2C2ACC260035679F /* ARSceneMultiPleer+Helper */ = {
+			isa = PBXGroup;
+			children = (
+				B724C3EC2C2ACC4F0035679F /* SessionARMultipleer.swift */,
+			);
+			path = "ARSceneMultiPleer+Helper";
+			sourceTree = "<group>";
+		};
 		B77D9B0F2C1DD867007FCA33 /* StartUpControllerApplication */ = {
 			isa = PBXGroup;
 			children = (
@@ -124,10 +136,11 @@
 		B77D9B112C1DD8AE007FCA33 /* MapsViewLayoutController */ = {
 			isa = PBXGroup;
 			children = (
+				B77D9B1C2C1DE1E8007FCA33 /* down.scn */,
+				B77D9B1D2C1DE1E8007FCA33 /* direction.usdz */,
+				B7EE372E2C2970AE0092F98A /* earth.scn */,
 				B7DD94912C22C9F500B964D5 /* MapsLayoutTappedPoit+HelperInderScene */,
 				B7B23E512C1DF3A1006008FB /* MapsViewBaseLayout.swift */,
-				B77D9B1C2C1DE1E8007FCA33 /* down.scn */,
-				B77D9B1D2C1DE1E8007FCA33 /* object.usdz */,
 				B77D9B192C1DDE37007FCA33 /* FetchDataFromServer+Helper */,
 				B77D9B162C1DDD07007FCA33 /* WebSocketConnection+Helper */,
 				B791BCA92C1B7BA1001B57E7 /* MapsLayerMainViewController.swift */,
@@ -216,6 +229,7 @@
 		B7CEF9442C1ED549007165CF /* ARSCEne+Helper */ = {
 			isa = PBXGroup;
 			children = (
+				B724C3EB2C2ACC260035679F /* ARSceneMultiPleer+Helper */,
 				B7CEF9472C1EE355007165CF /* Resource+MLModel */,
 				B7CEF9422C1ED53C007165CF /* ARSceneViewRouteController.swift */,
 				B7A9A0D12C1F07FC00576A43 /* NetworkManager+GigaChat.swift */,
@@ -304,10 +318,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				B7B23E562C1E61CA006008FB /* tourist_prepare.scn in Resources */,
-				B77D9B1F2C1DE1E8007FCA33 /* object.usdz in Resources */,
+				B77D9B1F2C1DE1E8007FCA33 /* direction.usdz in Resources */,
 				B7B23E552C1E61CA006008FB /* poi.scn in Resources */,
 				B77D9B1E2C1DE1E8007FCA33 /* down.scn in Resources */,
 				B791BC832C1B6C3E001B57E7 /* Assets.xcassets in Resources */,
+				B7EE372F2C2970AE0092F98A /* earth.scn in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -377,6 +392,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B724C3ED2C2ACC4F0035679F /* SessionARMultipleer.swift in Sources */,
 				B77D9B1B2C1DDE5D007FCA33 /* FetchDataFromServer+Helper.swift in Sources */,
 				B71C40B82C1F76050076E7DA /* ARSceneDrawRoute+Helper.swift in Sources */,
 				B77D9B182C1DDD46007FCA33 /* WebSocketConnectionConfiguration.swift in Sources */,
@@ -532,6 +548,7 @@
 				INFOPLIST_FILE = tourar/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = tour.AR;
 				INFOPLIST_KEY_NSCameraUsageDescription = YES;
+				INFOPLIST_KEY_NSLocalNetworkUsageDescription = YES;
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
@@ -565,6 +582,7 @@
 				INFOPLIST_FILE = tourar/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = tour.AR;
 				INFOPLIST_KEY_NSCameraUsageDescription = YES;
+				INFOPLIST_KEY_NSLocalNetworkUsageDescription = YES;
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;

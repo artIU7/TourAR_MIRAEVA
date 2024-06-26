@@ -20,6 +20,10 @@ var mocPositionPoint  = [0:YMKPoint(latitude: 55.73, longitude: 35.28),
                          1:YMKPoint(latitude: 54.73, longitude: 37.28),
                          2:YMKPoint(latitude: 53.73, longitude: 39.28),
                          3:YMKPoint(latitude: 56.73, longitude: 34.28)]
+var objectLocation    : [Int : YMKPoint] = [:]
+var objectDescription : [Int : String] = [:]
+var objectImage       : [Int : UIImage] = [:]
+
 //
 class CodeCell: ScalingCarouselCell {
     
@@ -47,13 +51,12 @@ class CodeCell: ScalingCarouselCell {
             marker.centerXWithinMargins.equalTo(mainView)
             marker.leftMargin.rightMargin.equalTo(mainView).inset(10)
         }
-        imageSlide = UIImageView(image: UIImage(named: "n_logo"))
         mainView.addSubview(imageSlide)
         self.imageSlide.snp.makeConstraints { (marker) in
-            marker.top.equalTo(labelPoint).inset(10)
+            marker.top.equalTo(labelPoint).inset(20)
             marker.centerXWithinMargins.equalTo(mainView)
-            marker.leftMargin.rightMargin.equalTo(mainView).inset(10)
-            marker.bottomMargin.equalTo(mainView).inset(10)
+            marker.leftMargin.rightMargin.equalTo(mainView).inset(20)
+            marker.bottomMargin.equalTo(mainView).inset(20)
         }
     }
     required init?(coder aDecoder: NSCoder) {
@@ -68,6 +71,9 @@ class CodeViewController: UIViewController {
     fileprivate var scalingCarousel: ScalingCarouselView!
 
     var tabBarTag: Bool = true
+    
+    let synthesizer = AVSpeechSynthesizer()
+
 
     // MARK: - Lifecycle
     
@@ -81,6 +87,7 @@ class CodeViewController: UIViewController {
         }
         self.title = "Обзор"
         //
+        setPointOfView()
         addCarousel()
     }
 
@@ -107,7 +114,19 @@ class CodeViewController: UIViewController {
     }
     
     // MARK: - Configuration
-    
+    func setPointOfView()
+    {
+        var index = 0
+        if ( !mapsObjectPlaceMark.isEmpty ) {
+            mapsObjectPlaceMark.forEach { obj in
+                let userData = obj.userData as? MapObjectTappedUserData
+                objectDescription[index] = userData?.title
+                objectLocation[index]    = userData?.point
+                objectImage[index]       = userData?.image
+                index += 1
+            }
+        }
+    }
     private func addCarousel() {
         
         let frame = CGRect(x: 0, y: 0, width: 0, height: 0)
@@ -126,14 +145,14 @@ class CodeViewController: UIViewController {
         scalingCarousel.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 1).isActive = true
         scalingCarousel.heightAnchor.constraint(equalToConstant: 150).isActive = true
         scalingCarousel.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
-        scalingCarousel.topAnchor.constraint(equalTo: view.topAnchor, constant: 20).isActive = true
+        scalingCarousel.topAnchor.constraint(equalTo: view.topAnchor, constant: 30).isActive = true
     }
 }
 
 extension CodeViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 4
+        return objectLocation.count - 1
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -141,15 +160,16 @@ extension CodeViewController: UICollectionViewDataSource {
         
         if let scalingCell = cell as? CodeCell {
             // label
-            scalingCell.labelPoint.text = "Test : \(mocObjectTourPoint[indexPath.item]!)"
-            scalingCell.labelPoint.adjustsFontSizeToFitWidth = true
-            scalingCell.labelPoint.adjustsFontForContentSizeCategory = true
-            scalingCell.labelPoint.numberOfLines = 2
-            scalingCell.labelPoint.textColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
-            // image
-            scalingCell.imageSlide  = UIImageView(image: UIImage(named: "n_logo"))
-            scalingCell.mainView.backgroundColor = #colorLiteral(red: 0.8078431487, green: 0.02745098062, blue: 0.3333333433, alpha: 1)
-            scalingCell.setConstraintsItem()
+                scalingCell.labelPoint.text = "\(objectDescription[indexPath.item]!)"
+                scalingCell.labelPoint.adjustsFontSizeToFitWidth = true
+                scalingCell.labelPoint.adjustsFontForContentSizeCategory = true
+                scalingCell.labelPoint.numberOfLines = 2
+                scalingCell.labelPoint.textColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+                scalingCell.labelPoint.textAlignment = .center
+                // image
+                scalingCell.imageSlide  = UIImageView(image: objectImage[indexPath.item])
+                scalingCell.mainView.backgroundColor = #colorLiteral(red: 0.1960784314, green: 0.1960784314, blue: 0.1960784314, alpha: 1)
+                scalingCell.setConstraintsItem()
         }
         DispatchQueue.main.async {
             cell.setNeedsLayout()
@@ -163,18 +183,22 @@ extension CodeViewController: UICollectionViewDataSource {
         // добавляем озвучку перехода на главный таб бар
         let utterance = AVSpeechUtterance(string: "\(textSpeech)")
         // Configure the utterance.
-        utterance.rate = 0.57
+        utterance.rate = 0.48
         utterance.pitchMultiplier = 0.8
         utterance.postUtteranceDelay = 0.2
-        utterance.volume = 0.55
+        utterance.volume = 0.45
         // Retrieve the British English voice.
         let voice = AVSpeechSynthesisVoice(language: "ru-RU")
         // Assign the voice to the utterance.
         utterance.voice = voice
         // Create a speech synthesizer.
-        let synthesizer = AVSpeechSynthesizer()
         // Tell the synthesizer to speak the utterance.
-        synthesizer.speak(utterance)
+        if ( synthesizer.isSpeaking )
+        {
+        } else
+        {
+            synthesizer.speak(utterance)
+        }
     }
 }
 
@@ -183,11 +207,11 @@ extension CodeViewController: UICollectionViewDelegate {
     {
         //
         let mapObjects = mapView.mapWindow.map.mapObjects
-        let placemark = mapObjects.addPlacemark(with: mocPositionPoint[index]!)
+        let placemark = mapObjects.addPlacemark(with: objectLocation[index]!)
         placemark.setIconWith(UIImage(named: "custom_point")!)
         //
         mapView.mapWindow.map.move(
-            with: YMKCameraPosition(target: mocPositionPoint[index]!, zoom: 17, azimuth: 40, tilt: 190.0),
+            with: YMKCameraPosition(target: objectLocation[index]!, zoom: 17, azimuth: 40, tilt: 190.0),
             animationType: YMKAnimation(type: YMKAnimationType.linear, duration: 1),
             cameraCallback: nil)
     }
@@ -196,7 +220,7 @@ extension CodeViewController: UICollectionViewDelegate {
         if ( scalingCarousel.currentCenterCellIndex != nil )
         {
             voiceHelperUI(textSpeech: "Выбрали обьект :" +
-                          mocObjectTourPoint[scalingCarousel.currentCenterCellIndex!.item]!)
+                          objectDescription[scalingCarousel.currentCenterCellIndex!.item]!)
             moveCoordinatePosition(index: scalingCarousel.currentCenterCellIndex!.item)
         }
       

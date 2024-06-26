@@ -11,8 +11,18 @@ import Vision
 import SceneKit
 import CoreLocation
 import AVFoundation
+import MultipeerConnectivity
 
-
+class UserLocation : NSObject{
+    var lat : Double
+    var lon : Double
+    init(lat : Double,lon : Double)
+    {
+        self.lat = lat
+        self.lon = lon
+    }
+}
+var isLoadAll = false
 var lastMLClassificationOrDetectionObject = ""
 var locationsPointAR: [CLLocation] = []
 var startingLocation: CLLocation!
@@ -48,6 +58,8 @@ public func voiceHelperUI(textSpeech : String)
 
 class ARSceneViewRouteController: UIViewController, UIGestureRecognizerDelegate, ARSessionDelegate {
     
+    var mapProvider: MCPeerID?
+
     //
     var routes = [SCNVector3]()
     //
@@ -62,6 +74,7 @@ class ARSceneViewRouteController: UIViewController, UIGestureRecognizerDelegate,
     var sceneView = ARSCNView()
     let arButtonClose = UIButton(type: .system)
     let routeShow     = UIButton(type: .system)
+    let sharedLocation = UIButton(type: .system)
 
     // bool use type MLModel
     var isClassification = true
@@ -126,6 +139,23 @@ class ARSceneViewRouteController: UIViewController, UIGestureRecognizerDelegate,
         return shapeLayer
     }
     //
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        guard ARWorldTrackingConfiguration.isSupported else {
+            fatalError("""
+                ARKit is not available on this device. For apps that require ARKit
+                for core functionality, use the `arkit` key in the key in the
+                `UIRequiredDeviceCapabilities` section of the Info.plist to prevent
+                the app from installing. (If the app can't be installed, this error
+                can't be triggered in a production scenario.)
+                In apps where AR is an additive feature, use `isSupported` to
+                determine whether to show UI for launching AR experiences.
+            """) // For details, see https://developer.apple.com/documentation/arkit
+        }
+        UIApplication.shared.isIdleTimerDisabled = true
+    }
+    //
     func setupLayers() {
         detectionOverlay = CALayer() // container layer that has all the renderings of the observations
         detectionOverlay.name = "DetectionOverlay"
@@ -137,9 +167,14 @@ class ARSceneViewRouteController: UIViewController, UIGestureRecognizerDelegate,
         rootLayer.addSublayer(detectionOverlay)
     }
     // MARK: - View controller lifecycle
+    var multipeerSession: MultipeerSession!
+    var labelConnected: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        //
+        multipeerSession = MultipeerSession(receivedDataHandler: receivedData)
         
         sceneView.delegate = self
         sceneView.session.delegate = self
@@ -196,6 +231,40 @@ class ARSceneViewRouteController: UIViewController, UIGestureRecognizerDelegate,
             marker.height.equalTo(40)
         }
         routeShow.addTarget(self, action: #selector(showRouteButton), for: .touchUpInside)
+        //
+        // sharedLocation show
+        sharedLocation.backgroundColor = #colorLiteral(red: 0.1960784314, green: 0.1960784314, blue: 0.1960784314, alpha: 1)
+        sharedLocation.setTitleColor(.white, for: .normal)
+        sharedLocation.setTitle("Peer_to..", for: .normal)
+        sharedLocation.layer.cornerRadius = 15
+
+        view.addSubview(sharedLocation)
+        sharedLocation.snp.makeConstraints { (marker) in
+            marker.topMargin.equalTo(routeShow).inset(60)
+            marker.rightMargin.equalToSuperview().inset(5)
+            marker.width.equalTo(100)
+            marker.height.equalTo(40)
+        }
+        sharedLocation.isHidden = true
+        sharedLocation.addTarget(self, action: #selector(peerRouteButton), for: .touchUpInside)
+        
+        labelConnected  = UILabel()
+        // status connected multi
+        labelConnected.text = "Connected(share):"
+        labelConnected.adjustsFontSizeToFitWidth = true
+        labelConnected.adjustsFontForContentSizeCategory = true
+        labelConnected.numberOfLines = 2
+        labelConnected.textAlignment = .left
+        labelConnected.font = UIFont.boldSystemFont(ofSize: 15)
+        labelConnected.textColor = #colorLiteral(red: 0.1960784314, green: 0.1960784314, blue: 0.1960784314, alpha: 1)
+        view.addSubview(labelConnected)
+
+        labelConnected.snp.makeConstraints { (marker) in
+            marker.bottomMargin.equalToSuperview().inset(20)
+            marker.leftMargin.equalToSuperview().inset(10)
+            marker.width.equalTo(self.view.frame.width)
+            marker.height.equalTo(40)
+        }
         
         self.restartSession()
         
@@ -213,6 +282,32 @@ class ARSceneViewRouteController: UIViewController, UIGestureRecognizerDelegate,
         */
 
     }
+    /// - Tag: ReceiveData
+    func receivedData(_ data: Data, from peer: MCPeerID) {
+        
+        do {
+            if let worldMap = try NSKeyedUnarchiver.unarchivedObject(ofClass: ARWorldMap.self, from: data) {
+                // Run the session with the received world map.
+                let configuration = ARWorldTrackingConfiguration()
+                configuration.planeDetection = .horizontal
+                configuration.initialWorldMap = worldMap
+                sceneView.session.run(configuration, options: [.resetTracking, .removeExistingAnchors])
+                
+                // Remember who provided the map for showing UI feedback.
+                mapProvider = peer
+            }
+            else
+            if let anchor = try NSKeyedUnarchiver.unarchivedObject(ofClass: ARAnchor.self, from: data) {
+                // Add anchor to the session, ARSCNView delegate adds visible content.
+                sceneView.session.add(anchor: anchor)
+            }
+            else {
+                print("unknown data recieved from \(peer)")
+            }
+        } catch {
+            print("can't decode data recieved from \(peer)")
+        }
+    }
     // MARK: - Interaction
     
     func setAnchorObjectDetection() {
@@ -229,16 +324,97 @@ class ARSceneViewRouteController: UIViewController, UIGestureRecognizerDelegate,
             
             // Create 3D Text
             let node : SCNNode = createPointOnObjectDetection(latestPrediction)
-            sceneView.scene.rootNode.addChildNode(node)
+            //sceneView.scene.rootNode.addChildNode(node)
             node.position = worldCoord
         }
     }
+    func sharedSession()
+    {
+        sceneView.session.getCurrentWorldMap { worldMap, error in
+            guard let map = worldMap
+                else { print("Error: \(error!.localizedDescription)"); return }
+            guard let data = try? NSKeyedArchiver.archivedData(withRootObject: map, requiringSecureCoding: true)
+                else { fatalError("can't encode map") }
+            self.multipeerSession.sendToAllPeers(data)
+        }
+    }
     
+    func sendLocationNode()
+    {
+        var routeAnchor : [ARAnchor] = []
+        sceneView.scene.rootNode.childNodes.forEach { node in
+            if ( node.name == "routeAR" )
+            {
+                let newAnchor = ARAnchor(name: "point", transform: node.simdTransform )
+                routeAnchor.append(newAnchor)
+            }
+        }
+        if ( !routeAnchor.isEmpty )
+        {
+            routeAnchor.forEach { anchor in
+                guard let data = try? NSKeyedArchiver.archivedData(withRootObject: anchor, requiringSecureCoding: true) else
+                {
+                    fatalError("can't encode anchor")
+                }
+                self.multipeerSession.sendToAllPeers(data)
+            }
+        }
+        /*
+        var senderLocation : [UserLocation] = []
+        if ( !locationsPointAR.isEmpty )
+        {
+            locationsPointAR.forEach { location in
+                senderLocation.append(UserLocation(lat: location.coordinate.latitude, lon: location.coordinate.longitude))
+            }
+        }
+        print("Location point AR (count) : \(senderLocation.count)\nData:\(senderLocation)")
+            // Send the anchor info to peers, so they can place the same content.
+
+        guard let data = try? NSKeyedArchiver.archivedData(withRootObject: locationsPointAR.first!, requiringSecureCoding: true) else
+        {
+            fatalError("can't encode anchor")
+        }
+        /*
+        guard let data = try? NSKeyedArchiver.archivedData(withRootObject: locationsPointAR.first as Any, requiringSecureCoding: true)
+                  else {  }
+        */
+         
+        */
+    }
+    @objc func peerRouteButton(){
+        sendLocationNode()
+    }
     @objc func showRouteButton()
     {
-        sceneView.scene.rootNode.enumerateChildNodes { (node, stop) in
-        node.removeFromParentNode() }      //drawARRoute()
-        
+        if ( routeShow.titleLabel?.text == "Маршрут")
+        {
+            sceneView.scene.rootNode.enumerateChildNodes { (node, stop) in
+                if ( node.name == "routeAR")
+                {
+                    node.isHidden = true
+                }
+                else if ( node.name == "direction")
+                {
+                    node.isHidden = false
+                }
+            }
+            routeShow.setTitle("Указатель", for: .normal)
+        }
+        else
+        {
+            sceneView.scene.rootNode.enumerateChildNodes { (node, stop) in
+                if ( node.name == "routeAR")
+                {
+                    node.isHidden = false
+                }
+                else if ( node.name == "direction")
+                {
+                    node.isHidden = true
+                }
+            }
+            routeShow.setTitle("Маршрут", for: .normal)
+        }
+        //sharedSession()
     }
     @objc func closeARViewScene()
     {
@@ -249,8 +425,10 @@ class ARSceneViewRouteController: UIViewController, UIGestureRecognizerDelegate,
             switch segment.selectedSegmentIndex {
             case 0:
                 isClassification = true
+                isLoadAll = false
             case 1:
                 isClassification = false
+                isLoadAll = true
             default:
                 isClassification = true
             }
@@ -404,13 +582,15 @@ class ARSceneViewRouteController: UIViewController, UIGestureRecognizerDelegate,
                 let p2 = CLLocationCoordinate2D(latitude: vector.coordinate.latitude,
                                                 longitude: vector.coordinate.longitude)
                 let offset = offsetComplete(p1, p2)
-                routes.append(SCNVector3(0 + offset[0], -1.25, 0 + offset[1] * -1))
+                routes.append(SCNVector3(0 + offset[0], -1.65, 0 + offset[1] * -1))
             }
             for i in 0...routes.count - 1 {
                 if i != routes.count - 1 {
                     draw3DLine(routes[i], routes[i + 1], orderIndex: 1, color: .green)
+                    addLabel(routes[i], "⬆️", isCamera: true)
                 } else {
                     self.arrowLoadMesh(routes[i])
+                    addPlane(content: UIImage(named: "oct")!, place: SCNVector3(x: routes[i].x, y: routes[i].y + 1.2, z: routes[i].z))
                 }
             }
         }
@@ -428,18 +608,17 @@ extension ARSceneViewRouteController : ARSCNViewDelegate{
         guard currentBuffer == nil, case .normal = frame.camera.trackingState else {
             return
         }
-        
-        // Retain the image buffer for Vision processing.
-        self.currentBuffer = frame.capturedImage
-        if ( isClassification )
-        {
-            classifyCurrentImage()
-
-        }
-        else
-        {
-            detectionCurrentImage()
-        }
+            // Retain the image buffer for Vision processing.
+            self.currentBuffer = frame.capturedImage
+            
+            if ( isClassification )
+            {
+                classifyCurrentImage()
+            }
+            else
+            {
+                detectionCurrentImage()
+            }
     }
     /// - Tag: ClassifyCurrentImage
     private func classifyCurrentImage() {
@@ -520,13 +699,48 @@ extension ARSceneViewRouteController : ARSCNViewDelegate{
     // MARK: - AR Session Handling
     
     func session(_ session: ARSession, cameraDidChangeTrackingState camera: ARCamera) {
+        updateSessionInfoLabel(for: session.currentFrame!, trackingState: camera.trackingState)
+    }
+    private func updateSessionInfoLabel(for frame: ARFrame, trackingState: ARCamera.TrackingState) {
+        // Update the UI to provide feedback on the state of the AR experience.
+        let message: String
         
-        switch camera.trackingState {
-        case .notAvailable, .limited:
-            print("NOT NORMAL SESSION")
-        case .normal:
-            print("NORMAL SESSION")
+        switch trackingState {
+        case .normal where frame.anchors.isEmpty && multipeerSession.connectedPeers.isEmpty:
+            // No planes detected; provide instructions for this app's AR interactions.
+            message = "Move around to map the environment, or wait to join a shared session."
+            
+        case .normal where !multipeerSession.connectedPeers.isEmpty && mapProvider == nil:
+            let peerNames = multipeerSession.connectedPeers.map({ $0.displayName }).joined(separator: ", ")
+            message = "Connected with \(peerNames)."
+            
+        case .notAvailable:
+            message = "Tracking unavailable."
+            
+        case .limited(.excessiveMotion):
+            message = "Tracking limited - Move the device more slowly."
+            
+        case .limited(.insufficientFeatures):
+            message = "Tracking limited - Point the device at an area with visible surface detail, or improve lighting conditions."
+            
+        case .limited(.initializing) where mapProvider != nil,
+             .limited(.relocalizing) where mapProvider != nil:
+            message = "Received map from \(mapProvider!.displayName)."
+            
+        case .limited(.relocalizing):
+            message = "Resuming session — move to where you were when the session was interrupted."
+            
+        case .limited(.initializing):
+            message = "Initializing AR session."
+            
+        default:
+            // No feedback needed when tracking is normal and planes are visible.
+            // (Nor when in unreachable limited-tracking states.)
+            message = ""
+            
         }
+        labelConnected.text = message
+        labelConnected.isHidden = message.isEmpty
     }
     
     func session(_ session: ARSession, didFailWithError error: Error) {
@@ -558,6 +772,36 @@ extension ARSceneViewRouteController : ARSCNViewDelegate{
          */
         return true
     }
+    func renderer(_ renderer: SCNSceneRenderer, didAdd node: SCNNode, for anchor: ARAnchor) {
+        if ( node.name == "routeAR" )
+        {
+            print("Anchor now :\(anchor.name) ::\(anchor.transform)" )
+        }
+        //if let name = anchor.name, name.hasPrefix("point") {
+        //    node.addChildNode(self.createEarthShared())
+        //}
+    }
+    func renderer(_ renderer: SCNSceneRenderer, updateAtTime time: TimeInterval) {
+        // update scene Nodes
+        let nodesUpdate = sceneView.scene.rootNode.childNodes
+        for node in nodesUpdate {
+            let distanceNode = SCNVector3(
+                node.position.x - sceneView.pointOfView!.worldPosition.x,
+                node.position.y - sceneView.pointOfView!.worldPosition.y,
+                node.position.z - sceneView.pointOfView!.worldPosition.z)
+            print("dist :: \(sceneView.pointOfView!.worldPosition)")
+            print("dist :: \(distanceNode.length())")
+            if ( node.name == "planeOctober" )
+            {
+                if distanceNode.length() > 10 {
+                    print("distance more 10 m")
+                    node.isHidden = true
+                } else {
+                    node.isHidden = false
+                }
+            }
+        }
+    }
 }
 
 // Convert device orientation to image orientation for use by Vision analysis.
@@ -579,7 +823,7 @@ extension ARSceneViewRouteController {
                 let yFreeConstraint = SCNBillboardConstraint()
                 yFreeConstraint.freeAxes = [.Y] // optionally
                 plane.constraints = [yFreeConstraint] // apply the constraint to the parent node
-                plane.name = "plane \(UIImage.description())"
+                plane.name = "planeOctober"
                 self.sceneView.scene.rootNode.addChildNode(plane)
     }
 }
@@ -624,15 +868,13 @@ extension ARSceneViewRouteController {
     }
      @objc func handleTap(rec: UITapGestureRecognizer){
         if rec.state == .ended {
-            let location: CGPoint = rec.location(in: sceneView)
-            let hits = self.sceneView.hitTest(location, options: nil)
-            if let tappednode = hits.first?.node {
-                if ( !routes.isEmpty)
-                {
-                    self.addPlane(content: UIImage(named: "oct")!, place: routes.last!)
-                }
-                print("Tap name +++\(tappednode.name)+++")
-            }
+            guard let hitTestResult = sceneView
+                .hitTest(rec.location(in: sceneView), types: [.existingPlaneUsingGeometry, .estimatedHorizontalPlane])
+                .first
+                else { return }
+            
+            let anchor = ARAnchor(name: "point", transform: hitTestResult.worldTransform)
+            sceneView.session.add(anchor: anchor)
         }
     }
 }

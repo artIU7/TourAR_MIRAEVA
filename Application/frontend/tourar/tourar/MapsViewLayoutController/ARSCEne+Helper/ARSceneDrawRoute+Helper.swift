@@ -12,8 +12,8 @@ import CoreLocation
 extension ARSceneViewRouteController {
     func draw3DLine(_ nodeA : SCNVector3, _ nodeB : SCNVector3, orderIndex : Int, color : UIColor) {
             //SCNTransaction.animationDuration = 1.0
-            let nodeAVector3 = GLKVector3Make(nodeA.x, nodeA.y, nodeA.z)
-            let nodeBVector3 = GLKVector3Make(nodeB.x, nodeB.y, nodeB.z)
+        let nodeAVector3 = GLKVector3Make(nodeA.x, nodeA.y - 0.5, nodeA.z)
+        let nodeBVector3 = GLKVector3Make(nodeB.x, nodeB.y - 0.5, nodeB.z)
             let line = MeasuringLineNode(startingVector: nodeAVector3 , endingVector: nodeBVector3, color: color)
             line.name = "routeAR"
             line.renderingOrder = 10 //+ orderIndex//orderIndex

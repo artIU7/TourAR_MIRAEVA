@@ -13,6 +13,10 @@ import AVFoundation
 import SnapKit
 import YandexMapsMobile
 
+struct RecomendedPoint{
+    var name : String
+    var desc : String
+}
 struct pointsSceneDynamics{
     var coordinate : CLLocationCoordinate2D
     var routeNode  : SCNNode!
@@ -42,23 +46,57 @@ struct linesSceneDynamics{
         routeNode  = nil
     }
 }
+var isLoadPreloadSceneOnly : Bool = true
+
+var mapsObjectPlaceMark : [YMKPlacemarkMapObject] = []
 
 class MapsLayoutUnderSceneView: UIViewController, YMKLayersGeoObjectTapListener, YMKMapInputListener,YMKUserLocationObjectListener, YMKMapCameraListener {
     // var
+    //
+    let synthesizer = AVSpeechSynthesizer()
+
+    var isPreviusPointNotAccept : Bool = true
+    var recomendedPoint : YMKPoint!
+    var currentPlaceMarkFind : YMKPlacemarkMapObject!
     var viewRouteCreate : UIView!
     var viewNavigationStart : UIView!
+    var buttonAcceptPoint   : UIButton!
+    var buttonCanceledPoint : UIButton!
+    var viewSubPoints : UIView!
     var buttonCreateRoute : UIButton!
     var buttonNavigationStart : UIButton!
+    //
+    // sceneKit preload data
+    var sceneViewPreload = SCNView()
+    var scenePreload: SCNScene!
+    var cameraPreload: SCNCamera!
+    var cameraNodePreload: SCNNode!
+    var nodePreload = SCNNode()
+    //
+    var blurView = UIView()
     // global var polyline DrivingRouter
     var polyLineObjectDrivingRouter   : YMKPolylineMapObject? = nil
     // global var polyline PedestrianRoute
     var polyLineObjectPedestrianRoute : YMKPolylineMapObject? = nil
     // points selected to build ropute custom
     var requestPoints : [YMKRequestPoint] = []
+    // color custom route
+    var colorMainRouteDriving : UIColor!
+    var colorMainRoutePedestrian : UIColor!
+    var colorSubRouteCommon : UIColor = .white
+    // polyline subRoute
+    var polyLineSubRouteDriving    : YMKPolylineMapObject? = nil
+    var polyLineSubRoutePedestrian : YMKPolylineMapObject? = nil
+    // point for sub routing
+    var requestPointsSubRoute      :  [YMKRequestPoint] = []
     // add objectListernerTapped Custom Marker
     var mapObjectTapListener: YMKMapObjectTapListener!
     var mapsObjectTapListener = [YMKMapObjectTapListener]()
-    var mapsObjectPlaceMark : [YMKPlacemarkMapObject] = []
+    var mapsObjectRecomendedMark : [YMKPlacemarkMapObject] = []
+    var mapsObjectRecomendedAccept : [YMKPlacemarkMapObject] = []
+    var mapsObjectNumberPoint : [YMKPlacemarkMapObject] = []
+
+
     // BUTTON IN
     // location zoom
     let layerButton         = UIButton(type: .system)
@@ -101,6 +139,11 @@ class MapsLayoutUnderSceneView: UIViewController, YMKLayersGeoObjectTapListener,
     var tabBarTag: Bool = true
     
     lazy var mapView: YMKMapView = MapsViewBaseLayout().mapView
+    var searchManager: YMKSearchManager?
+    var searchSession: YMKSearchSession?
+    
+    //
+    var currentMagneticHeading = CLHeading()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -113,7 +156,50 @@ class MapsLayoutUnderSceneView: UIViewController, YMKLayersGeoObjectTapListener,
             marker.left.right.equalTo(self.view).inset(0)
             marker.bottom.equalTo(self.view).inset(0)
         }
+        //
         configIULayoutUnderMap()
+        setupPreloadScene()
+        setupSceneView()
+        // main scenView
+        sceneView.isUserInteractionEnabled = false
+        sceneView.backgroundColor = UIColor.clear
+        view.addSubview(sceneView)
+        self.sceneView.snp.makeConstraints { (marker) in
+            marker.top.equalTo(self.view).inset(0)
+            marker.left.right.equalTo(self.view).inset(0)
+            marker.bottom.equalTo(self.view).inset(0)
+        }
+        //
+        // add blur view
+        let blurEffect = UIBlurEffect(style: .dark)
+        blurView = UIVisualEffectView(effect: blurEffect)
+        blurView.frame = view.bounds
+        blurView.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(blurView)
+        blurView.snp.makeConstraints { (marker) in
+        marker.top.equalTo(self.view).inset(0)
+        marker.left.right.equalTo(self.view).inset(0)
+        marker.bottom.equalTo(self.view).inset(0)
+        }
+        //
+        // preload sceneView=====================================//
+        sceneViewPreload.backgroundColor = .clear
+        sceneViewPreload.isUserInteractionEnabled = false
+        view.addSubview(sceneViewPreload)
+        self.sceneViewPreload.snp.makeConstraints { (marker) in
+            marker.top.equalTo(self.view).inset(0)
+            marker.left.right.equalTo(self.view).inset(0)
+            marker.bottom.equalTo(self.view).inset(0)
+        }
+        //
+        let checkRemoteServer : UILabel = UILabel()
+        checkRemoteServer.text = "server not connected"
+        checkRemoteServer.textColor = UIColor.black
+        view.addSubview(checkRemoteServer)
+        checkRemoteServer.snp.makeConstraints { (marker) in
+            marker.left.right.equalTo(self.view).inset(20)
+            marker.bottom.equalTo(self.view).inset(20)
+        }
         // fix min and max zoom
         var map_fZoom = mapView.mapWindow.map
         map_fZoom.isZoomGesturesEnabled   = true
@@ -125,6 +211,8 @@ class MapsLayoutUnderSceneView: UIViewController, YMKLayersGeoObjectTapListener,
                    nativeLocationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
                    nativeLocationManager.requestWhenInUseAuthorization()
                    nativeLocationManager.startUpdatingLocation()
+                   nativeLocationManager.startUpdatingHeading()
+
                }
         self.startLocation()
 
@@ -145,26 +233,7 @@ class MapsLayoutUnderSceneView: UIViewController, YMKLayersGeoObjectTapListener,
         mapView.mapWindow.map.addCameraListener(with: self)
         mapView.mapWindow.map.addTapListener(with: self)
         mapView.mapWindow.map.addInputListener(with: self)
-        // add subview
-        sceneView.isUserInteractionEnabled = false
-        sceneView.backgroundColor = UIColor.clear
-        
-        view.addSubview(sceneView)
-        setupSceneView()
-        self.sceneView.snp.makeConstraints { (marker) in
-            marker.top.equalTo(self.view).inset(0)
-            marker.left.right.equalTo(self.view).inset(0)
-            marker.bottom.equalTo(self.view).inset(0)
-        }
-        //
-        let checkRemoteServer : UILabel = UILabel()
-        checkRemoteServer.text = "server not connected"
-        checkRemoteServer.textColor = UIColor.black
-        view.addSubview(checkRemoteServer)
-        checkRemoteServer.snp.makeConstraints { (marker) in
-            marker.left.right.equalTo(self.view).inset(20)
-            marker.bottom.equalTo(self.view).inset(20)
-        }
+        searchManager = YMKSearch.sharedInstance().createSearchManager(with: .combined)
         // setup connection webSocket
         setupConnection()
         if ( isConnected )
@@ -177,6 +246,42 @@ class MapsLayoutUnderSceneView: UIViewController, YMKLayersGeoObjectTapListener,
             checkRemoteServer.textColor = UIColor.black
         }
         checkServerConnection(ip_server: "http://178.167.7.139:5500/")
+        DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(15)) { [self] in
+            sceneViewPreload.isHidden = true
+            blurView.isHidden         = true
+        }
+    }
+    func setupPreloadScene(){
+        isLoadPreloadSceneOnly = true
+        sceneViewPreload.backgroundColor = UIColor.clear
+        //
+        scenePreload = SCNScene()
+        //scene.physicsWorld.gravity = SCNVector3(x: 0, y: 0, z: 0)
+        sceneViewPreload.autoenablesDefaultLighting = true
+        sceneViewPreload.scene = scenePreload
+        sceneViewPreload.delegate = self
+        sceneViewPreload.loops = true
+        sceneViewPreload.showsStatistics = false
+        sceneViewPreload.isPlaying = true
+        // camera
+        cameraNodePreload = SCNNode()
+        cameraPreload = SCNCamera()
+        cameraNodePreload.camera = cameraPreload
+        cameraNodePreload.position = SCNVector3(x: 0, y: 5, z: 45)
+        scenePreload.rootNode.addChildNode(cameraNodePreload)
+        // player node
+        nodePreload = SCNNode()
+        let playerScene = SCNScene(named: "earth.scn")!
+        let playerModelNode = playerScene.rootNode.childNodes.first!
+        playerModelNode.scale = SCNVector3(0.55, 0.55, 0.55)
+        playerModelNode.position = SCNVector3(x: 0, y: 5, z: 0)
+        nodePreload.addChildNode(playerModelNode)
+        nodePreload.physicsBody = SCNPhysicsBody(type: .dynamic, shape: nil)
+        nodePreload.physicsBody?.isAffectedByGravity = false
+        scenePreload.rootNode.addChildNode(nodePreload)
+        let rotateBy_s1 = SCNAction.rotate(toAxisAngle: SCNVector4(0, 1, 0, 90), duration: 60)
+        /// use only this method for rotate around axis ||
+        nodePreload.runAction(rotateBy_s1)
     }
     func configIULayoutUnderMap(){
         // type routing
@@ -207,7 +312,7 @@ class MapsLayoutUnderSceneView: UIViewController, YMKLayersGeoObjectTapListener,
             marker.height.equalTo(60)
             marker.width.equalTo(self.view.frame.width - 40)
             marker.topMargin.equalTo(typeRouting).inset(60)
-            marker.leftMargin.equalToSuperview().inset(10)
+            marker.leftMargin.rightMargin.equalToSuperview().inset(10)
         }
         viewNavigationStart.isHidden = true
         //
@@ -280,6 +385,7 @@ class MapsLayoutUnderSceneView: UIViewController, YMKLayersGeoObjectTapListener,
             marker.topMargin.equalTo(plusZoomButton).inset(40)
             marker.rightMargin.equalToSuperview().inset(5)
         }
+        //
         // location
         locationButton.setImage(UIImage(named: "location_on"), for: .normal)
         locationButton.tintColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
@@ -320,6 +426,7 @@ class MapsLayoutUnderSceneView: UIViewController, YMKLayersGeoObjectTapListener,
             marker.topMargin.equalTo(showPoiButton).inset(100)
             marker.rightMargin.equalToSuperview().inset(5)
         }
+        drawRouteButton.isHidden = true
         viewRouteCreate = UIView(frame: CGRect(x: 0, y: self.view.frame.height/4, width: self.view.frame.width - 40, height: 100))
         viewRouteCreate.layer.backgroundColor  =  #colorLiteral(red: 0.1960784314, green: 0.1960784314, blue: 0.1960784314, alpha: 1)
         viewRouteCreate.layer.cornerRadius = 10
@@ -350,6 +457,103 @@ class MapsLayoutUnderSceneView: UIViewController, YMKLayersGeoObjectTapListener,
             marker.left.right.equalToSuperview().inset(30)
             marker.height.equalTo(50)
         }
+        // add sub panel point
+        // viewSubPoints
+        viewSubPoints = UIView(frame: CGRect(x: 0, y: self.view.frame.height/4, width: self.view.frame.width - 40, height: 100))
+        viewSubPoints.layer.backgroundColor  =  #colorLiteral(red: 0.1960784314, green: 0.1960784314, blue: 0.1960784314, alpha: 1)
+        viewSubPoints.layer.cornerRadius = 10
+        viewSubPoints.layer.shadowColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+        viewSubPoints.layer.shadowRadius = 4
+        view.addSubview(viewSubPoints)
+        viewSubPoints.snp.makeConstraints { (marker) in
+            marker.height.equalTo(60)
+            marker.width.equalTo(self.view.frame.width - 40)
+            marker.bottomMargin.equalToSuperview().inset(60)
+            marker.leftMargin.equalToSuperview().inset(10)
+        }
+        viewSubPoints.isHidden = true
+        //
+        buttonAcceptPoint = UIButton()
+        // button continie
+        buttonAcceptPoint.backgroundColor = #colorLiteral(red: 0.3411764801, green: 0.6235294342, blue: 0.1686274558, alpha: 1)
+        buttonAcceptPoint.setTitle("Принять", for: .normal)
+        buttonAcceptPoint.setTitleColor(#colorLiteral(red: 0.1960784314, green: 0.1960784314, blue: 0.1960784314, alpha: 1), for: .normal)
+        buttonAcceptPoint.layer.cornerRadius = 10
+        buttonAcceptPoint.titleLabel?.font = UIFont.systemFont(ofSize: 15, weight: .bold)
+        buttonAcceptPoint.addTarget(self, action: #selector(self.buttonAcceptAction(_:)), for: .touchUpInside)
+        viewSubPoints.addSubview(buttonAcceptPoint)
+        buttonAcceptPoint.snp.makeConstraints { (marker) in
+            marker.bottom.top.equalToSuperview().inset(10)
+            marker.left.equalToSuperview().inset(20)
+            marker.height.equalTo(40)
+            marker.width.equalTo(120)
+        }
+        //
+        buttonCanceledPoint = UIButton()
+        // button continie
+        buttonCanceledPoint.backgroundColor = #colorLiteral(red: 0.8665164076, green: 0.2626616855, blue: 0.1656771706, alpha: 1)
+        buttonCanceledPoint.setTitle("Отменить", for: .normal)
+        buttonCanceledPoint.setTitleColor(#colorLiteral(red: 0.1960784314, green: 0.1960784314, blue: 0.1960784314, alpha: 1), for: .normal)
+        buttonCanceledPoint.layer.cornerRadius = 10
+        buttonCanceledPoint.titleLabel?.font = UIFont.systemFont(ofSize: 15, weight: .bold)
+        buttonCanceledPoint.addTarget(self, action: #selector(self.buttonCanceledAction(_:)), for: .touchUpInside)
+        viewSubPoints.addSubview(buttonCanceledPoint)
+        buttonCanceledPoint.snp.makeConstraints { (marker) in
+            marker.bottom.top.equalToSuperview().inset(10)
+            marker.rightMargin.equalToSuperview().inset(20)
+            marker.height.equalTo(40)
+            marker.width.equalTo(120)
+        }
+    }
+    @objc func buttonAcceptAction( _ sender:UIButton )
+    {
+        isPreviusPointNotAccept = true
+        viewSubPoints.isHidden = true
+        clearMapObjectSubRouting()
+        requestPointsSubRoute.removeAll()
+        // add to main instance polyline
+        requestPoints.insert(YMKRequestPoint(point: recomendedPoint, type: .viapoint, pointContext: nil), at: 1)
+        //
+        // grebuild new route
+        clearMapObjectRoutingType()
+        locationsPointAR.removeAll()
+        removePrepareNodeRoute()
+        if ( isPedestrianRoute )
+        {
+            callPedestrianRoutingResponse(isTypeSender: false)
+        } else
+        {
+            callDrivingRoutingResponse(isTypeSender: false)
+        }
+        mapsObjectRecomendedAccept.append(currentPlaceMarkFind)
+    }
+    @objc func buttonCanceledAction( _ sender:UIButton )
+    {
+        isPreviusPointNotAccept = true
+        viewSubPoints.isHidden = true
+        clearMapObjectSubRouting()
+        requestPointsSubRoute.removeAll()
+        //
+        var idx = 0
+        var delIndex = -1
+        for place in mapsObjectRecomendedMark
+        {
+            let dataRec = currentPlaceMarkFind.userData as? RecomendedPoint
+            let dataObj = place.userData as? RecomendedPoint
+            if ( dataRec != nil && dataObj != nil )
+            {
+                if (dataRec?.name == dataObj?.name )
+                {
+                    delIndex = idx
+                }
+                idx+=1
+            }
+        }
+        if ( delIndex != -1)
+        {
+            mapsObjectRecomendedMark[delIndex].isVisible = false
+        }
+        mapsObjectRecomendedAccept.append(currentPlaceMarkFind)
     }
     // method Draw PlaceMark Poi Point
     func drawFromFetchDataPoint()
@@ -364,7 +568,42 @@ class MapsLayoutUnderSceneView: UIViewController, YMKLayersGeoObjectTapListener,
                 fetchDataImagesPoi["test::uuid"]      = fetchDataImagesPoi.first?.value
                 fetchDataTitlePoi["test::uuid"]       = "КЦ Октябрь"
                 fetchDataAudioPoi["test::uuid"]       = fetchDataAudioPoi.first?.value
-                //
+                // 55.783287, 38.445399
+                fetchDataLocationPoi["test::1"] = YMKPoint(latitude: 55.783287, longitude: 38.445399)
+                fetchDataDescriptionPoi["test::1"] = "ДС Кристалл в городе Электросталь"
+                fetchDataImagesPoi["test::1"]      = fetchDataImagesPoi.first?.value
+                fetchDataTitlePoi["test::1"]       = "ДС Кристалл"
+                fetchDataAudioPoi["test::1"]       = fetchDataAudioPoi.first?.value
+                // 55.783615, 38.438821
+                fetchDataLocationPoi["test::2"] = YMKPoint(latitude: 55.783615, longitude: 38.438821)
+                fetchDataDescriptionPoi["test::2"] = "Историко-художественный музей в городе Электросталь"
+                fetchDataImagesPoi["test::2"]      = fetchDataImagesPoi.first?.value
+                fetchDataTitlePoi["test::2"]       = "Историко-художественный музей"
+                fetchDataAudioPoi["test::2"]       = fetchDataAudioPoi.first?.value
+                // 55.789083, 38.426169
+                fetchDataLocationPoi["test::3"] = YMKPoint(latitude: 55.789083, longitude: 38.426169)
+                fetchDataDescriptionPoi["test::3"] = "Парк Авангад в городе Электросталь"
+                fetchDataImagesPoi["test::3"]      = fetchDataImagesPoi.first?.value
+                fetchDataTitlePoi["test::3"]       = "Парк Авангард"
+                fetchDataAudioPoi["test::3"]       = fetchDataAudioPoi.first?.value
+                // школа исскуств 55.790842, 38.433057
+                fetchDataLocationPoi["test::4"] = YMKPoint(latitude: 55.790842, longitude: 38.433057)
+                fetchDataDescriptionPoi["test::4"] = "Школа Искусств в городе Электросталь"
+                fetchDataImagesPoi["test::4"]      = fetchDataImagesPoi.first?.value
+                fetchDataTitlePoi["test::4"]       = "Школа Искусств"
+                fetchDataAudioPoi["test::4"]       = fetchDataAudioPoi.first?.value
+                // школа исскуств 55.790498, 38.432228
+                fetchDataLocationPoi["test::5"] = YMKPoint(latitude: 55.790498, longitude: 38.432228)
+                fetchDataDescriptionPoi["test::5"] = "Дом Дарьи Макаровой в городе Электросталь"
+                fetchDataImagesPoi["test::5"]      = fetchDataImagesPoi.first?.value
+                fetchDataTitlePoi["test::5"]       = "Дом Дарьи Макаровой"
+                fetchDataAudioPoi["test::5"]       = fetchDataAudioPoi.first?.value
+                // 55.790922, 38.430841
+                fetchDataLocationPoi["test::5"] = YMKPoint(latitude: 55.790922, longitude: 38.430841)
+                fetchDataDescriptionPoi["test::6"] = "Угол на Советской в городе Электросталь"
+                fetchDataImagesPoi["test::6"]      = fetchDataImagesPoi.first?.value
+                fetchDataTitlePoi["test::6"]       = "Угол на Советской"
+                fetchDataAudioPoi["test::6"]       = fetchDataAudioPoi.first?.value
                 for point in fetchDataLocationPoi
                 {
                     if ( !fetchDataDescriptionPoi.isEmpty && !fetchDataImagesPoi.isEmpty &&  !fetchDataTitlePoi.isEmpty && !fetchDataAudioPoi.isEmpty )
@@ -398,6 +637,19 @@ class MapsLayoutUnderSceneView: UIViewController, YMKLayersGeoObjectTapListener,
                     }
                 }
             }
+        }
+    }
+    // helper method + clear subrouting
+    func clearMapObjectSubRouting(){
+        if ( polyLineSubRouteDriving != nil )
+        {
+            mapView.mapWindow.map.mapObjects.remove(with: polyLineSubRouteDriving!)
+            polyLineSubRouteDriving = nil
+        }
+        if ( polyLineSubRoutePedestrian != nil )
+        {
+            mapView.mapWindow.map.mapObjects.remove(with: polyLineSubRoutePedestrian!)
+            polyLineSubRoutePedestrian = nil
         }
     }
     // method Helper + Clear Map Routing
@@ -441,13 +693,13 @@ class MapsLayoutUnderSceneView: UIViewController, YMKLayersGeoObjectTapListener,
     @objc func zoomPlusAction(_ sender:UIButton)
     {
         var maps = mapView.mapWindow.map
-        let zoom = maps.cameraPosition.zoom + 1
+        let zoom = maps.cameraPosition.zoom + 0.2
         maps.move(with: YMKCameraPosition(target: maps.cameraPosition.target, zoom: zoom, azimuth: maps.cameraPosition.azimuth, tilt: maps.cameraPosition.tilt))
     }
     @objc func zoomMinusAction(_ sender:UIButton)
     {
         var maps = mapView.mapWindow.map
-        let zoom = maps.cameraPosition.zoom - 1
+        let zoom = maps.cameraPosition.zoom - 0.2
         maps.move(with: YMKCameraPosition(target: maps.cameraPosition.target, zoom: zoom, azimuth: maps.cameraPosition.azimuth, tilt: maps.cameraPosition.tilt))    }
     @objc func showPoiAction(_ sender:UIButton)
     {
@@ -496,12 +748,13 @@ class MapsLayoutUnderSceneView: UIViewController, YMKLayersGeoObjectTapListener,
             //
             clearMapObjectRoutingType()
             locationsPointAR.removeAll()
+            removePrepareNodeRoute()
             if ( isPedestrianRoute )
             {
-                callPedestrianRoutingResponse()
+                callPedestrianRoutingResponse(isTypeSender: false)
             } else
             {
-                callDrivingRoutingResponse()
+                callDrivingRoutingResponse(isTypeSender : false)
             }
             viewNavigationStart.isHidden = false
         }
@@ -512,8 +765,27 @@ class MapsLayoutUnderSceneView: UIViewController, YMKLayersGeoObjectTapListener,
             clearSelectedPointOnMap()
             clearMapObjectRoutingType()
             requestPoints.removeAll()
+            locationsPointAR.removeAll()
+            removePrepareNodeRoute()
             viewRouteCreate.isHidden = true
             viewNavigationStart.isHidden = true
+            // sub point
+            mapsObjectRecomendedMark.removeAll()
+            clearMapObjectSubRouting()
+            mapsObjectRecomendedAccept.removeAll()
+            //
+            if ( currentPlaceMarkFind != nil )
+            {
+                currentPlaceMarkFind.isVisible = false
+                currentPlaceMarkFind = nil
+            }
+            if ( !mapsObjectNumberPoint.isEmpty )
+            {
+                mapsObjectNumberPoint.forEach { object in
+                    mapView.mapWindow.map.mapObjects.remove(with: object)
+                }
+                mapsObjectNumberPoint.removeAll()
+            }
         }
     }
     @objc func drawRouteAction(_ sender:UIButton)
@@ -529,12 +801,13 @@ class MapsLayoutUnderSceneView: UIViewController, YMKLayersGeoObjectTapListener,
             //
             clearMapObjectRoutingType()
             locationsPointAR.removeAll()
+            removePrepareNodeRoute()
             if ( isPedestrianRoute )
             {
-                callPedestrianRoutingResponse()
+                callPedestrianRoutingResponse(isTypeSender: false)
             } else
             {
-                callDrivingRoutingResponse()
+                callDrivingRoutingResponse(isTypeSender: false)
             }
         }
         else {
@@ -544,6 +817,7 @@ class MapsLayoutUnderSceneView: UIViewController, YMKLayersGeoObjectTapListener,
             //
             clearMapObjectRoutingType()
             requestPoints.removeAll()
+            removePrepareNodeRoute()
         }
     }
     @objc func changeRoteType( segment : UISegmentedControl)
@@ -555,19 +829,21 @@ class MapsLayoutUnderSceneView: UIViewController, YMKLayersGeoObjectTapListener,
             isPedestrianRoute = true
             clearMapObjectRoutingType()
             locationsPointAR.removeAll()
-            callPedestrianRoutingResponse()
+            removePrepareNodeRoute()
+            callPedestrianRoutingResponse(isTypeSender: false)
         case 1:
             // set Driving Type
             isPedestrianRoute = false
             clearMapObjectRoutingType()
             locationsPointAR.removeAll()
-            callDrivingRoutingResponse()
+            callDrivingRoutingResponse(isTypeSender: false)
         default:
             // set Pedestrian Type
             isPedestrianRoute = true
             clearMapObjectRoutingType()
             locationsPointAR.removeAll()
-            callPedestrianRoutingResponse()
+            removePrepareNodeRoute()
+            callPedestrianRoutingResponse(isTypeSender: false)
         }
     }
     //
@@ -576,18 +852,22 @@ class MapsLayoutUnderSceneView: UIViewController, YMKLayersGeoObjectTapListener,
         // добавляем озвучку перехода на главный таб бар
         let utterance = AVSpeechUtterance(string: "\(textSpeech)")
         // Configure the utterance.
-        utterance.rate = 0.57
+        utterance.rate = 0.45
         utterance.pitchMultiplier = 0.8
         utterance.postUtteranceDelay = 0.2
-        utterance.volume = 0.55
+        utterance.volume = 0.45
         // Retrieve the British English voice.
         let voice = AVSpeechSynthesisVoice(language: "ru-RU")
         // Assign the voice to the utterance.
         utterance.voice = voice
         // Create a speech synthesizer.
-        let synthesizer = AVSpeechSynthesizer()
         // Tell the synthesizer to speak the utterance.
-        synthesizer.speak(utterance)
+        if ( synthesizer.isSpeaking )
+        {
+        } else
+        {
+            synthesizer.speak(utterance)
+        }
     }
     // method action
     // arSceneCall
@@ -618,24 +898,185 @@ class MapsLayoutUnderSceneView: UIViewController, YMKLayersGeoObjectTapListener,
            if tabBarTag == true {
             self.tabBarController?.tabBar.tintColor =  #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
             self.tabBarController?.tabBar.backgroundColor = #colorLiteral(red: 0.1960784314, green: 0.1960784314, blue: 0.1960784314, alpha: 1)
-           } else {
-               self.tabBarController?.tabBar.tintColor = #colorLiteral(red: 0.1960784314, green: 0.1960784314, blue: 0.1960784314, alpha: 1)
-           }
+           } else
+                {
+                    self.tabBarController?.tabBar.tintColor = #colorLiteral(red: 0.1960784314, green: 0.1960784314, blue: 0.1960784314, alpha: 1)
+                }
     }
     func onCameraPositionChanged(with map: YMKMap,
                                  cameraPosition: YMKCameraPosition,
                                  cameraUpdateReason: YMKCameraUpdateReason,
                                  finished: Bool) {
         if finished {
-            if ( locationButton.imageView?.image == UIImage(named: "location_nf_y"))
+            if ( !isNavigationMode )
             {
-                self.stopLocation()
+                //if ( locationButton.imageView?.image == UIImage(named: "location_on"))
+                //{
+                //    self.stopLocation()
+                //    locationButton.setImage(UIImage(named: "location_off"), for: .normal)
+                //}
+            }
+            
+            if ( isNavigationMode )
+            {
+                // search near my location point poi
+                let responseHandler = {(searchResponse: YMKSearchResponse?, error: Error?) -> Void in
+                    if let response = searchResponse {
+                        self.onSearchResponse(response)
+                    } else {
+                        self.onSearchError(error!)
+                    }
+                }
+               
+                    searchSession = searchManager!.submit(
+                        withText: "cafe",
+                        geometry: YMKVisibleRegionUtils.toPolygon(with: map.visibleRegion),
+                        searchOptions: YMKSearchOptions(),
+                        responseHandler: responseHandler)
             }
         }
     }
     //
-    func onObjectTap(with: YMKGeoObjectTapEvent) -> Bool {
+    func findNearPointOnRoute(pointNear : YMKPoint)->Double{
         
+        
+        let distanceFromLocation = distanceGeo(pointA: CLLocationCoordinate2D(latitude: (requestPoints.first?.point.latitude)! ,longitude: (requestPoints.first?.point.longitude)!),
+                                               pointB: CLLocationCoordinate2D(latitude: pointNear.latitude, longitude: pointNear.longitude))
+        return distanceFromLocation
+    }
+    //
+    func onSearchResponse(_ response: YMKSearchResponse) {
+        
+        let mapObjects = mapView.mapWindow.map.mapObjects
+        func searchPlacemarkTemp(name : String ) -> Bool
+        {
+            var isFind = false
+            if ( !mapsObjectRecomendedMark.isEmpty )
+            {
+                mapsObjectRecomendedMark.forEach { mark in
+                    var useData = mark.userData as? RecomendedPoint
+                    if ( useData != nil )
+                    {
+                        if ( useData!.name == name )
+                        {
+                            isFind = true
+                        }
+                    }
+                }
+            }
+            return isFind
+        }
+        for searchResult in response.collection.children {
+            if let point = searchResult.obj?.geometry.first?.point
+            {
+                if ( !searchPlacemarkTemp(name: (searchResult.obj?.name)!))
+                {
+                    let placemark = mapObjects.addPlacemark(with: point)
+                    placemark.setIconWith(UIImage(named: "SearchResult")!)
+                    placemark.isVisible = false
+                    placemark.userData = RecomendedPoint(name:                     (searchResult.obj?.name)!, desc:                     searchResult.obj!.description)
+                    mapsObjectRecomendedMark.append(placemark)
+                }
+            }
+        }
+        func isPointRecomendedAlready(recomendedPoint : YMKPlacemarkMapObject)->Bool
+        {
+            var isRecomende = false
+            if ( !mapsObjectRecomendedAccept.isEmpty)
+            {
+                mapsObjectRecomendedAccept.forEach { recomende in
+                    let dataRec = recomende.userData as? RecomendedPoint
+                    let dataObj = recomendedPoint.userData as? RecomendedPoint
+                    if ( dataRec != nil && dataObj != nil )
+                    {
+                        if (dataRec?.name == dataObj?.name )
+                        {
+                            isRecomende = true
+                        }
+                    }
+                }
+            }
+            return isRecomende
+        }
+        if ( isPreviusPointNotAccept )
+        {
+            isPreviusPointNotAccept = false
+            var arrayDistance : [Double] = []
+            mapsObjectRecomendedMark.forEach { mark in
+                let distancePoi = findNearPointOnRoute(pointNear: mark.geometry )
+                arrayDistance.append(distancePoi)
+            }
+                var indexMinNearPoi = -1
+                var i = 0
+                for item in arrayDistance{
+                    if ( item == arrayDistance.min())
+                    {
+                        indexMinNearPoi = i
+                    }
+                    i+=1
+                }
+                if ( indexMinNearPoi != -1)
+                {
+                    if ( requestPoints.count >= 2 )
+                    {
+                        if ( !isPointRecomendedAlready(recomendedPoint: mapsObjectRecomendedMark[indexMinNearPoi]))
+                        {
+                            mapsObjectRecomendedMark[indexMinNearPoi].isVisible = true
+                            recomendedPoint = mapsObjectRecomendedMark[indexMinNearPoi].geometry
+                            currentPlaceMarkFind = mapsObjectRecomendedMark[indexMinNearPoi]
+                            /*
+                            let alert = UIAlertController(title: "Внимание! Найдено кафе поблизости", message: "Добавляем точку к маршруту ?\nРасстояние \(arrayDistance.min()) метров", preferredStyle: .alert)
+                            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                            present(alert, animated: true, completion: nil)
+                            */
+                            let dataPoi = currentPlaceMarkFind.userData as? RecomendedPoint
+                            if ( dataPoi != nil )
+                            {
+                                voiceHelperUI(textSpeech: "Внимание!!! На маршруте обнаружена точка - Кафе\(dataPoi!.name).")
+                            }
+                            //
+                            requestPointsSubRoute.append(requestPoints[0])
+                            requestPointsSubRoute.append(YMKRequestPoint(point:   mapsObjectRecomendedMark[indexMinNearPoi].geometry, type: .viapoint, pointContext: nil))
+                            requestPointsSubRoute.append(requestPoints[1])
+                            //
+                            // grebuild new route
+                            clearMapObjectSubRouting()
+                            
+                            if ( isPedestrianRoute )
+                            {
+                                callPedestrianRoutingResponse(isTypeSender: true)
+                            } else
+                            {
+                                callDrivingRoutingResponse(isTypeSender: true)
+                            }
+                            viewSubPoints.isHidden = false
+                        }
+                        else
+                        {
+                            isPreviusPointNotAccept = true
+                        }
+                    }
+                }
+            }
+        }
+    
+    func onSearchError(_ error: Error) {
+        let searchError = (error as NSError).userInfo[YRTUnderlyingErrorKey] as! YRTError
+        var errorMessage = "Unknown error"
+        if searchError.isKind(of: YRTNetworkError.self) {
+            errorMessage = "Network error"
+        } else if searchError.isKind(of: YRTRemoteError.self) {
+            errorMessage = "Remote server error"
+        }
+        
+        let alert = UIAlertController(title: "Error", message: errorMessage, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+        
+        present(alert, animated: true, completion: nil)
+    }
+    //
+    func onObjectTap(with: YMKGeoObjectTapEvent) -> Bool {
+        /*
         let event = with
         let metadata = event.geoObject.metadataContainer.getItemOf(YMKGeoObjectSelectionMetadata.self)
         if let selectionMetadata = metadata as? YMKGeoObjectSelectionMetadata {
@@ -656,12 +1097,13 @@ class MapsLayoutUnderSceneView: UIViewController, YMKLayersGeoObjectTapListener,
             
             return true
         }
-         
+         */
         return true // false after uncomment
     }
     
     func onMapTap(with map: YMKMap, point: YMKPoint) {
         mapView.mapWindow.map.deselectGeoObject()
+        /*
         print("TAP NOW")
         if isNavigationMode == false
         {
@@ -673,29 +1115,40 @@ class MapsLayoutUnderSceneView: UIViewController, YMKLayersGeoObjectTapListener,
             isNavigationMode = false
             sceneView.isHidden = false;
         }
+         */
     }
     
     func onMapAddRoutePoint( appenPoint : YMKPoint)
     {
-        requestPoints.append(YMKRequestPoint(point: appenPoint, type: .waypoint, pointContext: nil))
+        if ( requestPoints.isEmpty )
+        {
+            if ( userLocation != nil )
+            {
+                requestPoints.append(YMKRequestPoint(point: userLocation!, type: .viapoint, pointContext: nil))
+                requestPoints.append(YMKRequestPoint(point: appenPoint, type: .viapoint, pointContext: nil))
+            }
+        }else
+        {
+            requestPoints.append(YMKRequestPoint(point: appenPoint, type: .viapoint, pointContext: nil))
+        }
         if ( requestPoints.count > 1 )
         {
             if ( viewRouteCreate.isHidden == true )
             {
-                
+                viewRouteCreate.isHidden = false
             }
-            viewRouteCreate.isHidden = false
             if ( buttonCreateRoute.titleLabel?.text != "Построить маршрут" )
             {
                 // grebuild new route
                 clearMapObjectRoutingType()
                 locationsPointAR.removeAll()
+                removePrepareNodeRoute()
                 if ( isPedestrianRoute )
                 {
-                    callPedestrianRoutingResponse()
+                    callPedestrianRoutingResponse(isTypeSender: false)
                 } else
                 {
-                    callDrivingRoutingResponse()
+                    callDrivingRoutingResponse(isTypeSender: false)
                 }
             }
         }
@@ -720,12 +1173,13 @@ class MapsLayoutUnderSceneView: UIViewController, YMKLayersGeoObjectTapListener,
                 // grebuild new route
                 clearMapObjectRoutingType()
                 locationsPointAR.removeAll()
+                removePrepareNodeRoute()
                 if ( isPedestrianRoute )
                 {
-                    callPedestrianRoutingResponse()
+                    callPedestrianRoutingResponse(isTypeSender: false)
                 } else
                 {
-                    callDrivingRoutingResponse()
+                    callDrivingRoutingResponse(isTypeSender: false)
                 }
             }
         }
@@ -808,9 +1262,25 @@ class MapsLayoutUnderSceneView: UIViewController, YMKLayersGeoObjectTapListener,
           playerModelNode.scale = SCNVector3(30.0, 30.0, 30.0)
           playerNode.addChildNode(playerModelNode)
           scene.rootNode.addChildNode(playerNode)
-          let rotateByNode = SCNAction.rotate(toAxisAngle: SCNVector4(0, 1, 0, 90), duration: 60.0)
+          let rotateByNode = SCNAction.rotate(toAxisAngle: SCNVector4(0, 1, 0, 15), duration: 0.5)
           self.playerNode.runAction(rotateByNode)
       }
+    func addTextPointPosition(index : Int , point : YMKPoint )
+    {
+        let mapObjects = mapView.mapWindow.map.mapObjects;
+        let placemark = mapObjects.addPlacemark(with: point)
+        placemark.setTextWithText(
+            "[ \(index) ]",
+            style: {
+                let textStyle = YMKTextStyle()
+                textStyle.size = 15.0
+                textStyle.placement = .right
+                textStyle.offset = 5.0
+                return textStyle
+            }()
+        )
+        mapsObjectNumberPoint.append(placemark)
+    }
     func addRoutePointScene(index : Int, rPoint : YMKPoint)
     {
         var nameNodeScenePreload = String()
@@ -862,10 +1332,21 @@ extension MapsLayoutUnderSceneView: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         userLocation = YMKPoint(latitude: locations.last!.coordinate.latitude, longitude: locations.last!.coordinate.longitude)
         ROUTE_START_POINT = userLocation!
+        
         startingLocation = locations.last
         let userLocationString = "USER LOCATION:\(userLocation!.latitude) \(userLocation!.longitude)"
         // comment naviation mode
-        
+        if ( requestPoints.isEmpty )
+        {
+            requestPoints.insert(YMKRequestPoint(point: userLocation!, type: .viapoint, pointContext: nil), at: 0)
+        }
+        else
+        {   // update location user at array requestPoint
+            if ( requestPoints.first?.point.latitude != userLocation?.latitude && requestPoints.first?.point.longitude != userLocation?.longitude )
+            {
+                requestPoints[0] = YMKRequestPoint(point: userLocation!, type: .viapoint, pointContext: nil)
+            }
+        }
         if isNavigationMode == true
         {
             // grebuild new route
@@ -873,17 +1354,18 @@ extension MapsLayoutUnderSceneView: CLLocationManagerDelegate {
             locationsPointAR.removeAll()
             if ( isPedestrianRoute )
             {
-                callPedestrianRoutingResponse()
+                callPedestrianRoutingResponse(isTypeSender: false)
             } else
             {
-                callDrivingRoutingResponse()
+                callDrivingRoutingResponse(isTypeSender: false)
             }
         }
         // send to server location
         print("SEND TO SERVER:\(userLocationString)")
         socketConnection.send(message: userLocationString)
+        let maps_t =  self.mapView.mapWindow.map
         mapView.mapWindow.map.move(
-            with: YMKCameraPosition(target: ROUTE_START_POINT, zoom: 15, azimuth: 0, tilt: 65.0),
+            with: YMKCameraPosition(target: ROUTE_START_POINT, zoom: 15, azimuth:                 Float(startingLocation.course), tilt: 0),
             animationType: YMKAnimation(type: YMKAnimationType.linear, duration: 2),
             cameraCallback: nil)
         createLocationCircle(centr: YMKPoint(latitude: userLocation!.latitude, longitude: userLocation!.longitude))
@@ -898,8 +1380,8 @@ extension MapsLayoutUnderSceneView: CLLocationManagerDelegate {
                          didFailWithError error: Error) {
         print(error.localizedDescription)
     }
-    func locationManager(_ manager: CLLocationManager, didUpdateHeading newHeading: CLHeading) {
-  //      print("magneticHeading \(newHeading.magneticHeading)")
+    func locationManager(_ manager: CLLocationManager, didUpdateHeading newHeading: CLHeading){
+        currentMagneticHeading = newHeading
     }
     // MARK 4
     func startLocation() {
@@ -1027,7 +1509,7 @@ extension MapsLayoutUnderSceneView : SCNSceneRendererDelegate {
             //{
             //}
             //
-            
+        
             print("meters point\(metersPerPointFirst)")
             let maps_t =  self.mapView.mapWindow.map
             print("All MAPS CHARACTERISTICS :\(maps_t)")
