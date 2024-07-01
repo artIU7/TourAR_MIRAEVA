@@ -50,11 +50,13 @@ var isLoadPreloadSceneOnly : Bool = true
 
 var mapsObjectPlaceMark : [YMKPlacemarkMapObject] = []
 
+
 class MapsLayoutUnderSceneView: UIViewController, YMKLayersGeoObjectTapListener, YMKMapInputListener,YMKUserLocationObjectListener, YMKMapCameraListener {
     // var
     //
     let synthesizer = AVSpeechSynthesizer()
-
+    // network manager
+    var networkManager = NetworkManager()
     var isPreviusPointNotAccept : Bool = true
     var recomendedPoint : YMKPoint!
     var currentPlaceMarkFind : YMKPlacemarkMapObject!
@@ -149,6 +151,10 @@ class MapsLayoutUnderSceneView: UIViewController, YMKLayersGeoObjectTapListener,
         super.viewDidLoad()
         //
         self.title = "Маршруты"
+        ///
+        // preload data
+        let manager = NetworkManager()
+        manager.fetchAllDataPoint(cityName: "Moscow")
         //
         view.addSubview(mapView)
         self.mapView.snp.makeConstraints { (marker) in
@@ -245,7 +251,8 @@ class MapsLayoutUnderSceneView: UIViewController, YMKLayersGeoObjectTapListener,
             checkRemoteServer.text = "server not connected"
             checkRemoteServer.textColor = UIColor.black
         }
-        checkServerConnection(ip_server: "http://178.167.7.139:5500/")
+        //networkManager.checkServerConnection(ip_server: "http://178.167.7.139:5500/")
+        
         DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(15)) { [self] in
             sceneViewPreload.isHidden = true
             blurView.isHidden         = true
@@ -558,7 +565,9 @@ class MapsLayoutUnderSceneView: UIViewController, YMKLayersGeoObjectTapListener,
     // method Draw PlaceMark Poi Point
     func drawFromFetchDataPoint()
     {
-        if ( stateSessionComplete() )
+        var isFinishRequedt = true
+        if ( isFinishRequedt )
+        //if ( networkManager.stateSessionComplete() )
         {
             if ( !fetchDataLocationPoi.isEmpty )
             {
@@ -707,12 +716,10 @@ class MapsLayoutUnderSceneView: UIViewController, YMKLayersGeoObjectTapListener,
         {
             sender.setImage(UIImage(named: "poi_show_off"), for: .normal)
             // check append before already append
-            if ( stateSessionComplete() ) {
                 if ( mapsObjectPlaceMark.isEmpty )
                 {
                     self.drawFromFetchDataPoint()
                 }
-            }
         }
         else {
             sender.setImage(UIImage(named: "poi_show_on"), for: .normal)
@@ -1369,10 +1376,10 @@ extension MapsLayoutUnderSceneView: CLLocationManagerDelegate {
             animationType: YMKAnimation(type: YMKAnimationType.linear, duration: 2),
             cameraCallback: nil)
         createLocationCircle(centr: YMKPoint(latitude: userLocation!.latitude, longitude: userLocation!.longitude))
-        //
-        if ( stateSessionComplete() )
+        // checj preload data finish
+        if ( networkManager.stateSessionComplete() )
         {
-            showPoiButton.isEnabled = true
+            showPoiButton.isEnabled = false
         }
     }
     // MARK 3
